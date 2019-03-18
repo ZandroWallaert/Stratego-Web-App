@@ -1,0 +1,51 @@
+body{
+    font-family: "Cooper Black", sans-serif;
+    background-image: url("../media/background.jpg");
+}
+main{
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+form{
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+    height: 450px;
+    padding: 20px;
+    background: black;
+    border: khaki solid;
+}
+h1{
+    padding-bottom: 50px;
+    text-decoration: underline khaki;
+    color: khaki;
+    font-size: 3.5rem;
+    text-align: center;
+}
+label{
+    margin-top: 10px;
+    display: block;
+    font-size: 2rem;
+    color: khaki;
+}
+input[type=text],input[type=number]{
+    display: block;
+    background-color: khaki;
+    color: black;
+}
+input[type=text]:focus, input[type=text]:focus{
+    background-color: khaki;
+    color: khaki;
+    border: coral solid;
+}
+input[type=submit]{
+    margin-top: 20px;
+    padding: 10px 20px 10px 20px;
+    background: black;
+    border: solid khaki;
+    color: khaki;
+    border-radius: 5px;
+}
