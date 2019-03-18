@@ -8,6 +8,14 @@ stages:
 
 before_script:
   - chmod +x gradlew
+  - export GRADLE_USER_HOME=/cache/.gradle
+
+cache:
+  paths:
+    - $GRADLE_USER_HOME/caches/
+    - $GRADLE_USER_HOME/wrapper/
+    - $GRADLE_USER_HOME/build-cache/
+
 
 build-jar:
   stage: build
@@ -27,3 +35,4 @@ test:
 deploy:
   stage: deploy
   script: echo "TODO" 
+
