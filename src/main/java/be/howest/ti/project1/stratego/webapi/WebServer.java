@@ -29,7 +29,7 @@ public class WebServer extends AbstractVerticle {
 
 
         // Start Server at port 8000
-        server.requestHandler(router).listen(8000);
+        server.requestHandler(router).listen(8025);
 
     }
 
