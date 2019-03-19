@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="assets/css/screen.css">
 </head>
 <body>
-<h1><strong>Stratego</strong></h1>
 <main>
     <div id="gameMode" class="shown">
         <h2>Select game mode</h2>
-        <div id="choice">
-            <div><a href="#"><img src="assets/media/Classic.jpg" width="200" height="150" alt="classic"></a></div>
-            <div><a href="#"><img src="assets/media/Duel.png" width="350" height="150" alt="classic"></a></div>
-            <div><a href="#"><img src="assets/media/infiltrator.png" width="350" height="150" alt="classic"></a></div>
-        </div>
+        <a href="#" id="Classic" onclick="showForm(this.id)"><img src="assets/media/Classic.jpg" width="200"
+                                                                  height="150" alt="classic"></a>
+        <a href="#" id="Duel" onclick="showForm(this.id)"><img src="assets/media/Duel.png" width="350" height="150"
+                                                               alt="duel"></a>
+        <a href="#" id="Infiltrator" onclick="showForm(this.id)"><img src="assets/media/infiltrator.png" width="350"
+                                                                      height="150" alt="duel"></a>
+    </div>
+    <div>
         <form id="createPersonForm" class="hidden">
     <label for="name">Name</label>
     <input id="name" type="text" name="Name">
@@ -27,7 +29,7 @@
     <input id="token" type="text" name="token">
             <input type="submit" value="Next">
         </form>
-        <p id="response">response placeholder</p>
+        <!--<p id="response">response placeholder</p>-->
     </div>
 </main>
 <script src="assets/js/index.js"></script>

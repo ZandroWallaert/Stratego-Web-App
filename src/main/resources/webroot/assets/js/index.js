@@ -9,7 +9,6 @@ function init() {
     const ageIn = document.getElementById("age");
     const tokenIn = document.getElementById("token");
     const responseSpan = document.getElementById("response");
-    document.querySelector("#gameMode div a").addEventListener("click", makeVisible);
 
     createPersonForm.onsubmit = function (evt) {
         evt.preventDefault();
@@ -37,12 +36,15 @@ function init() {
 
     };
 
-    function makeVisible() {
-        let element = document.getElementById("createPersonForm");
-        let toRemove = document.getElementById("choice");
-        element.classList.remove("hidden");
-        toRemove.classList.add("hidden");
 
-    }
+}
+
+function showForm(gameMode) {
+    let element = document.getElementById("createPersonForm");
+    let toRemove = document.getElementById("gameMode");
+    element.classList.remove("hidden");
+    toRemove.classList.add("hidden");
+    document.getElementById('createPersonForm').innerHTML += `<p>Game mode: ${gameMode}</p>`;
+    console.log(`Game mode: ${gameMode}`);
 
 }
