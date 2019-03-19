@@ -1,6 +1,6 @@
 body{
     font-family: "Cooper Black", sans-serif;
-    background-image: url("../media/background.jpg");
+    background-image: url(https://flashbak.com/wp-content/uploads/2016/08/flashbakstratego1.jpg);
 }
 main{
     margin-top: 100px;
@@ -21,12 +21,14 @@ form{
 h1{
     padding-bottom: 50px;
     text-decoration: underline khaki;
-    color: khaki;
+    color: red;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
     font-size: 3.5rem;
     text-align: center;
 }
 label{
     margin-top: 10px;
+    margin-bottom: 15px;
     display: block;
     font-size: 2rem;
     color: khaki;
@@ -36,16 +38,18 @@ input[type=text],input[type=number]{
     background-color: khaki;
     color: black;
 }
-input[type=text]:focus, input[type=text]:focus{
+
+input[type=text]:focus {
     background-color: khaki;
-    color: khaki;
     border: coral solid;
 }
-input[type=submit]{
-    margin-top: 20px;
+
+form a {
+    margin-top: 30px;
     padding: 10px 20px 10px 20px;
     background: black;
     border: solid khaki;
     color: khaki;
     border-radius: 5px;
+    text-align: center;
 }
