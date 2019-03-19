@@ -13,8 +13,8 @@ main{
     margin-right: auto;
     width: 600px;
     height: 450px;
-    background: black;
     border: khaki solid;
+    background-color: black;
 }
 
 
@@ -106,6 +106,7 @@ main a {
     border: solid khaki;
     color: khaki;
     border-radius: 5px;
+    background-color: wheat;
 }
 
 #gameMode img {
