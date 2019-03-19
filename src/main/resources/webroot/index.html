@@ -11,10 +11,11 @@
 <main>
     <div id="gameMode" class="shown">
         <h2>Select game mode</h2>
-        <a href="#">Classic</a>
-        <a href="#">Duel</a>
-        <a href="#">Infiltrator</a>
-
+        <div id="choice">
+            <div><a href="#"><img src="assets/media/Classic.jpg" width="200" height="150" alt="classic"></a></div>
+            <div><a href="#"><img src="assets/media/Duel.png" width="350" height="150" alt="classic"></a></div>
+            <div><a href="#"><img src="assets/media/infiltrator.png" width="350" height="150" alt="classic"></a></div>
+        </div>
         <form id="createPersonForm" class="hidden">
     <label for="name">Name</label>
     <input id="name" type="text" name="Name">
@@ -28,8 +29,6 @@
         </form>
         <p id="response">response placeholder</p>
     </div>
-</main>
-
 </main>
 <script src="assets/js/index.js"></script>
 </body>

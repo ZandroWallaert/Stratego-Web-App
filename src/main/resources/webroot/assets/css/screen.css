@@ -1,6 +1,6 @@
 body{
     font-family: "Cooper Black", sans-serif;
-    background: url(https://flashbak.com/wp-content/uploads/2016/08/flashbakstratego1.jpg) no-repeat center center fixed;
+    background: url(../media/55551882_1319369714886226_8919497508615356416_n.png) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -8,18 +8,15 @@ body{
 }
 
 main{
-    margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
     width: 600px;
     flex-direction: column;
     height: 450px;
-    padding: 20px;
     background: black;
     border: khaki solid;
 }
 h1{
-    padding-bottom: 50px;
     text-decoration: underline khaki;
     color: red;
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
@@ -28,7 +25,6 @@ h1{
 }
 
 h2 {
-    padding-bottom: 50px;
     text-decoration: underline khaki;
     color: khaki;
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
@@ -53,7 +49,7 @@ input[type=text]:focus {
     border: coral solid;
 }
 
-input[type=submit], main a {
+input[type=submit] {
     text-decoration: none;
     display: block;
     margin-top: 30px;
@@ -68,7 +64,6 @@ input[type=submit], main a {
 input[type=submit]:focus, main a:focus {
     text-decoration: none;
     display: block;
-    margin-top: 30px;
     padding: 10px 20px 10px 20px;
     background: khaki;
     border: solid khaki;
@@ -77,8 +72,20 @@ input[type=submit]:focus, main a:focus {
     text-align: center;
 }
 
+main a {
+    text-decoration: none;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px 20px 10px 20px;
+    border: solid khaki;
+    color: khaki;
+    border-radius: 5px;
+    text-align: center;
+}
+
 .hidden {
-    visibility: hidden;
+    display: none;
 }
 
 .shown {
