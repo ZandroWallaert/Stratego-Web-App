@@ -8,7 +8,7 @@ body{
 }
 
 main{
-    margin-top: 375px;
+    margin-top: 300px;
     margin-left: auto;
     margin-right: auto;
     width: 600px;
@@ -43,12 +43,15 @@ input[type=text],input[type=number]{
     align-items: center;
     background-color: khaki;
     color: black;
+    border: khaki solid;
+    border-radius: 5px;
 }
 
-input[type=text]:focus {
+input[type=text]:focus, input[type=number]:focus {
     display: flex;
     background-color: khaki;
-    border: coral solid;
+    border: orangered solid;
+    border-radius: 5px;
 }
 
 input[type=submit] {
@@ -71,8 +74,8 @@ input[type=submit]:focus, main a:focus {
     text-decoration: none;
     display: block;
     padding: 10px 20px 10px 20px;
-    background: khaki;
-    border: solid khaki;
+    background: orangered;
+    border: solid orangered;
     color: black;
     border-radius: 5px;
     text-align: center;
@@ -103,10 +106,19 @@ main a {
     text-decoration: none;
     display: block;
     margin: 20px 30px 20px 30px;
-    border: solid khaki;
+    border: solid wheat;
     color: khaki;
     border-radius: 5px;
     background-color: wheat;
+}
+
+#gameMode a:focus, #gameMode a:hover {
+    text-decoration: none;
+    display: block;
+    margin: 20px 30px 20px 30px;
+    border: solid orangered;
+    border-radius: 5px;
+    background-color: orangered;
 }
 
 #gameMode img {
