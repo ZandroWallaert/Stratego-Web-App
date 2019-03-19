@@ -44,7 +44,14 @@ function showForm(gameMode) {
     let toRemove = document.getElementById("gameMode");
     element.classList.remove("hidden");
     toRemove.classList.add("hidden");
-    document.getElementById('createPersonForm').innerHTML += `<p>Game mode: ${gameMode}</p>`;
+    document.querySelector('#createPersonForm p').innerHTML = '';
+    document.querySelector('#createPersonForm p').innerHTML += `<p>Game mode: ${gameMode}</p>`;
     console.log(`Game mode: ${gameMode}`);
 
+}
+
+function goBack() {
+    document.querySelector('#createPersonForm p').innerHTML = '';
+    document.getElementById('createPersonForm').classList.add('hidden');
+    document.getElementById('gameMode').classList.remove('hidden');
 }
