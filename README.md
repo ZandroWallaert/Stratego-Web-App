@@ -1,4 +1,4 @@
-![ci status](https://op-gitlab.howest.be/TI/project-i/25/stratego-25/badges/master/build.svg)
+![ci status](https://op-gitlab.howest.be/TI/Project-I/start-project/badges/master/build.svg)
 ![quality gatestatus](http://172.21.22.52:48129/api/project_badges/measure?project=be.howest.ti%3A2019.project-i.stratego-25&metric=alert_status)
 ![code smells](http://172.21.22.52:48129/api/project_badges/measure?project=be.howest.ti%3A2019.project-i.stratego-25&metric=code_smells)
 ![code coverage](http://172.21.22.52:48129/api/project_badges/measure?project=be.howest.ti%3A2019.project-i.stratego-25&metric=coverage)
