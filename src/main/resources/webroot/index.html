@@ -20,13 +20,13 @@
     <div>
         <form id="createPersonForm" class="hidden">
             <label for="name">Name</label>
-            <input id="name" type="text" name="Name">
+            <input id="name" type="text" name="Name" required>
 
             <label for="age">Age</label>
-            <input id="age" type="number" name="age" min="1" max="99">
+            <input id="age" type="number" name="age" min="1" max="99" required>
 
             <label for="token">Token</label>
-            <input id="token" type="text" name="token">
+            <input id="token" type="text" name="token" required>
             <div id="buttons">
                 <a href="#" onclick="goBack()">Back</a>
                 <input type="submit" value="Next">
@@ -34,7 +34,6 @@
             <p>Game mode</p>
 
         </form>
-        <!--<p id="response">response placeholder</p>-->
     </div>
 </main>
 <script src="assets/js/index.js"></script>

@@ -42,11 +42,11 @@ function init() {
 function showForm(gameMode) {
     let element = document.getElementById("createPersonForm");
     let toRemove = document.getElementById("gameMode");
+    let addMode = document.querySelector('#createPersonForm p');
     element.classList.remove("hidden");
     toRemove.classList.add("hidden");
-    document.querySelector('#createPersonForm p').innerHTML = '';
-    document.querySelector('#createPersonForm p').innerHTML += `<p>Game mode: ${gameMode}</p>`;
-    console.log(`Game mode: ${gameMode}`);
+    addMode.innerHTML = '';
+    addMode.innerHTML += `<p>Game mode: ${gameMode}</p>`;
 
 }
 
