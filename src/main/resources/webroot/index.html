@@ -15,7 +15,7 @@
         <a href="#" id="Duel" onclick="showForm(this.id)"><img src="assets/media/Duel.png" width="350" height="150"
                                                                alt="duel"></a>
         <a href="#" id="Infiltrator" onclick="showForm(this.id)"><img src="assets/media/infiltrator.png" width="350"
-                                                                      height="150" alt="duel"></a>
+                                                                      height="150" alt="infiltrator"></a>
     </div>
     <div>
         <form id="createPersonForm" class="hidden">
@@ -27,9 +27,12 @@
 
             <label for="token">Token</label>
             <input id="token" type="text" name="token">
-            <input type="submit" value="Next">
-            <a href="#" onclick="goBack()">Back</a>
+            <div id="buttons">
+                <a href="#" onclick="goBack()">Back</a>
+                <input type="submit" value="Next">
+            </div>
             <p>Game mode</p>
+
         </form>
         <!--<p id="response">response placeholder</p>-->
     </div>

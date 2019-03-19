@@ -114,9 +114,16 @@ main a {
 
 #createPersonForm p {
     color: khaki;
+    padding-top: 10px;
     font-size: 2rem;
 }
 
 #response {
     color: khaki;
+}
+
+#buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 }
