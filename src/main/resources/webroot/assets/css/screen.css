@@ -17,7 +17,6 @@ main{
     background-color: black;
 }
 
-
 h2 {
     padding-top: 10px;
     text-decoration: underline khaki;
@@ -28,7 +27,7 @@ h2 {
 }
 
 form {
-    padding: 20px;
+    padding: 0 20px 0 20px;
     display: flex;
     flex-direction: column;
 }
@@ -103,6 +102,29 @@ main a {
     visibility: visible;
 }
 
+.loader {
+    border: 10px solid wheat;
+    margin-left: 15px;
+    border-radius: 50%;
+    border-top: 10px solid white;
+    width: 10px;
+    height: 10px;
+    animation: spin 1s linear infinite;
+    align-self: center;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.flex {
+    display: flex;
+}
 
 #gameMode a {
     text-decoration: none;
@@ -147,4 +169,16 @@ main a {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+}
+
+
+#wait {
+    color: white;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+#wait h1 {
+    align-self: center;
 }

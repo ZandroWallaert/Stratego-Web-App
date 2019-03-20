@@ -32,12 +32,17 @@
             <input id="token" type="text" name="token" required>
             <div id="buttons">
                 <a href="#" onclick="goBack()">Back</a>
-                <input type="submit" value="Next">
+                <input type="submit" value="Next" onclick="loading()">
             </div>
             <p>Game mode</p>
 
         </form>
     </div>
+    <div id="wait" class="hidden">
+        <h1>Waiting for second player...</h1>
+        <div class="loader"></div>
+    </div>
+
 </main>
 <script src="assets/js/index.js"></script>
 </body>

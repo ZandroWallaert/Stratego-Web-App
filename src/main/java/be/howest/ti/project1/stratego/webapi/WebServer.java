@@ -9,7 +9,6 @@ import io.vertx.ext.web.handler.StaticHandler;
 
 
 public class WebServer extends AbstractVerticle {
-
     @Override
     public void start() {
         final HttpServer server = vertx.createHttpServer();
