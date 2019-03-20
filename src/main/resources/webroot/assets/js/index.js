@@ -51,7 +51,19 @@ function showForm(gameMode) {
 }
 
 function goBack() {
-    document.querySelector('#createPersonForm p').innerHTML = '';
     document.getElementById('createPersonForm').classList.add('hidden');
     document.getElementById('gameMode').classList.remove('hidden');
+}
+
+function showModeDetails(i) {
+    let info = [
+        "Capture the flag using all of the pieces except the infiltrator",
+        "Capture the flag using 10 specific pieces.",
+        "Capture the flag with only 7 scouts and the Infiltrator."
+    ];
+    document.querySelector('#gameMode p').innerHTML = `${info[i]}`;
+}
+
+function hideModeDetails() {
+    document.querySelector('#gameMode p').innerHTML = '';
 }

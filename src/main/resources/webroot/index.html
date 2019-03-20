@@ -8,19 +8,22 @@
 </head>
 <body>
 <main>
-    <div id="gameMode" class="shown">
+    <div id="gameMode">
         <h2>Select game mode</h2>
-        <a href="#" id="Classic" onclick="showForm(this.id)"><img src="assets/media/classic.png" width="200"
-                                                                  height="150" alt="classic"></a>
-        <a href="#" id="Duel" onclick="showForm(this.id)"><img src="assets/media/Duel.png" width="350" height="150"
-                                                               alt="duel"></a>
-        <a href="#" id="Infiltrator" onclick="showForm(this.id)"><img src="assets/media/infiltrator.png" width="350"
-                                                                      height="150" alt="infiltrator"></a>
+        <a href="#" id="Classic" onclick="showForm(this.id)" onmouseover="showModeDetails(0)"
+           onmouseout="hideModeDetails()"><img src="assets/media/classic.png" width="200" height="150"
+                                               alt="classic"></a>
+        <a href="#" id="Duel" onclick="showForm(this.id)" onmouseover="showModeDetails(1)"
+           onmouseout="hideModeDetails()"><img src="assets/media/Duel.png" width="350" height="150" alt="duel"></a>
+        <a href="#" id="Infiltrator" onclick="showForm(this.id)" onmouseover="showModeDetails(2)"
+           onmouseout="hideModeDetails()"><img src="assets/media/infiltrator.png" width="350" height="150"
+                                               alt="infiltrator"></a>
+        <p></p>
     </div>
     <div>
         <form id="createPersonForm" class="hidden">
-            <label for="name">Name</label>
-            <input id="name" type="text" name="Name" required>
+            <label for="nickname">Nickname</label>
+            <input id="nickname" type="text" name="Nickname" required>
 
             <label for="age">Age</label>
             <input id="age" type="number" name="age" min="1" max="99" required>
