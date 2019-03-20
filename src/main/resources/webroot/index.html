@@ -22,8 +22,8 @@
     </div>
     <div>
         <form id="createPersonForm" class="hidden">
-            <label for="nickname">Nickname</label>
-            <input id="nickname" type="text" name="Nickname" required>
+            <label for="name">Nickname</label>
+            <input id="name" type="text" name="name" required>
 
             <label for="age">Age</label>
             <input id="age" type="number" name="age" min="1" max="99" required>
@@ -31,16 +31,15 @@
             <label for="token">Token</label>
             <input id="token" type="text" name="token" required>
             <div id="buttons">
-                <a href="#" onclick="goBack()">Back</a>
-                <input type="submit" value="Next" onclick="loading()">
+                <a href="#" id='back' onclick="goBack()">Back</a>
+                <a class="hidden" id='cancel' href="#" onclick="cancelSearch()">Cancel</a>
+                <input type="submit" value="Next">
             </div>
             <p>Game mode</p>
 
         </form>
     </div>
-    <div id="wait" class="hidden">
-        <h1>Waiting for second player...</h1>
-        <div class="loader"></div>
+    <div id="wait">
     </div>
 
 </main>

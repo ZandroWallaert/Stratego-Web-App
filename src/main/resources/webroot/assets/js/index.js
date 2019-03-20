@@ -13,6 +13,8 @@ function init() {
     createPersonForm.onsubmit = function (evt) {
         evt.preventDefault();
 
+        showWaitingForPlayers();
+
         let data = {
             token : tokenIn.value,
             person : {
@@ -58,14 +60,9 @@ function goBack() {
     document.getElementById('wait').classList.remove('flex');
 }
 
-function loading() {
-    document.getElementById('wait').classList.remove('hidden');
-    document.getElementById('wait').classList.add('flex');
-}
-
 function showModeDetails(i) {
     let info = [
-        "Capture the flag using all of the pieces except the infiltrator",
+        "Capture the flag using all of the pieces except the infiltrator.",
         "Capture the flag using 10 specific pieces.",
         "Capture the flag with only 7 scouts and the Infiltrator."
     ];
@@ -74,4 +71,18 @@ function showModeDetails(i) {
 
 function hideModeDetails() {
     document.querySelector('#gameMode p').innerHTML = '';
+}
+
+function showWaitingForPlayers() {
+    document.getElementById('wait').classList.remove('hidden');
+    document.getElementById('wait').classList.add('flex');
+    document.getElementById('wait').innerHTML = `<h1>Waiting for second player...</h1><div class="loader"></div>`;
+    document.getElementById('wait').style.color = "#ffffff";
+    document.getElementById('cancel').classList.remove('hidden');
+}
+
+function cancelSearch() {
+    document.getElementById('wait').innerHTML = `<h1>Search canceled.</h1>`;
+    document.getElementById('wait').style.color = "#ff0000";
+    document.getElementById('cancel').classList.add('hidden');
 }
