@@ -14,7 +14,7 @@ function init() {
         evt.preventDefault();
 
         showWaitingForPlayers();
-
+        timeOut();
         let data = {
             token : tokenIn.value,
             person : {
@@ -34,11 +34,16 @@ function init() {
         })
             .then(response => response.json())
             .then(json => responseSpan.innerHTML = JSON.stringify(json))
-            .catch(error => console.error('Error:', error));
-
+            .catch(error => console.error('Error:', error))
     };
 
 
+}
+
+function timeOut() {
+    setTimeout(() => {
+        window.location.href = "game.html";
+    }, 5000)
 }
 
 function showForm(gameMode) {
