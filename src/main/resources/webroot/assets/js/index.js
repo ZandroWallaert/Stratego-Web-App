@@ -51,8 +51,14 @@ function showForm(gameMode) {
 }
 
 function goBack() {
+    document.querySelector('#createPersonForm p').innerHTML = '';
     document.getElementById('createPersonForm').classList.add('hidden');
     document.getElementById('gameMode').classList.remove('hidden');
+}
+
+function loading() {
+    document.getElementById('wait').classList.remove('hidden');
+    document.getElementById('wait').classList.add('flex');
 }
 
 function showModeDetails(i) {
