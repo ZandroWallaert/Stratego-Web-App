@@ -28,6 +28,11 @@ aside {
     font-size: 3rem;
 }
 
+aside {
+    float: left;
+    font-size: 3rem;
+}
+
 .map {
     background: url("../media/map.jpg") no-repeat;
     border: 0;
