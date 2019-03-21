@@ -1,9 +1,4 @@
 body {
-    background: url("../media/map.jpg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
 }
 
 table {
@@ -19,9 +14,27 @@ td {
     padding: 1rem;
 }
 
+aside {
+    float: left;
+    font-size: 3rem;
+}
+
 .map {
     background-image: url("../media/map.jpg");
     border: 0;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.grid-item img {
+    padding: 5px;
+    border: 1px solid black;
+    height: 90px;
+    width: 80px;
+}
 
