@@ -14,7 +14,7 @@ function init() {
         evt.preventDefault();
 
         showWaitingForPlayers();
-
+        timeOut();
         let data = {
             token : tokenIn.value,
             person : {
@@ -40,8 +40,10 @@ function init() {
 
 }
 
+let timeVar;
+
 function timeOut() {
-    timeOut = setTimeout(() => {
+    timeVar = setTimeout(() => {
         window.location.href = "game.html";
     }, 5000)
 }
@@ -57,10 +59,25 @@ function showForm(gameMode) {
 
 }
 
-function goBack() {
-    document.querySelector('#createPersonForm p').innerHTML = '';
-    document.getElementById('createPersonForm').classList.add('hidden');
-    document.getElementById('gameMode').classList.remove('hidden');
+function goBack(id) {
+    clearTimeout(timeVar);
+    document.querySelectorAll('#bottom p').innerHTML = '';
+    document.querySelector('#settingButtons p').innerHTML = '';
+    let screen = [
+        "mainMenu",
+        "settings",
+        "gameMode",
+        "createPersonForm",
+    ];
+    document.getElementById(screen[id]).classList.add('hidden');
+    console.log(screen[id - 2]);
+    if (screen[id] === "gameMode") {
+        document.getElementById(screen[id - 2]).classList.remove('hidden');
+
+    } else {
+        document.getElementById(screen[id - 1]).classList.remove('hidden');
+    }
+
     document.getElementById('wait').classList.add('hidden');
     document.getElementById('wait').classList.remove('flex');
 }
@@ -71,11 +88,12 @@ function showModeDetails(i) {
         "Capture the flag using 10 specific pieces.",
         "Capture the flag with only 7 scouts and the Infiltrator."
     ];
-    document.querySelector('#gameMode p').innerHTML = `${info[i]}`;
+    document.getElementById('infoBox').classList.remove('hidden');
+    document.querySelector('#infoBox').innerHTML = `<p>${info[i]}</p>`;
 }
 
 function hideModeDetails() {
-    document.querySelector('#gameMode p').innerHTML = '';
+    document.getElementById('infoBox').classList.add('hidden');
 }
 
 function showWaitingForPlayers() {
@@ -84,15 +102,32 @@ function showWaitingForPlayers() {
     document.getElementById('wait').innerHTML = `<h1>Waiting for second player...</h1><div class="loader"></div>`;
     document.getElementById('wait').style.color = "#ffffff";
     document.getElementById('cancel').classList.remove('hidden');
-    timeOut();
 }
 
 function cancelSearch() {
     document.getElementById('wait').innerHTML = `<h1>Search canceled.</h1>`;
     document.getElementById('wait').style.color = "#ff0000";
     document.getElementById('cancel').classList.add('hidden');
-    clearTimeout(timeOut);
-    setTimeout(() => {
-        window.location.reload();
-    }, 2000)
+    clearTimeout(timeVar)
+}
+
+function showGameMode(id) {
+    document.getElementById('mainMenu').classList.add('hidden');
+    document.getElementById('gameMode').classList.remove('hidden');
+    document.querySelector('#bottom p').innerHTML = `${id}`;
+    console.log(document.querySelector('#bottom'))
+}
+
+function showRules() {
+    window.open("../../documents/resources/gamerules.pdf");
+}
+
+function showSettings() {
+    document.getElementById('mainMenu').classList.add('hidden');
+    document.getElementById('settings').classList.remove('hidden');
+}
+
+function saveChanges() {
+    document.querySelector('#settingButtons p').style.color = '#00ff00';
+    document.querySelector('#settingButtons p').innerHTML = `Saves changed!`;
 }
