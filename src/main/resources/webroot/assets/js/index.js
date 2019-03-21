@@ -40,8 +40,10 @@ function init() {
 
 }
 
+let timeVar;
+
 function timeOut() {
-    timeOut = setTimeout(() => {
+    timeVar = setTimeout(() => {
         window.location.href = "game.html";
     }, 5000)
 }
@@ -91,8 +93,5 @@ function cancelSearch() {
     document.getElementById('wait').innerHTML = `<h1>Search canceled.</h1>`;
     document.getElementById('wait').style.color = "#ff0000";
     document.getElementById('cancel').classList.add('hidden');
-    clearTimeout(timeOut);
-    setTimeout(() => {
-        window.location.reload();
-    }, 2000)
+    clearTimeout(timeVar);
 }

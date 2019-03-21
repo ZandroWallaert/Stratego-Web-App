@@ -9,9 +9,23 @@ table {
 }
 
 td {
-    height: 50px;
+    height: 80px;
+    width: 80px;
     border: 1px solid white;
-    padding: 1rem;
+}
+
+td img {
+    height: 80px;
+    width: 80px;
+}
+
+button {
+    float: left;
+}
+
+aside {
+    float: left;
+    font-size: 3rem;
 }
 
 aside {
@@ -20,7 +34,7 @@ aside {
 }
 
 .map {
-    background-image: url("../media/map.jpg");
+    background: url("../media/map.jpg") no-repeat;
     border: 0;
 }
 
@@ -32,9 +46,10 @@ aside {
 }
 
 .grid-item img {
-    padding: 5px;
     border: 1px solid black;
-    height: 90px;
-    width: 80px;
 }
 
+img {
+    height: 70px;
+    width: 80px;
+}
