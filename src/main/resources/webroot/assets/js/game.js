@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", init);
 
 function init() {
     setupBoard();
-
+    getImageSRC();
 }
 
 function setupBoard() {
@@ -17,8 +17,39 @@ function setupBoard() {
     let tr = document.querySelector("tbody").querySelectorAll("tr");
     for (let i = 0; i < boardWidth; i++) {
         for (let j = 0; j < 10; j++) {
-            tr[j].innerHTML += `<td><a><img src="#" alt=""></a></td>`
+            tr[j].innerHTML += `<td><div></div></td>`
         }
     }
 }
 
+function turnOffImageSwitch() {
+    getImageSwitch = false;
+    getImageSRC();
+}
+
+let getImageSwitch;
+
+function getImageSRC() {
+    let getSRC = null;
+    let selectedSRC = null;
+    getImageSwitch = true;
+    document.addEventListener('click', first);
+
+    function first(e) {
+        if (e.target.tagName.toUpperCase() === 'IMG') {
+            getSRC = e.target;
+            console.log(getSRC);
+        }
+        e.stopImmediatePropagation();
+        this.removeEventListener("click", first);
+        document.onclick = second;
+    }
+
+    function second(e) {
+        if (getImageSwitch === true) {
+            selectedSRC = e.target.querySelector("div");
+            console.log(selectedSRC);
+            selectedSRC.appendChild(getSRC);
+        }
+    }
+}

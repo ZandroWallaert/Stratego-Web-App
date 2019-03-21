@@ -14,7 +14,7 @@ function init() {
         evt.preventDefault();
 
         showWaitingForPlayers();
-        timeOut();
+
         let data = {
             token : tokenIn.value,
             person : {
@@ -40,8 +40,10 @@ function init() {
 
 }
 
+let timeVar;
+
 function timeOut() {
-    setTimeout(() => {
+    timeVar = setTimeout(() => {
         window.location.href = "game.html";
     }, 5000)
 }
@@ -84,10 +86,12 @@ function showWaitingForPlayers() {
     document.getElementById('wait').innerHTML = `<h1>Waiting for second player...</h1><div class="loader"></div>`;
     document.getElementById('wait').style.color = "#ffffff";
     document.getElementById('cancel').classList.remove('hidden');
+    timeOut();
 }
 
 function cancelSearch() {
     document.getElementById('wait').innerHTML = `<h1>Search canceled.</h1>`;
     document.getElementById('wait').style.color = "#ff0000";
     document.getElementById('cancel').classList.add('hidden');
+    clearTimeout(timeVar);
 }
