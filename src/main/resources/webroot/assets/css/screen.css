@@ -7,6 +7,22 @@ body{
     background-size: cover;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background: khaki;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: khaki;
+}
+
 main{
     margin-top: 16em;
     margin-left: auto;
@@ -69,7 +85,7 @@ input[type=submit], .back {
     text-align: center;
 }
 
-input[type=submit]:hover, .back:hover {
+input[type=submit]:hover, .back:hover, #gameMode .back:hover {
     background: orangered;
     border: solid orangered;
     color: black;
@@ -128,6 +144,82 @@ input[type=submit]:hover, .back:hover {
     background-color: orangered;
     border: orangered solid;
     color: black;
+}
+
+#rules {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 100px auto 100px auto;
+    width: 800px;
+    height: 700px;
+    background-color: black;
+    border: khaki solid;
+    text-align: left;
+    padding: 10px 50px 40px 50px;
+}
+
+#rules div {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+#rules div a {
+    font-family: "Cooper Black", sans-serif;
+    padding: 10px 20px 10px 20px;
+    color: khaki;
+    text-decoration: none;
+    border: solid khaki;
+    border-radius: 5px;
+}
+
+#rules div a:hover {
+    background-color: orangered;
+    border: orangered solid;
+    color: black;
+}
+
+#rules h1 {
+    font-size: 2rem;
+    color: khaki;
+    text-decoration: underline khaki;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+#rules h2 {
+    text-align: left;
+    font-size: 1.7rem;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+#rules h4 {
+    font-size: 1.4rem;
+    color: khaki;
+    margin-top: 10px;
+}
+
+#rules h5 {
+    font-size: 1.2rem;
+    color: khaki;
+    padding-top: 5px;
+}
+
+#rules p {
+    font-family: "Comic Sans MS", sans-serif;
+    line-height: 18px;
+    color: khaki;
+    margin: 15px 0 15px 0;
+}
+
+#rules ul {
+    margin: 15px 0 15px 40px;
+    font-family: "Comic Sans MS", sans-serif;
+    font-size: 1.1rem;
+    line-height: 23px;
+    color: khaki;
+    list-style-type: disc;
 }
 
 #settings p {
@@ -229,7 +321,7 @@ input[type=submit]:hover, .back:hover {
 
 #createPersonForm p {
     color: khaki;
-    padding-top: 10px;
+    margin-top: 10px;
     font-size: 2rem;
 }
 

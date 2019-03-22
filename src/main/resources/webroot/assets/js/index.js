@@ -56,30 +56,40 @@ function showForm(gameMode) {
     toRemove.classList.add("hidden");
     addMode.innerHTML = '';
     addMode.innerHTML += `<p>Game mode: ${gameMode}</p>`;
+    console.log(addMode)
 
 }
 
-function goBack(id) {
-    clearTimeout(timeVar);
+function clearHTML() {
+    document.getElementById('cancel').classList.add('hidden');
     document.querySelectorAll('#bottom p').innerHTML = '';
     document.querySelector('#settingButtons p').innerHTML = '';
+    document.getElementById('wait').classList.add('hidden');
+    document.getElementById('wait').classList.remove('flex');
+}
+
+function goBack(id) {
+
+    clearTimeout(timeVar);
+    clearHTML();
+
     let screen = [
         "mainMenu",
+        "rules",
         "settings",
         "gameMode",
         "createPersonForm",
     ];
     document.getElementById(screen[id]).classList.add('hidden');
-    console.log(screen[id - 2]);
     if (screen[id] === "gameMode") {
-        document.getElementById(screen[id - 2]).classList.remove('hidden');
+        document.getElementById(screen[id - 3]).classList.remove('hidden');
 
+    } else if (screen[id] === "settings") {
+        document.getElementById(screen[id - 2]).classList.remove('hidden');
     } else {
         document.getElementById(screen[id - 1]).classList.remove('hidden');
     }
-
-    document.getElementById('wait').classList.add('hidden');
-    document.getElementById('wait').classList.remove('flex');
+    document.querySelector('main').classList.remove('hidden');
 }
 
 function showModeDetails(i) {
@@ -96,11 +106,18 @@ function hideModeDetails() {
     document.getElementById('infoBox').classList.add('hidden');
 }
 
+function hideWindow() {
+    document.getElementById('rules').classList.add('hidden');
+    document.getElementById('mainMenu').classList.remove('hidden');
+    document.querySelector('main').classList.remove('hidden');
+}
+
 function showWaitingForPlayers() {
-    document.getElementById('wait').classList.remove('hidden');
-    document.getElementById('wait').classList.add('flex');
-    document.getElementById('wait').innerHTML = `<h1>Waiting for second player...</h1><div class="loader"></div>`;
-    document.getElementById('wait').style.color = "#ffffff";
+    let element = document.getElementById('wait');
+    element.classList.remove('hidden');
+    element.classList.add('flex');
+    element.innerHTML = `<h1>Waiting for second player...</h1><div class="loader"></div>`;
+    element.style.color = "#ffffff";
     document.getElementById('cancel').classList.remove('hidden');
 }
 
@@ -119,7 +136,8 @@ function showGameMode(id) {
 }
 
 function showRules() {
-    window.open("../../documents/resources/gamerules.pdf");
+    document.getElementById('rules').classList.remove('hidden');
+    document.querySelector('main').classList.add('hidden');
 }
 
 function showSettings() {
@@ -129,5 +147,5 @@ function showSettings() {
 
 function saveChanges() {
     document.querySelector('#settingButtons p').style.color = '#00ff00';
-    document.querySelector('#settingButtons p').innerHTML = `Saves changed!`;
+    document.querySelector('#settingButtons p').innerHTML = `Changes saved!`;
 }
