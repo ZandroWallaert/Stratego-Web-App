@@ -6,30 +6,30 @@ import java.util.Set;
 
 public class PeopleApplication {
 
-    private Set<Person> people;
+    private Set<Player> people;
 
     public PeopleApplication() {
         people = new HashSet<>();
 
-        people.add(new Person("Alice", 20));
-        people.add(new Person("Bob", 30));
-        people.add(new Person("Carol", 40));
+        people.add(new Player("Alice", "the-super-secret", 20));
+        people.add(new Player("Bob", "the-super-secret", 30));
+        people.add(new Player("Carol", "the-super-secret", 40));
     }
 
-    public Set<Person> getPeople() {
+    public Set<Player> getPeople() {
         return Collections.unmodifiableSet(people);
     }
 
-    public Person find(String expectedName) {
-        for (Person person : people) {
-            if (person.getName().equals(expectedName)) {
+    public Player find(String expectedName) {
+        for (Player person : people) {
+            if (person.getNickname().equals(expectedName)) {
                 return person;
             }
         }
         throw new IllegalArgumentException("No such person found.");
     }
 
-    public void add(Person person) {
+    public void add(Player person) {
         boolean success = people.add(person);
         if (!success) {
             throw new IllegalArgumentException("Person already exists.");
