@@ -8,7 +8,23 @@
 </head>
 <body>
 <main>
-    <div id="gameMode">
+    <div id="mainMenu">
+        <h2>Main Menu</h2>
+        <a href="#" id="Single Player" onclick="showGameMode(this.id)">Single Player</a>
+        <a href="#" id="Online" onclick="showGameMode(this.id)">Online</a>
+        <a href="#" id="rules" onclick="showRules()">How to play</a>
+        <a href="#" id="options" onclick="showSettings()">Settings</a>
+    </div>
+    <div id="settings" class="hidden">
+        <h2>Settings</h2>
+        <p>Can't think of any parameters to change yet...</p>
+        <div id="settingButtons">
+            <a href="#" onclick="goBack(1)">Back</a>
+            <p></p>
+            <a href="#" onclick="saveChanges()">Apply</a>
+        </div>
+    </div>
+    <div id="gameMode" class="hidden">
         <h2>Select game mode</h2>
         <a href="#" id="Classic" onclick="showForm(this.id)" onmouseover="showModeDetails(0)"
            onmouseout="hideModeDetails()"><img src="assets/media/classic.png" width="200" height="150"
@@ -18,7 +34,11 @@
         <a href="#" id="Infiltrator" onclick="showForm(this.id)" onmouseover="showModeDetails(2)"
            onmouseout="hideModeDetails()"><img src="assets/media/infiltrator.png" width="350" height="150"
                                                alt="infiltrator"></a>
-        <p></p>
+        <div id="bottom">
+            <a href="#" class='back' onclick="goBack(2)">Back</a>
+            <p></p>
+        </div>
+
     </div>
     <div>
         <form id="createPersonForm" class="hidden">
@@ -31,7 +51,7 @@
             <label for="token">Token</label>
             <input id="token" type="text" name="token" required>
             <div id="buttons">
-                <a href="#" id='back' onclick="goBack()">Back</a>
+                <a href="#" class='back' onclick="goBack(3)">Back</a>
                 <a class="hidden" id='cancel' href="#" onclick="cancelSearch()">Cancel</a>
                 <input type="submit" value="Next">
             </div>
@@ -43,6 +63,8 @@
     </div>
 
 </main>
+<div id="infoBox" class="hidden">
+</div>
 <script src="assets/js/index.js"></script>
 </body>
 </html>

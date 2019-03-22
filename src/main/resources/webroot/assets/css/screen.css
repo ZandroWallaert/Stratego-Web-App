@@ -55,7 +55,7 @@ input[type=text]:focus, input[type=number]:focus {
     border-radius: 5px;
 }
 
-input[type=submit] {
+input[type=submit], .back {
     font-family: "Cooper Black", sans-serif;
     font-size: 1rem;
     text-decoration: none;
@@ -69,29 +69,10 @@ input[type=submit] {
     text-align: center;
 }
 
-input[type=submit]:hover, #back:hover {
-    font-family: "Cooper Black", sans-serif;
-    font-size: 1rem;
-    text-decoration: none;
-    display: block;
-    padding: 10px 20px 10px 20px;
+input[type=submit]:hover, .back:hover {
     background: orangered;
     border: solid orangered;
     color: black;
-    border-radius: 5px;
-    text-align: center;
-}
-
-main a {
-    text-decoration: none;
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    padding: 10px 20px 10px 20px;
-    border: solid khaki;
-    color: khaki;
-    border-radius: 5px;
-    text-align: center;
 }
 
 .hidden {
@@ -126,33 +107,124 @@ main a {
     display: flex;
 }
 
+#mainMenu h2 {
+    margin-bottom: 30px;
+}
+
+#mainMenu a {
+    font-size: 1.8rem;
+    margin: 10px 40px 10px 40px;
+    height: 40px;
+    text-decoration: none;
+    display: block;
+    padding: 20px 20px 10px 20px;
+    border: solid khaki;
+    color: khaki;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#mainMenu a:hover {
+    background-color: orangered;
+    border: orangered solid;
+    color: black;
+}
+
+#settings p {
+    margin: 40px 40px 40px 40px;
+    font-size: 1.2rem;
+    color: khaki;
+}
+
+#settingButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 300px;
+    height: 45px;
+}
+
+#settingButtons a {
+    text-decoration: none;
+    background: black;
+    border: solid khaki;
+    border-radius: 5px;
+    color: khaki;
+    margin: 0 40px 0 40px;
+    padding: 10px 20px 10px 20px;
+}
+
+#settingButtons a:hover {
+    background: orangered;
+    border: orangered solid;
+    color: black;
+}
+
+#settingButtons p {
+    margin: 0;
+    padding: 10px 20px 10px 20px;
+}
+
 #gameMode a {
     text-decoration: none;
     display: block;
-    margin: 20px 30px 15px 30px;
+    margin: 15px 40px 0 40px;
     border: solid wheat;
     color: khaki;
     border-radius: 5px;
     background-color: wheat;
+    padding: 10px 20px 10px 20px;
+    text-align: center;
 }
 
 #gameMode a:focus, #gameMode a:hover {
     text-decoration: none;
     display: block;
-    margin: 20px 30px 15px 30px;
     border: solid orangered;
     border-radius: 5px;
     background-color: orangered;
 }
 
-#gameMode p {
-    color: khaki;
-    font-size: 1.2rem;
-    margin: 10px 30px 10px 30px;
-}
-
 #gameMode img {
     height: 70px;
+}
+
+#bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#bottom .back {
+    text-decoration: none;
+    display: block;
+    padding: 10px 20px 10px 20px;
+    background: black;
+    border: solid khaki;
+    color: khaki;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#bottom p {
+    font-size: 1.8rem;
+    color: khaki;
+    margin-right: 40px;
+}
+
+#infoBox {
+    background-color: black;
+    border: khaki solid;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    height: 80px;
+    color: khaki;
+    font-size: 1.2rem;
+}
+
+#infoBox p {
+    padding: 20px;
 }
 
 #createPersonForm p {
@@ -172,8 +244,11 @@ main a {
 }
 
 #cancel {
-    border-color: red;
+    text-decoration: none;
+    border: solid red;
+    border-radius: 5px;
     color: red;
+    padding: 10px 20px 10px 20px;
 }
 #wait {
     color: white;
