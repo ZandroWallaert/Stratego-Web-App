@@ -1,6 +1,6 @@
 package be.howest.ti.project1.stratego.webapi;
 
-import be.howest.ti.project1.stratego.people.PeopleApplication;
+import be.howest.ti.project1.stratego.people.PlayerApplication;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
@@ -9,10 +9,10 @@ import io.vertx.ext.web.handler.BodyHandler;
 
 class EndpointDispatcher {
 
-    private PeopleApplication application;
+    private PlayerApplication application;
 
     EndpointDispatcher() {
-        application = new PeopleApplication();
+        application = new PlayerApplication();
     }
 
     private void sendJson(HttpServerResponse res, Object object) {

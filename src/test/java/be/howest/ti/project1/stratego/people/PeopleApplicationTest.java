@@ -9,16 +9,16 @@ public class PeopleApplicationTest {
 
     @Test
     public void getPeople() {
-        PeopleApplication app = new PeopleApplication();
+        PlayerApplication app = new PlayerApplication();
         assertEquals(3, app.getPeople().size());
     }
 
     @Test
     public void find() {
-        PeopleApplication app = new PeopleApplication();
+        PlayerApplication app = new PlayerApplication();
 
-        Person p = app.find("Bob");
-        assertEquals("Bob", p.getName());
+        Player p = app.find("Bob");
+        assertEquals("Bob", p.getNickname());
 
         try {
             app.find("Eve");
@@ -31,15 +31,15 @@ public class PeopleApplicationTest {
 
     @Test
     public void add() {
-        PeopleApplication app = new PeopleApplication();
+        PlayerApplication app = new PlayerApplication();
 
-        Person david = new Person("David", 23);
+        Player david = new Player("David", "the-super-secret", 23);
         int old = app.getPeople().size();
         app.add(david);
         assertEquals(old+1, app.getPeople().size());
 
         try {
-            Person alice = new Person("Alice", 23);
+            Player alice = new Player("Alice", "the-super-secret", 23);
             app.add(alice);
             fail();
         } catch (IllegalArgumentException ex) {

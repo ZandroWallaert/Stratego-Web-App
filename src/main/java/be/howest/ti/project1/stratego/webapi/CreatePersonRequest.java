@@ -1,18 +1,18 @@
 package be.howest.ti.project1.stratego.webapi;
 
-import be.howest.ti.project1.stratego.people.Person;
+import be.howest.ti.project1.stratego.people.Player;
 
 class CreatePersonRequest {
 
     private String token;
-    private Person person;
+    private Player person;
 
     public CreatePersonRequest() {
         // needed for vertx to create CreatePersonRequest from JSON.
     }
 
 
-    public Person getPerson() {
+    public Player getPerson() {
         return person;
     }
 
