@@ -4,11 +4,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PeopleApplication {
+public class PlayerApplication {
 
     private Set<Player> people;
 
-    public PeopleApplication() {
+    public PlayerApplication() {
         people = new HashSet<>();
 
         people.add(new Player("Alice", "the-super-secret", 20));
