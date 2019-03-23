@@ -60,10 +60,11 @@ function showForm(gameMode) {
 
 }
 
+const settingButtonsP = document.querySelector('#settingButtons p');
 function clearHTML() {
     document.getElementById('cancel').classList.add('hidden');
     document.querySelectorAll('#bottom p').innerHTML = '';
-    document.querySelector('#settingButtons p').innerHTML = '';
+    settingButtonsP.innerHTML = '';
     document.getElementById('wait').classList.add('hidden');
     document.getElementById('wait').classList.remove('flex');
 }
@@ -146,6 +147,6 @@ function showSettings() {
 }
 
 function saveChanges() {
-    document.querySelector('#settingButtons p').style.color = '#00ff00';
-    document.querySelector('#settingButtons p').innerHTML = `Changes saved!`;
+    settingButtonsP.style.color = '#00ff00';
+    settingButtonsP.innerHTML = `Changes saved!`;
 }

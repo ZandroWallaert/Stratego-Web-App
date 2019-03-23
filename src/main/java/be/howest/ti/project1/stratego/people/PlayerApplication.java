@@ -7,13 +7,14 @@ import java.util.Set;
 public class PlayerApplication {
 
     private Set<Player> people;
+    private String tokenExample = "the-super-secret";
 
     public PlayerApplication() {
         people = new HashSet<>();
 
-        people.add(new Player("Alice", "the-super-secret", 20));
-        people.add(new Player("Bob", "the-super-secret", 30));
-        people.add(new Player("Carol", "the-super-secret", 40));
+        people.add(new Player("Alice", tokenExample, 20));
+        people.add(new Player("Bob", tokenExample, 30));
+        people.add(new Player("Carol", tokenExample, 40));
     }
 
     public Set<Player> getPeople() {
