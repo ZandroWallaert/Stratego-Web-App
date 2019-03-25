@@ -1,5 +1,6 @@
 body{
     font-family: "Cooper Black", sans-serif;
+    color: khaki;
     background: url(../media/background.png) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -12,380 +13,77 @@ body{
 }
 
 ::-webkit-scrollbar-track {
-    background: none;
+    background: black;
 }
 
 ::-webkit-scrollbar-thumb {
     background: white;
 }
 
-main{
-    margin-top: 16em;
-    margin-left: auto;
-    margin-right: auto;
-    width: 600px;
-    height: 475px;
-    border: khaki solid;
+nav, div a {
+    display: inline;
+    text-decoration: none;
+    color: khaki;
     background-color: black;
 }
 
-h2 {
-    padding-top: 10px;
-    text-decoration: underline;
-    color: khaki;
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-    font-size: 2.5rem;
-    text-align: center;
-}
 
-form {
-    padding: 10px 20px 0 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-input[type=text],input[type=number]{
-    font-family: "Cooper Black", sans-serif;
-    align-items: center;
-    background-color: khaki;
-    color: black;
-    border: khaki solid;
-    border-radius: 5px;
-}
-
-input[type=text]:focus, input[type=number]:focus {
-    font-family: "Cooper Black", sans-serif;
-    display: flex;
-    background-color: khaki;
-    border: orangered solid;
-    border-radius: 5px;
-}
-
-input[type=submit], .back {
-    font-family: "Cooper Black", sans-serif;
-    font-size: 1rem;
-    text-decoration: none;
-    display: block;
-    margin-top: 30px;
-    padding: 10px 20px 10px 20px;
-    background: black;
+main {
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+    background-color: black;
     border: solid khaki;
-    color: khaki;
-    border-radius: 5px;
-    text-align: center;
 }
 
-input[type=submit]:hover, .back:hover, #gameMode .back:hover {
-    background: orangered;
-    border: solid orangered;
-    color: black;
+main p {
+    color: khaki;
+}
+
+#launch {
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+}
+
+#launch a {
+    background-color: red;
+    border: brown solid;
+    text-decoration: none;
+    color: khaki;
+    float: right;
 }
 
 .hidden {
     display: none;
 }
 
-.shown {
-    visibility: visible;
+#loading {
+    width: 70px;
+    background: none;
+    border: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.loader {
-    border: 10px solid wheat;
-    margin-left: 15px;
-    border-radius: 50%;
-    border-top: 10px solid white;
-    width: 10px;
-    height: 10px;
-    animation: spin 0.5s linear infinite;
-    align-self: center;
+#loading img {
+    width: 100px;
+    height: 80px;
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.flex {
-    display: flex;
-}
-
-#mainMenu h2 {
-    margin-bottom: 30px;
-}
-
-#mainMenu a {
-    font-size: 1.8rem;
-    margin: 10px 40px 10px 40px;
-    height: 40px;
-    text-decoration: none;
-    display: block;
-    padding: 20px 20px 10px 20px;
-    border: solid khaki;
-    color: khaki;
-    border-radius: 5px;
-    text-align: center;
-}
-
-#mainMenu a:hover {
-    background-color: orangered;
-    border: orangered solid;
+#loading h1 {
+    font-family: "Microsoft Himalaya", sans-serif;
+    margin-bottom: 10px;
+    border-bottom: black solid;
+    border-width: 1px;
     color: black;
 }
 
-#rules {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin: 100px auto 100px auto;
-    width: 800px;
-    height: 700px;
-    background-color: black;
-    border: khaki solid;
-    text-align: left;
-    padding: 10px 50px 40px 50px;
-}
-
-#rules div {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 10px;
-}
-
-#rules div a {
-    font-family: "Cooper Black", sans-serif;
-    padding: 10px 20px 10px 20px;
-    color: khaki;
-    text-decoration: none;
-    border: solid khaki;
-    border-radius: 5px;
-}
-
-#rules div a:hover {
-    background-color: orangered;
-    border: orangered solid;
-    color: black;
-}
-
-#rules h1 {
-    font-size: 2rem;
-    color: khaki;
-    text-decoration: underline;
-    text-align: center;
-    padding-bottom: 30px;
-}
-
-#rules h2 {
-    text-align: left;
-    font-size: 1.7rem;
-    text-decoration: none;
-    margin-bottom: 5px;
-}
-
-#rules h4 {
-    font-size: 1.4rem;
-    color: khaki;
-    margin-top: 10px;
-}
-
-#rules h5 {
-    font-size: 1.2rem;
-    color: khaki;
-    padding-top: 5px;
-}
-
-#rules p {
-    font-family: "Comic Sans MS", sans-serif;
-    line-height: 18px;
-    color: khaki;
-    margin: 15px 0 15px 0;
-}
-
-#rules ul {
-    margin: 15px 0 15px 40px;
-    font-family: "Comic Sans MS", sans-serif;
-    font-size: 1.1rem;
-    line-height: 23px;
-    color: khaki;
-    list-style-type: disc;
-}
-
-#settings p {
-    margin: 40px 40px 40px 40px;
-    font-size: 1.2rem;
-    color: khaki;
-}
-
-#settings form {
-    margin-top: 30px;
-}
-
-#settings form div {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin: 10px 0 10px 0;
-}
-
-#settings label {
-    margin-left: 40px;
-    color: khaki;
-    font-size: 1.5rem;
-}
-
-#settings form input[type=button] {
-    background-color: black;
-    border: khaki solid;
-    color: khaki;
-    width: 90px;
-    height: 40px;
-    font-family: "Cooper Black", sans-serif;
-    font-size: 1rem;
-    padding: auto;
-    border-radius: 5px;
-    margin-right: 40px;
-}
-
-#settings form #reset {
-    width: 130px;
-    margin-left: 30px;
-}
-
-#settings form #sound {
-    border: #00ff00 solid;
-    color: #00ff00;
-}
-
-#settingButtons {
-    display: flex;
-    justify-content: space-between;
-    margin: 130px 40px 0 40px;
-    height: 45px;
-}
-
-#settingButtons a {
-    text-decoration: none;
-    background: black;
-    border: solid khaki;
-    border-radius: 5px;
-    color: khaki;
-    padding: 10px 20px 10px 20px;
-}
-
-#settingButtons a:hover {
-    background: orangered;
-    border: orangered solid;
-    color: black;
-}
-
-#settingButtons p {
-    margin: 0;
-    padding: 10px 20px 10px 20px;
-}
-
-#gameMode a {
-    text-decoration: none;
-    display: block;
-    margin: 15px 40px 0 40px;
-    border: solid wheat;
-    color: khaki;
-    border-radius: 5px;
-    background-color: wheat;
-    padding: 10px 20px 10px 20px;
-    text-align: center;
-}
-
-#gameMode a:focus, #gameMode a:hover {
-    text-decoration: none;
-    display: block;
-    border: solid orangered;
-    border-radius: 5px;
-    background-color: orangered;
-}
-
-#gameMode img {
-    height: 70px;
-}
-
-#bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
-#bottom .back {
-    text-decoration: none;
-    display: block;
-    padding: 10px 20px 10px 20px;
-    background: black;
-    border: solid khaki;
-    color: khaki;
-    border-radius: 5px;
-    text-align: center;
-}
-
-#bottom p {
-    font-size: 1.8rem;
-    color: khaki;
-    margin-right: 40px;
-}
-
-#infoBox {
-    background-color: black;
-    border: khaki solid;
-    margin-top: 30px;
+#loader {
     margin-left: auto;
     margin-right: auto;
-    width: 600px;
-    height: 80px;
-    color: khaki;
-    font-size: 1.2rem;
+    width: 100%;
 }
 
-#infoBox p {
-    padding: 20px;
-}
-
-#createPersonForm label {
-    margin-top: 10px;
-    margin-bottom: 15px;
-    display: block;
-    font-size: 2rem;
-    color: khaki;
-}
-
-#createPersonForm p {
-    color: khaki;
-    margin-top: 10px;
-    font-size: 2rem;
-}
-
-#response {
-    color: khaki;
-}
-
-#buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
-#cancel {
-    text-decoration: none;
-    border: solid red;
-    border-radius: 5px;
-    color: red;
-    padding: 10px 20px 10px 20px;
-}
-#wait {
-    color: white;
-    margin-left: 20px;
-    margin-bottom: 10px;
-    margin-top: 15px;
-}
-
-#wait h1 {
-    align-self: center;
-}
