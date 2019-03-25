@@ -1,38 +1,52 @@
-image: op-gitlab.howest.be:4567/docker-registry/gradle-node:master
+image: op-gitlab.howest.be:4567/docker-registry/project-i-2019:master
 
 stages:
   - build
-  - codequality
-  - test
+  - QA
   - deploy
 
 before_script:
-  - chmod +x gradlew
-  - export GRADLE_USER_HOME=/cache/.gradle
-
-cache:
-  paths:
-    - $GRADLE_USER_HOME/caches/
-    - $GRADLE_USER_HOME/wrapper/
-    - $GRADLE_USER_HOME/build-cache/
-
+  - ln -s "$MAVEN_LOCAL" ".m2"
 
 build-jar:
   stage: build
-  script: ./gradlew shadowJar
+  only: 
+    - master
+  except:
+    changes:
+      - documents/**/*
+  script:
+    - ./gradlew shadowJar
   artifacts:
     paths:
       - build/libs/
 
 sonarqube:
-  stage: codequality
+  stage: QA
+  except:
+    changes:
+      - documents/**/*
   script: ./gradlew sonarqube -Dsonar.host.url=http://172.18.18.129
+  
+validateHTML:
+  stage: QA
+  only:
+    changes:
+      -  src/main/resources/webroot/**/*.html
+  script: ./gradlew validateHTML
 
 test:
-  stage: test
+  stage: QA
+  except:
+    changes:
+      - documents/**/*
   script: ./gradlew test
 
 deploy:
   stage: deploy
+  only:
+    - master
+  except:
+    changes:
+      - documents/**/*
   script: echo "TODO" 
-
