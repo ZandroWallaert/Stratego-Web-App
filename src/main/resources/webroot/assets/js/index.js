@@ -3,16 +3,30 @@
 document.addEventListener("DOMContentLoaded", init);
 
 let settings = [];
-let defaultSettings = ['Enabled', 'Khaki'];
+let defaultSettings = ['Rain', 'Enabled', 'Enabled'];
+
+let formInfo = [];
 
 function init() {
-
     settings = JSON.parse(localStorage.getItem('settings'));
     if (settings === null) {
         settings = defaultSettings
     }
-    setAudio(settings[0]);
-    setTheme(settings[1]);
+
+    setTheme(settings[0]);
+    setAudio(settings[1]);
+    setMusic(settings[2]);
+
+    formInfo = JSON.parse(localStorage.getItem('formInfo'));
+    if (formInfo != null) {
+        document.getElementById('name').value = formInfo[0];
+        document.getElementById('age').value = formInfo[1];
+        document.getElementById('token').value = formInfo[2];
+    }
+
+    playMusic();
+
+    document.getElementById('backgroundVideo').style.pointerEvents = 'none';
 
     console.log("DOMContentLoaded");
     const createPersonForm = document.getElementById("createPersonForm");
@@ -24,9 +38,8 @@ function init() {
     createPersonForm.onsubmit = function (evt) {
         evt.preventDefault();
 
-        playAudioForward();
+        playLoadingAudio();
         showWaitingForPlayers();
-        timeOut();
         let data = {
             token : tokenIn.value,
             person : {
@@ -52,7 +65,36 @@ function init() {
 
 }
 
+let selector = document.querySelectorAll('a');
+document.querySelector('#createPersonForm input[type=submit]').addEventListener('mouseover', playAudioHover);
+for (let i = 0; i < selector.length; i++) {
+    selector[i].addEventListener('mouseover', playAudioHover);
+}
+
 let allowAudio = true;
+let allowMusic = true;
+
+let audioStatus;
+let themeStatus;
+let musicStatus;
+
+let music = new Audio('assets/audios/bgmusic.mp3');
+
+function playMusic() {
+    if (allowMusic) {
+        music.volume = 0.2;
+        music.loop = true;
+        music.autoplay = true;
+    }
+}
+
+function playAudioHover() {
+    if (allowAudio) {
+        let audioHover = new Audio('assets/audios/hover.mp3');
+        audioHover.volume = 0.5;
+        audioHover.play();
+    }
+}
 
 function playAudioForward() {
     if (allowAudio) {
@@ -63,8 +105,15 @@ function playAudioForward() {
 
 function playAudioBack() {
     if (allowAudio) {
-        let audioBack = new Audio('assets/audios/click-back.mp3');
+        let audioBack = new Audio('assets/audios/click-forward.mp3');
         audioBack.play();
+    }
+}
+
+function playLoadingAudio() {
+    if (allowAudio) {
+        let audioLoading = new Audio('assets/audios/loading.mp3');
+        audioLoading.play();
     }
 }
 
@@ -81,56 +130,102 @@ function timeOut() {
 function showRules() {
     playAudioForward();
     document.getElementById('rules').classList.remove('hidden');
-    document.querySelector('main').classList.add('hidden');
+    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('title').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('mainMenu').style.pointerEvents = 'none';
+    document.getElementById('gameMode').style.pointerEvents = 'none';
 }
 
-const settingButtonsP = document.querySelector('#settingButtons p');
+function showSettings() {
+    playAudioForward();
+    getCurrentSettings();
+    document.getElementById('mainMenu').style.pointerEvents = 'none';
+    document.getElementById('gameMode').style.pointerEvents = 'none';
+    document.getElementById('settings').classList.remove('hidden');
+    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('title').style.filter = 'blur(3px) brightness(50%)';
+}
+
+function confirmExit() {
+    playAudioForward();
+    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('gameMode').style.pointerEvents = 'none';
+    document.getElementById('exit').classList.remove('hidden');
+    document.getElementById('mainMenu').style.pointerEvents = 'none';
+    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('title').style.filter = 'blur(3px) brightness(50%)';
+}
+
+
 function clearHTML() {
-    document.getElementById('cancel').classList.add('hidden');
     document.querySelectorAll('#bottom p').innerHTML = '';
     settingButtonsP.innerHTML = '';
     document.getElementById('wait').classList.add('hidden');
     document.getElementById('wait').classList.remove('flex');
 }
 
-let changesSaved = false;
-
 function goBack(id) {
 
     playAudioBack();
-    clearTimeout(timeVar);
     clearHTML();
 
     let screen = [
         "mainMenu",
         "rules",
         "settings",
+        "exit",
         "gameMode",
         "createPersonForm",
     ];
     document.getElementById(screen[id]).classList.add('hidden');
-    if (screen[id] === "gameMode") {
-        document.getElementById(screen[id - 3]).classList.remove('hidden');
+    if (screen[id] === "rules" || screen[id] === 'exit') {
+        document.getElementById('mainMenu').style.filter = '';
 
+    } else if (screen[id] === "gameMode") {
+        document.getElementById('Single Player').style.border = '';
+        document.getElementById('Online').style.border = '';
     } else if (screen[id] === "settings") {
-        if (!changesSaved) {
-            removeChanges();
-        } else {
-            changesSaved = false;
-        }
-        document.getElementById(screen[id - 2]).classList.remove('hidden');
+        setTheme(themeStatus);
+        setAudio(audioStatus);
+        setMusic(musicStatus);
+        document.getElementById('mainMenu').style.filter = '';
     } else {
-        document.getElementById(screen[id - 1]).classList.remove('hidden');
+        document.getElementById(screen[id - 1]).classList.remove('hidden')
     }
-    document.querySelector('main').classList.remove('hidden');
+    document.getElementById('title').style.filter = '';
+    document.getElementById('gameMode').style.filter = '';
+    document.getElementById('mainMenu').style.filter = '';
+    document.getElementById('mainMenu').style.pointerEvents = '';
+    document.getElementById('gameMode').style.pointerEvents = '';
 }
-
-let audioStatus;
-let themeStatus;
 
 function getCurrentSettings() {
     audioStatus = document.getElementById('sound').value;
     themeStatus = document.getElementById('theme').value;
+    musicStatus = document.getElementById('music').value;
+}
+
+document.getElementById('createPersonForm').addEventListener('change', getFormInfo);
+
+function getFormInfo() {
+    let name = document.getElementById('name').value;
+    let age = document.getElementById('age').value;
+    let token = document.getElementById('token').value;
+    let formInfo = [name, age, token];
+
+    localStorage.setItem('formInfo', JSON.stringify(formInfo));
+}
+
+function changeMusic() {
+    let newMusicValue;
+    if (document.getElementById('music').value === 'Enabled') {
+        newMusicValue = 'Disabled';
+    } else {
+        newMusicValue = 'Enabled';
+    }
+    setMusic(newMusicValue);
 }
 
 function changeAudio() {
@@ -143,117 +238,114 @@ function changeAudio() {
     setAudio(newAudioValue)
 }
 
-let borders = ['main', 'input', '#mainMenu a', '#rules', '#rules div a', '#settingButtons a', '#settings form input',
-    '#gameMode a', '.back', '#bottom .back', '#infoBox', '#cancel'];
-let textColors = ['h2', 'input', '#mainMenu a', '#rules div a', '#rules h1', '#rules h4', '#rules h5', '#rules p',
-    '#rules ul', '#settings p', '#settings label', '#settings form input', '#settingButtons a', '#gameMode a', '.back',
-    '#bottom .back', '#bottom p', '#infoBox', '#createPersonForm label', '#createPersonForm p', '#response'];
-let backgrounds = ['input[type=text]', 'input[type=number]'];
+let video = document.getElementById('backgroundVideo');
+let source = document.createElement('source');
 
 function changeTheme() {
     let themeValue = document.getElementById('theme').value;
-    let themes = ['Khaki', 'Orange', 'Red', 'Green', 'Navy', 'Purple', 'White'];
-    if (themes.indexOf(themeValue) === themes.length - 1) {
-        document.getElementById('theme').value = 'Khaki';
+    let values = ['Rain', 'Wild', 'Magic', 'Desert'];
+    let themeId = values.indexOf(themeValue);
+    let newThemeId;
+    if (themeId === values.length - 1) {
+        newThemeId = 0;
     } else {
-        document.getElementById('theme').value = themes[themes.indexOf(themeValue) + 1];
+        newThemeId = themeId + 1;
     }
 
-    themeValue = document.getElementById('theme').value;
+    let newThemeValue = values[newThemeId];
 
-    setTheme(themeValue);
-
+    setTheme(newThemeValue);
 }
+
+function setMusic(value) {
+    document.getElementById('music').value = value;
+    if (value === 'Disabled') {
+        allowMusic = false;
+        music.pause();
+    } else {
+        music.play();
+        allowMusic = true;
+        music.autoplay = true;
+        music.volume = 0.2;
+        music.loop = true;
+    }
+}
+
 
 function setAudio(value) {
     document.getElementById('sound').value = value;
-    let audioStyle = document.getElementById('sound').style;
-    if (value === 'Enabled') {
-        allowAudio = true;
-        audioStyle.borderColor = '#00ff00';
-        audioStyle.color = '#00ff00';
-    } else {
-        allowAudio = false;
-        audioStyle.borderColor = '#ff0000';
-        audioStyle.color = "#ff0000";
-    }
+    allowAudio = value === 'Enabled';
 }
 
 function setTheme(value) {
-    document.getElementById('theme').value = value;
+    let videos = ['rain.mp4', 'wild.mp4', 'magic.mp4', 'desert.mp4'];
+    let values = ['Rain', 'Wild', 'Magic', 'Desert'];
+    let newThemeId = values.indexOf(value);
 
-    for (let i = 0; i < borders.length; i++) {
-        let selector = document.querySelectorAll(borders[i]);
-        for (let i = 0; i < selector.length; i++) {
-            selector[i].style.borderColor = value;
-        }
-    }
-
-    for (let i = 0; i < textColors.length; i++) {
-        let selector = document.querySelectorAll(textColors[i]);
-        for (let i = 0; i < selector.length; i++) {
-            selector[i].style.color = value;
-        }
-    }
-
-    for (let i = 0; i < backgrounds.length; i++) {
-        let selector = document.querySelectorAll(backgrounds[i]);
-        for (let i = 0; i < selector.length; i++) {
-            selector[i].style.backgroundColor = value;
-            selector[i].style.color = 'Black';
-        }
-    }
-
-    setConstColors();
-}
-
-function setConstColors() {
-    document.getElementById('cancel').style.borderColor = 'red';
-    let audioValue = document.getElementById('sound').value;
-    let audioStyle = document.getElementById('sound').style;
-    if (audioValue === 'Enabled') {
-        audioStyle.color = '#00ff00';
-        audioStyle.borderColor = '#00ff00'
+    source.setAttribute('src', `assets/videos/${videos[newThemeId]}`);
+    video.appendChild(source);
+    if (values[newThemeId] === 'Wild') {
+        video.style.transform = 'scale(-1, 1)';
     } else {
-        audioStyle.color = '#ff0000';
-        audioStyle.borderColor = '#ff0000';
+        video.style.transform = '';
     }
-}
+    video.load();
+    video.play();
+    video.loop = true;
 
-function showSettings() {
-    playAudioForward();
-    getCurrentSettings();
-    document.getElementById('mainMenu').classList.add('hidden');
-    document.getElementById('settings').classList.remove('hidden');
-    console.log(audioStatus, themeStatus)
+    document.getElementById('theme').value = values[newThemeId];
+    let titleColor;
+    switch (values.indexOf(value)) {
+        case 0:
+            titleColor = 'rgba(255, 140, 26, 0.6)';
+            break;
+        case 1:
+            titleColor = "rgba(255, 77, 77, 0.6)";
+            break;
+        case 2:
+            titleColor = "rgba(179, 0, 179, 0.6)";
+            break;
+        case 3:
+            titleColor = "rgba(51, 51, 255, 0.6)";
+            break;
+    }
+    document.getElementById('title').style.color = titleColor;
 }
 
 function saveChanges() {
     playAudioForward();
-    changesSaved = true;
-    document.querySelector('#settingButtons p').style.color = '#00ff00';
     document.querySelector('#settingButtons p').innerHTML = `Changes saved!`;
     getCurrentSettings();
-    settings = [audioStatus, themeStatus];
+    settings = [themeStatus, audioStatus, musicStatus];
     localStorage.setItem('settings', JSON.stringify(settings));
-}
-
-function removeChanges() {
-    setAudio(audioStatus);
-    setTheme(themeStatus);
 }
 
 function resetSettings() {
     setAudio('Enabled');
-    setTheme('Khaki');
+    setMusic('Enabled');
+    setTheme('Rain');
 }
 
 function showGameMode(id) {
     playAudioForward();
-    document.getElementById('mainMenu').classList.add('hidden');
+    let otherId;
+
+    if (id === 'Single Player') {
+        otherId = 'Online'
+    } else {
+        otherId = 'Single Player'
+    }
+
+
     document.getElementById('gameMode').classList.remove('hidden');
-    document.querySelector('#bottom p').innerHTML = `${id}`;
-    console.log(document.querySelector('#bottom'))
+    if (document.getElementById(otherId).style.border !== '') {
+        document.getElementById(otherId).style.border = '';
+        document.getElementById(id).style.border = '3px solid rgba(204, 217, 255, 1)';
+    } else {
+        document.getElementById(id).style.border = '3px solid rgba(204, 217, 255, 1)';
+    }
+
+    document.querySelector('#gameMode h3').innerHTML = `${id}`;
 }
 
 function showModeDetails(i) {
@@ -273,31 +365,48 @@ function hideModeDetails() {
 function showForm(gameMode) {
     playAudioForward();
     let element = document.getElementById("createPersonForm");
-    let toRemove = document.getElementById("gameMode");
     let addMode = document.querySelector('#createPersonForm p');
     element.classList.remove("hidden");
-    toRemove.classList.add("hidden");
-    addMode.innerHTML = '';
+    document.querySelector('#createPersonForm span').innerHTML = '';
     addMode.innerHTML = `Game mode: ${gameMode}`;
-    console.log(addMode)
+
+    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('gameMode').style.pointerEvents = 'none';
+    document.getElementById('mainMenu').style.pointerEvents = 'none';
+    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('title').style.filter = 'blur(3px) brightness(50%)';
 
 }
 
 function showWaitingForPlayers() {
     let element = document.getElementById('wait');
     element.classList.remove('hidden');
-    element.classList.add('flex');
-    element.innerHTML = `<h1>Waiting for second player...</h1><div class="loader"></div>`;
+    document.querySelector('#wait h1').innerHTML = `Waiting for second player...`;
     element.style.color = "#ffffff";
-    document.getElementById('cancel').classList.remove('hidden');
+    document.getElementById('gameMode').style.pointerEvents = 'none';
+    document.getElementById('mainMenu').style.pointerEvents = 'none';
+    document.getElementById('createPersonForm').style.pointerEvents = 'none';
+    document.getElementById('createPersonForm').style.filter = 'blur(3px) brightness(30%)';
+    document.getElementById('title').style.filter = 'blur(3px) brightness(30%)';
+    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(30%)';
+    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(30%)';
+    document.getElementById('backgroundVideo').style.filter = 'blur(8px) brightness(30%)';
+    timeOut();
 }
 
 function cancelSearch() {
     playAudioBack();
-    document.getElementById('wait').innerHTML = `<h1>Search canceled.</h1>`;
-    document.getElementById('wait').style.color = "#ff0000";
-    document.getElementById('cancel').classList.add('hidden');
-    clearTimeout(timeVar)
+    document.querySelector('#buttons span').innerHTML = `<h1>Search canceled.</h1>`;
+    document.querySelector('#buttons span').style.color = 'rgba(255, 77, 77, 0.8)';
+    document.getElementById('createPersonForm').style.pointerEvents = '';
+    document.getElementById('wait').classList.add('hidden');
+    document.getElementById('createPersonForm').style.filter = '';
+    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('title').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('backgroundVideo').style.filter = 'blur(7px)';
+    clearTimeout(timeVar);
 }
 
 function showGameMode(id) {

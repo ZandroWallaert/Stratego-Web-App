@@ -1,0 +1,450 @@
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(26, 144, 255, 0.25);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(26, 144, 255, 0.75);
+}
+
+body {
+    font-family: "Bahnschrift Light", sans-serif;
+    color: #ccd9ff;
+    background-color: black;
+    user-select: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.back, #rules a, input[type=submit], #cancel {
+    text-decoration: none;
+    background-color: rgba(77, 169, 255, 0.2);
+    color: rgba(153, 206, 255, 1);
+    border: 3px solid rgba(26, 144, 255, 0.25);
+    padding: 10px 15px;
+    transition: 0.25s;
+    font-size: 1rem;
+}
+
+.back:hover, #rules a:hover, input[type=submit]:hover, #cancel:hover {
+    background-color: rgba(77, 169, 255, 0.7);
+    color: rgba(0, 40, 77, 1);
+}
+
+#backgroundVideo {
+    filter: blur(7px);
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    animation: fadein 1s;
+}
+
+#title {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    color: rgba(255, 140, 26, 0.6);
+    font-family: "Berlin Sans FB Demi", sans-serif;
+    font-size: 5rem;
+    font-style: italic;
+    font-weight: bolder;
+    top: 40%;
+    margin-right: 100px;
+    animation: fadein 1.3s;
+}
+
+#title h3 {
+    font-size: 2rem;
+    float: right;
+    font-style: normal;
+}
+
+#mainMenu {
+    position: absolute;
+    height: 100%;
+    width: 400px;
+    bottom: 0;
+    background: rgba(26, 144, 255, 0.25);
+    padding: 20px;
+    animation: fadein 1.3s;
+    border-right: 7px solid rgba(26, 144, 255, 0.6);
+}
+
+#mainMenu h1 {
+    font-family: "Bookman Old Style", sans-serif;
+    text-transform: uppercase;
+    margin-top: 30px;
+    margin-left: 40px;
+    font-size: 3rem;
+    color: #ccd9ff;
+    opacity: 0.8;
+}
+
+#mainMenu a {
+    color: #ccd9ff;
+    font-size: 1.8rem;
+    margin: 10px 40px 10px 40px;
+    border: 3px solid transparent;
+    height: 40px;
+    text-decoration: none;
+    display: block;
+    padding: 20px 20px 10px 20px;
+    opacity: 0.5;
+    transition: 0.25s;
+    text-align: right;
+}
+
+#mainMenu a:first-of-type {
+    margin-top: 40px;
+}
+
+#mainMenu a:hover {
+    background-color: rgba(128, 193, 255, 0.5);
+    opacity: 1;
+}
+
+#gameMode {
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(26, 144, 255, 0.1);
+    border-right: 4px solid rgba(26, 144, 255, 0.25);
+    color: rgba(102, 153, 255, 0.5);
+    margin-left: 440px;
+    bottom: 0;
+    width: 500px;
+    min-height: 100%;
+}
+
+#gameMode h2 {
+    font-size: 3rem;
+    font-weight: bolder;
+    font-style: italic;
+    margin-top: 20px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid rgba(0, 13, 26, 1);
+    text-indent: 40px;
+}
+
+#gameMode h3 {
+    font-size: 3rem;
+    font-weight: bold;
+    bottom: 0;
+    margin: 20px 30px;
+}
+
+#gameMode a {
+    background-color: rgba(0, 66, 128, 0.50);
+    border: 5px solid rgba(77, 169, 255, 0.50);
+    text-decoration: none;
+    display: inline-block;
+    margin: 20px auto 0 80px;
+    border-radius: 5px;
+    padding: 0 20px 10px 20px;
+    left: 50%;
+    width: 300px;
+    transition: 0.25s;
+}
+
+#gameMode img {
+    pointer-events: none;
+    width: 300px;
+    height: 150px;
+}
+
+#gameMode .back {
+    width: 42px;
+    height: 26px;
+    padding-top: 15px;
+    margin-left: 40px;
+}
+
+#gameMode a:hover {
+    background-color: rgba(77, 169, 255, 1);
+    color: rgba(0, 40, 77, 1);
+}
+
+#infoBox {
+    position: fixed;
+    color: rgba(102, 153, 255, 0.5);
+    font-size: 1.9rem;
+    bottom: 0;
+    margin: 50px 40px;
+    width: 480px;
+    animation: fadein 0.2s
+}
+
+#rules, #settings {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    background-color: rgba(0, 66, 128, 0.8);
+    border-radius: 7px;
+    border: 7px solid rgba(77, 169, 255, 0.50);
+    color: rgba(153, 206, 255, 0.7);
+    padding: 30px 40px 30px 40px;
+    animation: fadein 0.3s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#rules h1, #settings h1 {
+    font-size: 2rem;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+#rules h2 {
+    text-align: left;
+    font-size: 1.7rem;
+    text-decoration: none;
+    margin-bottom: 15px;
+}
+
+#rules h4 {
+    font-size: 1.4rem;
+    margin-top: 10px;
+}
+
+#rules h5 {
+    font-size: 1.2rem;
+    padding-top: 5px;
+}
+
+#rules p {
+    font-family: "Bahnschrift Light", sans-serif;
+    line-height: 18px;
+    margin: 15px 0 15px 0;
+}
+
+#rules ul {
+    margin: 15px 0 15px 40px;
+    font-family: "Bahnschrift Light", sans-serif;
+    font-size: 1.1rem;
+    line-height: 23px;
+    list-style-type: disc;
+}
+
+#settings p {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+#settings form {
+    margin-top: 30px;
+}
+
+#settings form div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 10px 0 10px 0;
+}
+
+#settings form input[type=button] {
+    background-color: rgba(77, 169, 255, 0.2);
+    color: rgba(153, 206, 255, 1);
+    border: 3px solid rgba(26, 144, 255, 0.25);
+    width: 90px;
+    height: 40px;
+    font-family: "Bahnschrift", sans-serif;
+    font-size: 1rem;
+    padding: auto;
+    border-radius: 5px;
+
+}
+
+#settings #reset {
+    width: 110px;
+    margin-top: 20px;
+}
+
+#settingButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 150px;
+    height: 45px;
+}
+
+#settingButtons a {
+    text-decoration: none;
+    background: rgba(77, 169, 255, 0.2);
+    border: 3px solid rgba(26, 144, 255, 0.25);
+    border-radius: 5px;
+    color: rgba(153, 206, 255, 1);
+    margin: 0 40px 0 40px;
+    padding: 10px 20px 10px 20px;
+    transition: 0.25s;
+}
+
+#settingButtons a:hover {
+    background: rgba(26, 144, 255, 0.9);
+    border: 3px solid rgba(26, 144, 255, 0.9);
+    color: black;
+}
+
+#settingButtons p {
+    margin: 0;
+    padding: 10px 20px 10px 20px;
+}
+
+#exit {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 130px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
+    background-color: rgba(0, 66, 128, 0.50);
+    border-radius: 7px;
+    border: 7px solid rgba(77, 169, 255, 0.50);
+    color: rgba(153, 206, 255, 0.7);
+    padding: 30px 40px 20px 40px;
+    animation: fadein 0.3s;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+#exit div {
+    margin-top: 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#exit a {
+    text-decoration: none;
+    background: rgba(77, 169, 255, 0.2);
+    border: 3px solid rgba(26, 144, 255, 0.25);
+    border-radius: 5px;
+    color: rgba(153, 206, 255, 1);
+    padding: 10px 20px;
+    transition: 0.25s;
+    font-weight: normal;
+}
+
+#exit a:hover {
+    background: rgba(26, 144, 255, 0.9);
+    border: 3px solid rgba(26, 144, 255, 0.9);
+    color: black;
+}
+
+#createPersonForm {
+    position: absolute;
+    z-index: 7;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 350px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    background-color: rgba(0, 66, 128, 0.8);
+    border-radius: 7px;
+    border: 7px solid rgba(77, 169, 255, 0.50);
+    color: rgba(153, 206, 255, 0.7);
+    padding: 30px 40px 30px 40px;
+    animation: fadein 0.3s;
+}
+
+#createPersonForm label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 2rem;
+}
+
+#createPersonForm p {
+    margin-top: 10px;
+    font-size: 2rem;
+}
+
+#createPersonForm form {
+    padding: 10px 20px 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+input[type=text], input[type=number] {
+    font-family: "Bahnschrift Light", sans-serif;
+    background-color: rgba(204, 217, 255, 0.8);
+    color: black;
+    border: 2px solid rgba(77, 169, 255, 0.50);
+    border-radius: 5px;
+    width: 100%;
+}
+
+input[type=text]:focus, input[type=number]:focus {
+    background-color: rgba(77, 169, 255, 0.9);
+    border-radius: 5px;
+}
+
+#buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#wait {
+    position: absolute;
+    z-index: 7;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: auto;
+    margin-right: auto;
+    width: 180px;
+    height: 180px;
+    background-color: rgba(0, 66, 128, 0.8);
+    border-radius: 7px;
+    border: 7px solid rgba(77, 169, 255, 0.50);
+    color: rgba(153, 206, 255, 0.7);
+    padding: 18px;
+    animation: fadein 1.5s;
+}
+
+#wait h1 {
+    color: rgba(153, 206, 255, 0.7);
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+#wait #cancel {
+    margin-left: 50px;
+}
