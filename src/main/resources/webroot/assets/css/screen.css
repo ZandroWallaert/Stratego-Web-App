@@ -16,11 +16,7 @@ body{
 }
 
 ::-webkit-scrollbar-thumb {
-    background: khaki;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: khaki;
+    background: white;
 }
 
 main{
@@ -35,7 +31,7 @@ main{
 
 h2 {
     padding-top: 10px;
-    text-decoration: underline khaki;
+    text-decoration: underline;
     color: khaki;
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
     font-size: 2.5rem;
@@ -47,13 +43,7 @@ form {
     display: flex;
     flex-direction: column;
 }
-label{
-    margin-top: 10px;
-    margin-bottom: 15px;
-    display: block;
-    font-size: 2rem;
-    color: khaki;
-}
+
 input[type=text],input[type=number]{
     font-family: "Cooper Black", sans-serif;
     align-items: center;
@@ -182,7 +172,7 @@ input[type=submit]:hover, .back:hover, #gameMode .back:hover {
 #rules h1 {
     font-size: 2rem;
     color: khaki;
-    text-decoration: underline khaki;
+    text-decoration: underline;
     text-align: center;
     padding-bottom: 30px;
 }
@@ -228,10 +218,50 @@ input[type=submit]:hover, .back:hover, #gameMode .back:hover {
     color: khaki;
 }
 
+#settings form {
+    margin-top: 30px;
+}
+
+#settings form div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 10px 0 10px 0;
+}
+
+#settings label {
+    margin-left: 40px;
+    color: khaki;
+    font-size: 1.5rem;
+}
+
+#settings form input[type=button] {
+    background-color: black;
+    border: khaki solid;
+    color: khaki;
+    width: 90px;
+    height: 40px;
+    font-family: "Cooper Black", sans-serif;
+    font-size: 1rem;
+    padding: auto;
+    border-radius: 5px;
+    margin-right: 40px;
+}
+
+#settings form #reset {
+    width: 130px;
+    margin-left: 30px;
+}
+
+#settings form #sound {
+    border: #00ff00 solid;
+    color: #00ff00;
+}
+
 #settingButtons {
     display: flex;
     justify-content: space-between;
-    margin-top: 300px;
+    margin: 130px 40px 0 40px;
     height: 45px;
 }
 
@@ -241,7 +271,6 @@ input[type=submit]:hover, .back:hover, #gameMode .back:hover {
     border: solid khaki;
     border-radius: 5px;
     color: khaki;
-    margin: 0 40px 0 40px;
     padding: 10px 20px 10px 20px;
 }
 
@@ -317,6 +346,14 @@ input[type=submit]:hover, .back:hover, #gameMode .back:hover {
 
 #infoBox p {
     padding: 20px;
+}
+
+#createPersonForm label {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    display: block;
+    font-size: 2rem;
+    color: khaki;
 }
 
 #createPersonForm p {
