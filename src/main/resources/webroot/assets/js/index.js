@@ -171,7 +171,7 @@ function confirmExit() {
 
 function clearHTML() {
     document.querySelectorAll('#bottom p').innerHTML = '';
-    document.querySelector('#settingButtons p').innerHTML = '';
+    settingButtonsP.innerHTML = '';
     document.getElementById('wait').classList.add('hidden');
     document.getElementById('wait').classList.remove('flex');
 }
@@ -426,4 +426,26 @@ function cancelSearch() {
     document.getElementById('title').style.filter = bgStyle;
     document.getElementById('backgroundVideo').style.filter = 'blur(7px)';
     clearTimeout(timeVar);
+}
+
+function showGameMode(id) {
+    document.getElementById('mainMenu').classList.add('hidden');
+    document.getElementById('gameMode').classList.remove('hidden');
+    document.querySelector('#bottom p').innerHTML = `${id}`;
+    console.log(document.querySelector('#bottom'))
+}
+
+function showRules() {
+    document.getElementById('rules').classList.remove('hidden');
+    document.querySelector('main').classList.add('hidden');
+}
+
+function showSettings() {
+    document.getElementById('mainMenu').classList.add('hidden');
+    document.getElementById('settings').classList.remove('hidden');
+}
+
+function saveChanges() {
+    settingButtonsP.style.color = '#00ff00';
+    settingButtonsP.innerHTML = `Changes saved!`;
 }

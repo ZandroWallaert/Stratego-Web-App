@@ -22,12 +22,12 @@ function setupBoard() {
     }
 }
 
+let getImageSwitch;
+
 function turnOffImageSwitch() {
     getImageSwitch = false;
     getImageSRC();
 }
-
-let getImageSwitch;
 
 function getImageSRC() {
     let getSRC = null;
