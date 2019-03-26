@@ -14,7 +14,7 @@ function init() {
     }
 
     setTheme(settings[0]);
-    setAudio(settings[1]);
+    setSfx(settings[1]);
     setMusic(settings[2]);
 
     formInfo = JSON.parse(localStorage.getItem('formInfo'));
@@ -24,6 +24,7 @@ function init() {
         document.getElementById('token').value = formInfo[2];
     }
 
+    preventEarlyEvents();
     playMusic();
 
     document.getElementById('backgroundVideo').style.pointerEvents = 'none';
@@ -70,15 +71,23 @@ document.querySelector('#createPersonForm input[type=submit]').addEventListener(
 for (let i = 0; i < selector.length; i++) {
     selector[i].addEventListener('mouseover', playAudioHover);
 }
+document.getElementById('Secret').removeEventListener('mouseover', playAudioHover);
 
 let allowAudio = true;
 let allowMusic = true;
 
-let audioStatus;
+let sfxStatus;
 let themeStatus;
 let musicStatus;
 
 let music = new Audio('assets/audios/bgmusic.mp3');
+
+function preventEarlyEvents() {
+    document.body.style.pointerEvents = 'none';
+    setTimeout(() => {
+        document.body.style.pointerEvents = 'auto';
+    }, 4000)
+}
 
 function playMusic() {
     if (allowMusic) {
@@ -126,13 +135,14 @@ function timeOut() {
     }, 5000)
 }
 
+let bgStyle = 'blur(3px) brightness(50%)';
 
 function showRules() {
     playAudioForward();
     document.getElementById('rules').classList.remove('hidden');
-    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
-    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(50%)';
-    document.getElementById('title').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('mainMenu').style.filter = bgStyle;
+    document.getElementById('gameMode').style.filter = bgStyle;
+    document.getElementById('title').style.filter = bgStyle;
     document.getElementById('mainMenu').style.pointerEvents = 'none';
     document.getElementById('gameMode').style.pointerEvents = 'none';
 }
@@ -143,19 +153,19 @@ function showSettings() {
     document.getElementById('mainMenu').style.pointerEvents = 'none';
     document.getElementById('gameMode').style.pointerEvents = 'none';
     document.getElementById('settings').classList.remove('hidden');
-    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
-    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(50%)';
-    document.getElementById('title').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('mainMenu').style.filter = bgStyle;
+    document.getElementById('gameMode').style.filter = bgStyle;
+    document.getElementById('title').style.filter = bgStyle;
 }
 
 function confirmExit() {
     playAudioForward();
-    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.pointerEvents = 'none';
     document.getElementById('exit').classList.remove('hidden');
     document.getElementById('mainMenu').style.pointerEvents = 'none';
-    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(50%)';
-    document.getElementById('title').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('gameMode').style.filter = bgStyle;
+    document.getElementById('title').style.filter = bgStyle;
 }
 
 
@@ -165,6 +175,8 @@ function clearHTML() {
     document.getElementById('wait').classList.add('hidden');
     document.getElementById('wait').classList.remove('flex');
 }
+
+let video = document.getElementById('backgroundVideo');
 
 function goBack(id) {
 
@@ -186,10 +198,14 @@ function goBack(id) {
     } else if (screen[id] === "gameMode") {
         document.getElementById('Single Player').style.border = '';
         document.getElementById('Online').style.border = '';
+        document.getElementById('mainMenu').style.borderRight = '7px solid rgba(26, 144, 255, 0.6)';
     } else if (screen[id] === "settings") {
-        setTheme(themeStatus);
-        setAudio(audioStatus);
+        setSfx(sfxStatus);
         setMusic(musicStatus);
+        if (themeStatus !== document.getElementById('theme').value) {
+            video.load();
+            setTheme(themeStatus);
+        }
         document.getElementById('mainMenu').style.filter = '';
     } else {
         document.getElementById(screen[id - 1]).classList.remove('hidden')
@@ -202,7 +218,7 @@ function goBack(id) {
 }
 
 function getCurrentSettings() {
-    audioStatus = document.getElementById('sound').value;
+    sfxStatus = document.getElementById('sound').value;
     themeStatus = document.getElementById('theme').value;
     musicStatus = document.getElementById('music').value;
 }
@@ -228,17 +244,16 @@ function changeMusic() {
     setMusic(newMusicValue);
 }
 
-function changeAudio() {
+function changeSfx() {
     let newAudioValue;
     if (document.getElementById('sound').value === 'Enabled') {
         newAudioValue = 'Disabled';
     } else {
         newAudioValue = 'Enabled';
     }
-    setAudio(newAudioValue)
+    setSfx(newAudioValue)
 }
 
-let video = document.getElementById('backgroundVideo');
 let source = document.createElement('source');
 
 function changeTheme() {
@@ -272,7 +287,7 @@ function setMusic(value) {
 }
 
 
-function setAudio(value) {
+function setSfx(value) {
     document.getElementById('sound').value = value;
     allowAudio = value === 'Enabled';
 }
@@ -289,6 +304,8 @@ function setTheme(value) {
     } else {
         video.style.transform = '';
     }
+    console.log(themeStatus);
+    console.log(value);
     video.load();
     video.play();
     video.loop = true;
@@ -316,14 +333,16 @@ function saveChanges() {
     playAudioForward();
     document.querySelector('#settingButtons p').innerHTML = `Changes saved!`;
     getCurrentSettings();
-    settings = [themeStatus, audioStatus, musicStatus];
+    settings = [themeStatus, sfxStatus, musicStatus];
     localStorage.setItem('settings', JSON.stringify(settings));
 }
 
 function resetSettings() {
-    setAudio('Enabled');
+    setSfx('Enabled');
     setMusic('Enabled');
-    setTheme('Rain');
+    if (document.getElementById('theme').value !== 'Rain') {
+        setTheme('Rain');
+    }
 }
 
 function showGameMode(id) {
@@ -344,15 +363,15 @@ function showGameMode(id) {
     } else {
         document.getElementById(id).style.border = '3px solid rgba(204, 217, 255, 1)';
     }
-
-    document.querySelector('#gameMode h3').innerHTML = `${id}`;
+    document.getElementById('mainMenu').style.borderRight = 'none';
 }
 
 function showModeDetails(i) {
     let info = [
         "Capture the flag using all of the pieces except the infiltrator.",
         "Capture the flag using 10 specific pieces.",
-        "Capture the flag with only 7 scouts and the Infiltrator."
+        "Capture the flag with only 7 scouts and the Infiltrator.",
+        "Locked mode."
     ];
     document.getElementById('infoBox').classList.remove('hidden');
     document.querySelector('#infoBox').innerHTML = `<p>${info[i]}</p>`;
@@ -370,12 +389,12 @@ function showForm(gameMode) {
     document.querySelector('#createPersonForm span').innerHTML = '';
     addMode.innerHTML = `Game mode: ${gameMode}`;
 
-    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.pointerEvents = 'none';
-    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
-    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(50%)';
-    document.getElementById('title').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('mainMenu').style.filter = bgStyle;
+    document.getElementById('gameMode').style.filter = bgStyle;
+    document.getElementById('title').style.filter = bgStyle;
 
 }
 
@@ -402,9 +421,9 @@ function cancelSearch() {
     document.getElementById('createPersonForm').style.pointerEvents = '';
     document.getElementById('wait').classList.add('hidden');
     document.getElementById('createPersonForm').style.filter = '';
-    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(50%)';
-    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(50%)';
-    document.getElementById('title').style.filter = 'blur(3px) brightness(50%)';
+    document.getElementById('mainMenu').style.filter = bgStyle;
+    document.getElementById('gameMode').style.filter = bgStyle;
+    document.getElementById('title').style.filter = bgStyle;
     document.getElementById('backgroundVideo').style.filter = 'blur(7px)';
     clearTimeout(timeVar);
 }
