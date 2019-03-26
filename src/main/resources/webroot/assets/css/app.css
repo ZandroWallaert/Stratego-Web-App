@@ -1,3 +1,8 @@
+* {
+    cursor: url(../media/cursor.png), pointer;
+    outline: none;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -13,6 +18,38 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(26, 144, 255, 0.75);
+}
+
+@keyframes delayFadein {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(600px);
+    }
 }
 
 body {
@@ -49,7 +86,7 @@ body {
     bottom: 0;
     min-width: 100%;
     min-height: 100%;
-    animation: fadein 1s;
+    animation: fadein 3s;
 }
 
 #title {
@@ -63,7 +100,7 @@ body {
     font-weight: bolder;
     top: 40%;
     margin-right: 100px;
-    animation: fadein 1.3s;
+    animation: delayFadein 6s;
 }
 
 #title h3 {
@@ -77,10 +114,10 @@ body {
     height: 100%;
     width: 400px;
     bottom: 0;
-    background: rgba(26, 144, 255, 0.25);
-    padding: 20px;
-    animation: fadein 1.3s;
+    background: rgba(26, 144, 255, 0.3);
     border-right: 7px solid rgba(26, 144, 255, 0.6);
+    padding: 20px;
+    animation: delayFadein 6s;
 }
 
 #mainMenu h1 {
@@ -119,30 +156,33 @@ body {
 #gameMode {
     position: absolute;
     z-index: 2;
-    background-color: rgba(26, 144, 255, 0.1);
-    border-right: 4px solid rgba(26, 144, 255, 0.25);
+    background: linear-gradient(to right, rgba(26, 144, 255, 0.3) 80%, rgba(26, 144, 255, 0) 100%);
     color: rgba(102, 153, 255, 0.5);
     margin-left: 440px;
     bottom: 0;
-    width: 500px;
+    width: 450px;
     min-height: 100%;
+    animation: fadein 0.3s;
 }
 
 #gameMode h2 {
+    font-family: "Bookman Old Style", sans-serif;
+    text-transform: uppercase;
+    color: #ccd9ff;
+    opacity: 0.8;
     font-size: 3rem;
-    font-weight: bolder;
-    font-style: italic;
-    margin-top: 20px;
-    padding-bottom: 15px;
-    border-bottom: 3px solid rgba(0, 13, 26, 1);
-    text-indent: 40px;
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 20px;
 }
 
 #gameMode h3 {
-    font-size: 3rem;
+    font-size: 2rem;
+    color: #ccd9ff;
+    opacity: 0.5;
     font-weight: bold;
     bottom: 0;
-    margin: 20px 30px;
+    margin: 50px 0 0 20px;
 }
 
 #gameMode a {
@@ -150,12 +190,20 @@ body {
     border: 5px solid rgba(77, 169, 255, 0.50);
     text-decoration: none;
     display: inline-block;
-    margin: 20px auto 0 80px;
-    border-radius: 5px;
-    padding: 0 20px 10px 20px;
+    margin-top: 20px;
+    margin-left: 22px;
     left: 50%;
     width: 300px;
+    height: 150px;
+    box-shadow: rgba(0, 0, 0, 0.4) 6px 6px;
     transition: 0.25s;
+}
+
+#gameMode a:hover, #gameMode a:focus {
+    background-color: rgba(77, 169, 255, 1);
+    color: rgba(0, 40, 77, 1);
+    filter: brightness(180%);
+    box-shadow: none;
 }
 
 #gameMode img {
@@ -164,16 +212,63 @@ body {
     height: 150px;
 }
 
-#gameMode .back {
-    width: 42px;
-    height: 26px;
-    padding-top: 15px;
-    margin-left: 40px;
+#gameMode #duelImg {
+    transform: scale(-1, 1);
 }
 
-#gameMode a:hover {
-    background-color: rgba(77, 169, 255, 1);
-    color: rgba(0, 40, 77, 1);
+#gameMode #Secret {
+    filter: brightness(8%);
+    box-shadow: none;
+    margin-bottom: 30px;
+}
+
+#gameMode #Secret:hover {
+    background-color: rgba(0, 66, 128, 0.50);
+    filter: brightness(8%);
+}
+
+#gameMode h4 {
+    position: absolute;
+    pointer-events: none;
+    font-family: "Script MT", serif;
+    font-size: 2rem;
+    color: black;
+    margin-left: 32px;
+}
+
+#gameMode h4:first-of-type {
+    top: 104px;
+}
+
+#gameMode h4:nth-of-type(2) {
+    top: 284px;
+}
+
+#gameMode h4:nth-of-type(3) {
+    top: 464px;
+}
+
+#gameMode h4:nth-of-type(4) {
+    font-family: Impact, sans-serif;
+    font-size: 2rem;
+    margin-left: 116px;
+    top: 700px;
+    color: rgba(255, 77, 77, 0.8);
+    letter-spacing: 5px;
+    filter: brightness(50%);
+    transform: rotate(340deg);
+}
+
+#gameMode .back {
+    position: absolute;
+    width: 42px;
+    height: 22px;
+    padding-top: 15px;
+    margin-top: 196px;
+    margin-left: 22px;
+    left: 0;
+    border-radius: 5px;
+    box-shadow: none;
 }
 
 #infoBox {
@@ -182,7 +277,6 @@ body {
     font-size: 1.9rem;
     bottom: 0;
     margin: 50px 40px;
-    width: 480px;
     animation: fadein 0.2s
 }
 
@@ -206,14 +300,6 @@ body {
     animation: fadein 0.3s;
 }
 
-@keyframes fadein {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
 
 #rules h1, #settings h1 {
     font-size: 2rem;

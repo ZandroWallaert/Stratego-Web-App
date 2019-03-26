@@ -25,6 +25,8 @@
         <a href="#" tabindex="-1" onclick="showSettings()">Settings</a>
         <a href="#" tabindex="-1" onclick="confirmExit()">Exit</a>
     </div>
+    <div id="infoBox" class="hidden">
+    </div>
 </main>
 
 <div id="exit" class="hidden">
@@ -269,8 +271,8 @@
             <input id="theme" type="button" onclick="changeTheme()" value="Rain">
         </div>
         <div>
-            <p>Audio</p>
-            <input id='sound' type="button" onclick="changeAudio()" value="Enabled">
+            <p>Sound effects</p>
+            <input id='sound' type="button" onclick="changeSfx()" value="Enabled">
         </div>
         <div>
             <p>Music</p>
@@ -287,20 +289,23 @@
     </div>
 </div>
 <div id="gameMode" class="hidden">
-    <h2>Select game mode</h2>
-    <h3></h3>
+    <h2>Game mode</h2>
     <a href="#" id="Classic" onclick="showForm(this.id)" onmouseover="showModeDetails(0)"
-       onmouseout="hideModeDetails()" tabindex="-1"><img src="assets/media/classic.png" width="200" height="150"
+       onmouseout="hideModeDetails()" tabindex="-1"><img src="assets/media/classic.jpg"
                                                          alt="classic"></a>
+    <h4>Classic</h4>
     <a href="#" id="Duel" onclick="showForm(this.id)" onmouseover="showModeDetails(1)"
-       onmouseout="hideModeDetails()" tabindex="-1"><img src="assets/media/Duel.png" width="350" height="150"
+       onmouseout="hideModeDetails()" tabindex="-1"><img src="assets/media/duel.jpg" id="duelImg"
                                                          alt="duel"></a>
+    <h4>Duel</h4>
     <a href="#" id="Infiltrator" onclick="showForm(this.id)" onmouseover="showModeDetails(2)"
-       onmouseout="hideModeDetails()" tabindex="-1"><img src="assets/media/infiltrator.png" width="350" height="150"
+       onmouseout="hideModeDetails()" tabindex="-1"><img src="assets/media/infiltrator.jpg"
                                                          alt="infiltrator"></a>
-    <div id="infoBox" class="hidden">
-    </div>
+    <h4>Infiltrator</h4>
+    <a href="#" id="Secret" onmouseover="showModeDetails(3)" onmouseout="hideModeDetails()" tabindex="-1">
+        <img src="assets/media/secretmode.jpg" alt="secret"></a>
     <a href="#" class='back' onclick="goBack(4)" tabindex="-1">Close</a>
+    <h4>LOCKED</h4>
 </div>
 <div>
     <form id="createPersonForm" class="hidden" autocomplete="off">
