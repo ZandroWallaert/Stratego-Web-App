@@ -176,8 +176,6 @@ function clearHTML() {
     document.getElementById('wait').classList.remove('flex');
 }
 
-let video = document.getElementById('backgroundVideo');
-
 function goBack(id) {
 
     playAudioBack();
@@ -254,6 +252,7 @@ function changeSfx() {
     setSfx(newAudioValue)
 }
 
+let video = document.getElementById('backgroundVideo');
 let source = document.createElement('source');
 
 function changeTheme() {
@@ -349,10 +348,10 @@ function showGameMode(id) {
     playAudioForward();
     let otherId;
 
-    if (id === 'Single Player') {
+    if (id === 'SinglePlayer') {
         otherId = 'Online'
     } else {
-        otherId = 'Single Player'
+        otherId = 'SinglePlayer'
     }
 
 
@@ -398,18 +397,20 @@ function showForm(gameMode) {
 
 }
 
+let bgDarkStyle = 'blur(4px) brightness(30%)';
+
 function showWaitingForPlayers() {
     let element = document.getElementById('wait');
     element.classList.remove('hidden');
-    document.querySelector('#wait h1').innerHTML = `Waiting for second player...`;
+    document.querySelector('#wait p').innerHTML = `Waiting for second player...`;
     element.style.color = "#ffffff";
     document.getElementById('gameMode').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.pointerEvents = 'none';
     document.getElementById('createPersonForm').style.pointerEvents = 'none';
-    document.getElementById('createPersonForm').style.filter = 'blur(3px) brightness(30%)';
-    document.getElementById('title').style.filter = 'blur(3px) brightness(30%)';
-    document.getElementById('mainMenu').style.filter = 'blur(3px) brightness(30%)';
-    document.getElementById('gameMode').style.filter = 'blur(3px) brightness(30%)';
+    document.getElementById('createPersonForm').style.filter = bgDarkStyle;
+    document.getElementById('title').style.filter = bgDarkStyle;
+    document.getElementById('mainMenu').style.filter = bgDarkStyle;
+    document.getElementById('gameMode').style.filter = bgDarkStyle;
     document.getElementById('backgroundVideo').style.filter = 'blur(8px) brightness(30%)';
     timeOut();
 }
