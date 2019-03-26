@@ -41,17 +41,6 @@
     }
 }
 
-@keyframes fadeInRight {
-    0% {
-        opacity: 0;
-        transform: translateX(0px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(600px);
-    }
-}
-
 body {
     font-family: "Bahnschrift Light", sans-serif;
     color: #ccd9ff;
@@ -193,8 +182,8 @@ body {
     margin-top: 20px;
     margin-left: 22px;
     left: 50%;
-    width: 300px;
-    height: 150px;
+    width: 240px;
+    height: 120px;
     box-shadow: rgba(0, 0, 0, 0.4) 6px 6px;
     transition: 0.25s;
 }
@@ -208,8 +197,8 @@ body {
 
 #gameMode img {
     pointer-events: none;
-    width: 300px;
-    height: 150px;
+    width: 240px;
+    height: 120px;
 }
 
 #gameMode #duelImg {
@@ -241,18 +230,18 @@ body {
 }
 
 #gameMode h4:nth-of-type(2) {
-    top: 284px;
+    top: 254px;
 }
 
 #gameMode h4:nth-of-type(3) {
-    top: 464px;
+    top: 404px;
 }
 
 #gameMode h4:nth-of-type(4) {
     font-family: Impact, sans-serif;
     font-size: 2rem;
-    margin-left: 116px;
-    top: 700px;
+    margin-left: 90px;
+    top: 592px;
     color: rgba(255, 77, 77, 0.8);
     letter-spacing: 5px;
     filter: brightness(50%);
@@ -299,6 +288,7 @@ body {
     padding: 30px 40px 30px 40px;
     animation: fadein 0.3s;
 }
+
 
 
 #rules h1, #settings h1 {
@@ -524,7 +514,7 @@ input[type=text]:focus, input[type=number]:focus {
     animation: fadein 1.5s;
 }
 
-#wait h1 {
+#wait p {
     color: rgba(153, 206, 255, 0.7);
     margin-bottom: 5px;
     text-align: center;
