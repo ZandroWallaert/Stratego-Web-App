@@ -3,27 +3,23 @@
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
-    getImageSRC();
+    allowDrop();
+    drag();
+    drop();
 }
 
-function getImageSRC() {
-    let getSRC = null;
-    let selectedSRC = null;
-    document.addEventListener('click', first);
-
-    function first(e) {
-        if (e.target.tagName.toUpperCase() === 'IMG') {
-            getSRC = e.target;
-            console.log(getSRC);
-        }
-        e.stopImmediatePropagation();
-        this.removeEventListener("click", first);
-        document.onclick = second;
-    }
-
-    function second(e) {
-        selectedSRC = e.target;
-            console.log(selectedSRC);
-            selectedSRC.appendChild(getSRC);
-    }
+function allowDrop(ev) {
+    ev.preventDefault();
 }
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+function drop(ev) {
+    ev.preventDefault();
+    let data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+    }
+
+
