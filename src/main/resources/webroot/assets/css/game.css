@@ -1,19 +1,15 @@
-table {
-    width: 952px;
-    height: 829px;
-    margin-left: auto;
-    margin-right: auto;
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+    padding: 10px;
+    height: 4000px;
 }
 
-td {
-    height: 80px;
-    width: 80px;
-    border: 1px solid white;
-}
-
-td img {
-    height: 80px;
-    width: 80px;
+.grid-item {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 100px;
+    font-size: 30px;
+    text-align: center;
 }
 
 button {
@@ -25,23 +21,3 @@ aside {
     font-size: 3rem;
 }
 
-.map {
-    background: url("../media/map.jpg") no-repeat;
-    border: 0;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    margin-left: 15px;
-    margin-top: 15px;
-}
-
-.grid-item img {
-    border: 1px solid black;
-}
-
-img {
-    height: 70px;
-    width: 80px;
-}
