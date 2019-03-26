@@ -6,6 +6,7 @@ stages:
   - deploy
 
 before_script:
+  - chmod +x gradlew
   - ln -s "$MAVEN_LOCAL" ".m2"
 
 build-jar:
