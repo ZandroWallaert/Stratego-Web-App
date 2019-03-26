@@ -24,6 +24,7 @@ function init() {
         document.getElementById('token').value = formInfo[2];
     }
 
+    enableCollapsible();
     preventEarlyEvents();
     playMusic();
 
@@ -82,6 +83,22 @@ let musicStatus;
 
 let music = new Audio('assets/audios/bgmusic.mp3');
 
+function enableCollapsible() {
+
+    let selectorCollapse = document.getElementsByClassName('collapsible');
+
+    for (let i = 0; i < selectorCollapse.length; i++) selectorCollapse[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        let content = this.nextElementSibling;
+        if (content.style.display === "block") {
+            content.style.display = "none";
+            console.log('if');
+        } else {
+            content.style.display = "block";
+            console.log('else');
+        }
+    });
+}
 function preventEarlyEvents() {
     document.body.style.pointerEvents = 'none';
     setTimeout(() => {
@@ -201,7 +218,6 @@ function goBack(id) {
         setSfx(sfxStatus);
         setMusic(musicStatus);
         if (themeStatus !== document.getElementById('theme').value) {
-            video.load();
             setTheme(themeStatus);
         }
         document.getElementById('mainMenu').style.filter = '';
