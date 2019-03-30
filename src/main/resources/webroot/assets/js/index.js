@@ -152,7 +152,7 @@ function timeOut() {
     }, 5000)
 }
 
-let bgStyle = 'blur(3px) brightness(50%)';
+let bgStyle = 'blur(0) brightness(50%)';
 
 function showRules() {
     playAudioForward();
@@ -211,9 +211,9 @@ function goBack(id) {
         document.getElementById('mainMenu').style.filter = '';
 
     } else if (screen[id] === "gameMode") {
-        document.getElementById('SinglePlayer').style.border = '';
-        document.getElementById('Online').style.border = '';
-        document.getElementById('mainMenu').style.borderRight = '7px solid rgba(26, 144, 255, 0.6)';
+        document.getElementById('SinglePlayer').style.borderColor = 'transparent';
+        document.getElementById('Online').style.borderColor = 'transparent';
+        document.getElementById('mainMenu').style.borderStyle = 'solid';
     } else if (screen[id] === "settings") {
         setSfx(sfxStatus);
         setMusic(musicStatus);
@@ -308,40 +308,51 @@ function setSfx(value) {
 }
 
 function setTheme(value) {
-    let videos = ['rain.mp4', 'wild.mp4', 'magic.mp4', 'desert.mp4'];
     let values = ['Rain', 'Wild', 'Magic', 'Desert'];
-    let newThemeId = values.indexOf(value);
 
-    source.setAttribute('src', `assets/videos/${videos[newThemeId]}`);
+    document.getElementById('theme').value = value;
+
+    let titleColor;
+    let sheet;
+    let bgVideo;
+    switch (values.indexOf(value)) {
+        case 0:
+            titleColor = 'rgba(255, 140, 26, 0.6)';
+            sheet = 'app.css';
+            bgVideo = 'rain.mp4';
+            break;
+        case 1:
+            titleColor = "rgba(255, 77, 77, 0.6)";
+            sheet = 'app-wild.css';
+            bgVideo = 'wild.mp4';
+            break;
+        case 2:
+            titleColor = "rgba(179, 0, 179, 0.6)";
+            sheet = 'app-magic.css';
+            bgVideo = 'magic.mp4';
+            break;
+        case 3:
+            titleColor = "rgba(51, 51, 255, 0.6)";
+            sheet = 'app-desert.css';
+            bgVideo = 'desert.mp4';
+            break;
+    }
+    document.getElementById('title').style.color = titleColor;
+
+    //Changes stylesheet
+    document.getElementById('themeSheet').setAttribute('href', `assets/css/${sheet}`);
+
+    //Changes background
+    source.setAttribute('src', `assets/videos/${bgVideo}`);
     video.appendChild(source);
-    if (values[newThemeId] === 'Wild') {
+    if (value === 'Wild') {
         video.style.transform = 'scale(-1, 1)';
     } else {
         video.style.transform = '';
     }
-    console.log(themeStatus);
-    console.log(value);
     video.load();
     video.play();
     video.loop = true;
-
-    document.getElementById('theme').value = values[newThemeId];
-    let titleColor;
-    switch (values.indexOf(value)) {
-        case 0:
-            titleColor = 'rgba(255, 140, 26, 0.6)';
-            break;
-        case 1:
-            titleColor = "rgba(255, 77, 77, 0.6)";
-            break;
-        case 2:
-            titleColor = "rgba(179, 0, 179, 0.6)";
-            break;
-        case 3:
-            titleColor = "rgba(51, 51, 255, 0.6)";
-            break;
-    }
-    document.getElementById('title').style.color = titleColor;
 }
 
 function saveChanges() {
@@ -374,11 +385,11 @@ function showGameMode(id) {
     document.getElementById('gameMode').classList.remove('hidden');
     if (document.getElementById(otherId).style.border !== '') {
         document.getElementById(otherId).style.border = '';
-        document.getElementById(id).style.border = '3px solid rgba(204, 217, 255, 1)';
+        document.getElementById(id).style.border = '3px solid';
     } else {
-        document.getElementById(id).style.border = '3px solid rgba(204, 217, 255, 1)';
+        document.getElementById(id).style.border = '3px solid';
     }
-    document.getElementById('mainMenu').style.borderRight = 'none';
+    document.getElementById('mainMenu').style.borderStyle = 'none';
 }
 
 function showModeDetails(i) {
