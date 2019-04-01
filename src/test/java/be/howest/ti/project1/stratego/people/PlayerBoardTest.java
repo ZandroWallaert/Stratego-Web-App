@@ -2,8 +2,6 @@ package be.howest.ti.project1.stratego.people;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class PlayerBoardTest {
 
     @Test
@@ -20,6 +18,5 @@ public class PlayerBoardTest {
 
     @Test
     public void setJsonstring() {
-
     }
 }
