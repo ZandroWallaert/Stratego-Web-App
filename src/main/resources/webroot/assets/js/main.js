@@ -17,3 +17,13 @@ function launchApp() {
     }, 4000);
     console.log('test');
 }
+
+function showDonate() {
+    document.getElementById('donate').classList.remove('hidden');
+    document.getElementById('launch').classList.add('hidden');
+}
+
+function showProceedToPayment() {
+    document.getElementById('paymentMethod').classList.remove('hidden');
+    document.getElementById('donate').classList.add('hidden');
+}
