@@ -1,7 +1,8 @@
 package be.howest.ti.project1.stratego.people;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class PersonTest {
 
@@ -9,19 +10,19 @@ public class PersonTest {
     public void testEqualPerson(){
         String alice = "Alice";
 
-        Player theRealAlice = new Player(alice, "the-super-secret", 32);
+        Person theRealAlice = new Person(alice, 32);
 
-        Assert.assertEquals(theRealAlice, theRealAlice);
+        assertEquals(theRealAlice, theRealAlice);
 
-        Assert.assertEquals(theRealAlice, new Player(alice, "the-super-secret", 32));
-        Assert.assertEquals(new Player(alice, "the-super-secret", 32), new Player(alice, "the-super-secret", 23));
+        assertEquals(theRealAlice, new Person(alice, 32));
+        assertEquals(new Person(alice, 32), new Person(alice, 23));
     }
 
     @Test
     public void testConstructor(){
         String alice = "Alice";
-        Assert.assertEquals(alice, new Player(alice, "the-super-secret", 32).getNickname());
-        Assert.assertEquals(32, new Player(alice, "the-super-secret", 32).getAge());
+        assertEquals(alice, new Person(alice, 32).getName());
+        assertEquals(32, new Person(alice, 32).getAge());
     }
 
 }
