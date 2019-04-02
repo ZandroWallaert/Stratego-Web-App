@@ -9,19 +9,37 @@
 </head>
 <body>
 <div id="site">
-    <nav>
+    <nav>0
         <a href="#">Game</a>
-        <a href="#">Rules</a>
-        <a href="#">Donate</a>
+        <a href="#" id="donation" onclick="showDonate()">Donate</a>
     </nav>
-    <div>
-        <a href="#">Language: EN</a>
-        <a href="#">Log in</a>
+    <div id="launch">
+        <p>push the button to play the game!</p>
+        <a href="#">Launch game</a>
+        <p>You can support us by giving donations, we use the money to improve our game. We would be very grateful.</p>
+        <a href="#" id="voorlopig">Donate</a>
     </div>
-    <div id="launch"><a href="#">Launch Game</a>
-    </div>
-    <main>
-    </main>
+</div>
+<div class="hidden" id="donate">
+    <form>
+        <label for="money">How much money do you want to donate?</label>
+        <input type="text" name="money" id="money" placeholder="money in Euro" required>
+
+        <a href="#" id="nextToPayment" onclick="showProceedToPayment()">Proceed to payment</a>
+    </form>
+</div>
+<div class="hidden" id="paymentMethod">
+    <p>Choose your payment method</p>
+    <ul>
+        <li><a href="#"><img src="assets/media/mister_cash_logo.png" alt="Mister Cash" title="Mister Cash"></a></li>
+        <li><a href="#"><img src="assets/media/mastercard.jpg" alt="Mastercard" title="Mastercard"/></a></li>
+        <li><a href="#"><img src="assets/media/maestro.jpg" alt="Maestro" title="Maestro"/></a></li>
+    </ul>
+    <ul>
+        <li><a href="#"><img src="assets/media/visa.jpg" alt="Visa" title="Visa"/></a></li>
+        <li><a href="#"><img src="assets/media/paypal.jpg" alt="Pay pal" title="Pay pal"/></a></li>
+        <li><a href="#"><img src="assets/media/bitcoin.jpg" alt="Bitcoin" title="Bitcoin"/></a></li>
+    </ul>
 </div>
 <main id="loading" class="hidden">
     <h1>Loading...</h1>

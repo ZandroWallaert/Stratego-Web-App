@@ -43,15 +43,41 @@ main p {
 #launch {
     margin-left: auto;
     margin-right: auto;
-    width: 900px;
+    width: 45rem;
+    margin-top: 15rem;
 }
 
 #launch a {
     background-color: red;
     border: brown solid;
     text-decoration: none;
+    font-size: 2rem;
     color: khaki;
+    padding: 1rem;
     float: right;
+}
+
+#launch p {
+    float: left;
+    padding-top: 1.5rem;
+    font-size: 1.5rem;
+}
+
+#launch a:hover {
+    background-color: brown;
+    border: red solid;
+    font-size: 2.1rem;
+}
+
+#launch #voorlopig {
+    background-color: black;
+    border: solid khaki;
+}
+
+#launch #voorlopig:hover {
+    background-color: khaki;
+    border: black solid;
+    color: black;
 }
 
 .hidden {
@@ -86,4 +112,64 @@ main p {
     margin-right: auto;
     width: 100%;
 }
+
+#donate {
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
+    background-color: black;
+    border: 1px solid khaki;
+    padding: 1rem;
+    margin-top: 15rem;
+}
+
+#donate a {
+    text-decoration: none;
+    background-color: khaki;
+    color: black;
+    display: block;
+    float: right;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+#donate input {
+    margin-bottom: 10px;
+    margin-top: 20px;
+    height: 20px;
+}
+
+#donate label {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+#paymentMethod {
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
+    background-color: black;
+    border: 1px solid khaki;
+    padding: 1rem;
+    margin-top: 15rem;
+}
+
+#paymentMethod p {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+#paymentMethod img {
+    width: 100px;
+    height: 65px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+#paymentMethod ul {
+    display: flex;
+
+}
+
+
 
