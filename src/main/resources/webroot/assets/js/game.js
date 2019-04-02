@@ -13,6 +13,7 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
+    console.log(ev);
     ev.dataTransfer.setData("text", ev.target.id);
     }
 
@@ -21,5 +22,4 @@ function drop(ev) {
     let data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data));
     }
-
 

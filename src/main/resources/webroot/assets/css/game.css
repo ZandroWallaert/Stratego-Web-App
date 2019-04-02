@@ -8,6 +8,9 @@
     border: 1px solid rgba(0, 0, 0, 0.8);
     font-size: 30px;
     text-align: center;
+    height: 100px;
+    width: 100px;
+    padding: 10px;
 }
 
 button {
@@ -17,6 +20,10 @@ button {
 aside {
     float: left;
     font-size: 3rem;
+}
+
+aside img {
+    cursor: grab;
 }
 
 img {
