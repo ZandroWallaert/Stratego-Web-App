@@ -92,10 +92,8 @@ function enableCollapsible() {
         let content = this.nextElementSibling;
         if (content.style.display === "block") {
             content.style.display = "none";
-            console.log('if');
         } else {
             content.style.display = "block";
-            console.log('else');
         }
     });
 }
