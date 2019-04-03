@@ -1,0 +1,95 @@
+body {
+    margin-left: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 0;
+    background: url("../media/mapBackground.jpg") no-repeat center center fixed;
+}
+
+.hidden {
+    display: none;
+}
+
+#board {
+    width: 62.5rem;
+    height: 42rem;
+    z-index: -1;
+    position: absolute;
+}
+
+#playingField {
+    width: 64.25rem;
+    padding-left: 15rem;
+}
+
+#main {
+    width: 90.625rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#main ul {
+    padding-left: 1.75rem;
+    margin-top: 0;
+}
+
+#main ul li {
+    display: inline;
+}
+
+#squareList li {
+    padding-right: 3.25rem;
+    position: relative;
+}
+
+#squareList img {
+    padding-left: 0;
+    width: 2.75rem;
+    height: 3.92rem;
+}
+
+#squareList li div {
+    padding-left: 0;
+    width: 2.75rem;
+    height: 4rem;
+    display: inline-block;
+}
+
+#squareList li .moveCircle {
+    background: green;
+}
+
+#squareList li .moveCircleCombat {
+    background: red;
+}
+
+#squareList li .moveCircleCombat,
+#squareList li .moveCircle {
+    border-radius: 50%;
+    margin-left: -2.81rem;
+    margin-bottom: 1.25rem;
+    height: 1rem;
+    opacity: .6;
+}
+
+#bluePieceHolder {
+    position: absolute;
+}
+
+#redPieceHolder {
+    top: -43.5rem;
+    left: 64.5rem;
+    position: relative;
+}
+
+#bluePieceHolder,
+#redPieceHolder {
+    padding-top: 0.31rem;
+    width: 11.81rem;
+}
+
+#redPieceHolder ul li div {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+

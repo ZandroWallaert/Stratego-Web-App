@@ -1,0 +1,118 @@
+body {
+    margin-left: 0;
+    margin-top: 0;
+    padding-left: 0;
+    padding-top: 0;
+    background: url("../media/mapBackground.jpg") no-repeat center center fixed;
+}
+
+h1 {
+    margin-bottom: 0.5rem;
+    color: floralwhite;
+    background-color: lightgreen;
+}
+
+#board {
+    width: 62.5rem;
+    height: 42rem;
+    margin-right: auto;
+    margin-left: auto;
+    z-index: -1;
+    position: absolute;
+}
+
+#playingField {
+    width: 64.25rem;
+    position: absolute;
+}
+
+#playingField ul {
+    list-style: none;
+    padding-left: 1.75rem;
+    margin-top: 0;
+}
+
+#playingField ul li {
+    display: inline;
+    padding-right: 3.25rem;
+}
+
+#playingField ul li img {
+    padding-left: 0;
+    width: 2.75rem;
+    height: 4.06rem;
+}
+
+ul li div {
+    padding-left: 0;
+    width: 2.75rem;
+    height: 3.7rem;
+    display: inline-block;
+}
+
+#playingField .moveCircle {
+    background: #f00;
+    border-radius: 50%;
+    position: absolute;
+    padding-left: 3.12rem;
+    -moz-transform: scale(0.35);
+    -webkit-transform: scale(0.35);
+    transform: scale(0.35);
+    margin-left: -4.37rem;
+    margin-top: 0;
+    opacity: .5;
+}
+
+#pieceHolder {
+    padding-left: 65.62rem;
+    width: 25rem;
+    margin-top: -2rem;
+}
+
+#pieceHolder li {
+    display: inline;
+}
+
+#pieceHolder li img {
+    width: 2.75rem;
+    height: 4.06rem;
+}
+
+#pieceHolder div[id*="blankSquare"] {
+    padding-bottom: 0;
+    padding-top: 0;
+    width: 10%;
+    height: 10%;
+}
+
+#pieceHolder .moveCircle {
+    background: #f00;
+    border-radius: 50%;
+    position: absolute;
+    padding-left: 3.12rem;
+    transform: scale(0.35);
+    margin-left: -3.43rem;
+    margin-top: 0;
+    opacity: .5;
+    width: 1.25rem;
+}
+
+#premade {
+    position: absolute;
+    left: 40rem;
+    transform: scale(1.5);
+    margin-top: -3.5rem;
+}
+
+#premade ul {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+#pieceHolder div[id*="blankSquare"] {
+    padding-bottom: 0;
+    padding-top: 0;
+    width: 11%;
+    height: 4.15%;
+}

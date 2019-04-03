@@ -43,10 +43,10 @@ function init() {
         playLoadingAudio();
         showWaitingForPlayers();
         let data = {
-            token : tokenIn.value,
-            person : {
-                name : nameIn.value,
-                age : parseInt(ageIn.value)
+            token: tokenIn.value,
+            person: {
+                name: nameIn.value,
+                age: parseInt(ageIn.value)
             }
         };
 
@@ -97,6 +97,7 @@ function enableCollapsible() {
         }
     });
 }
+
 function preventEarlyEvents() {
     document.body.style.pointerEvents = 'none';
     setTimeout(() => {
@@ -146,7 +147,7 @@ let timeVar;
 function timeOut() {
     playAudioForward();
     timeVar = setTimeout(() => {
-        window.location.href = "game.html";
+        window.location.href = "setup.html";
     }, 5000)
 }
 
