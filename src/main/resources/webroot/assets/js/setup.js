@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", init);
 
 function init() {
     window.onload = function () {
-        alert("Blue player setup");
+        console.log("Blue player setup");
         setupOnClick("blue");
     };
 }
@@ -19,8 +19,13 @@ function redTurn() {
     flipPieces("blue");
     setupOnClick("red");
     let setupDiv = document.getElementById('premade');
-    setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" onclick="premadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li><li><input id="switchSetup" type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
+    setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" onclick="premadeSetup(\'red\',\'defensive\')" /></li>' +
+        '<li><input id="switchSetup" type="button" value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li>' +
+        '<li><input id="switchSetup" type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
 }
+
+let squareList = document.getElementById('squareList');
+let pieceHolder = document.getElementById('pieceHolder');
 
 function setupOnClick(playerColor) {
     squareList.onclick = function (e) {
@@ -35,9 +40,6 @@ function setupOnClick(playerColor) {
         console.log(e.target.id);
     };
 }
-
-let squareList = document.getElementById('squareList');
-let pieceHolder = document.getElementById('pieceHolder');
 
 function sidePiecePlacement(pieceName, playerColor) {
 
@@ -115,7 +117,7 @@ function activateDot(movedFromSquare, movedToSquare, type) {
     }
     if (type === "boardToSide") { // if the piece you clicked on was on the board and you want to move it to the side
         currentHTML = sideboard[movedToSquare].innerHTML;
-        let newHTML = currentHTML + '<div class="moveCircle" id="listenForClickSide' + movedToSquare + '"></div>';
+        newHTML = currentHTML + '<div class="moveCircle" id="listenForClickSide' + movedToSquare + '"></div>';
     }
 }
 
@@ -158,7 +160,6 @@ function dotClicked(movedFromSquare, movedToSquare, type) {
     let playerColor = colorOfClick(squareID1); //used to tell whose turn it is
     let sideboardInner = pieceHolder.innerHTML;
 
-    //let documentPage = document.getElementById('premade');
     if (((sideboardInner.match(/blankSquare/g)).length) >= 40 && playerColor === "blue") {
         premadeButton("switchSetup", "Submit", "redTurn()")
     }

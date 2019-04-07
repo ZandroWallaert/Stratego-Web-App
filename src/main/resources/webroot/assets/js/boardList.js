@@ -24,7 +24,7 @@ window.onload = function () {
     squareList.innerHTML = localStorage.getItem('testObject');
     localStorage.setItem("turn", "blue");
     flipPieces("red");
-    alert("Blue goes first, don't look red!");
+    console.log("Blue goes first, don't look red!");
     flipPieces("blue");
     setupClick();
 };
@@ -97,6 +97,7 @@ function checkstatus(squareNumber, color, movedFromSquare) {
         activateDot(movedFromSquare, squareNumber, "blank");
         return 1;
     } else if (currentSquare.split("-")[0] === "lakeSquare") {
+        return;
     } else if (color !== squareColor) // If the color of the piece being moved is different from the color of the piece on the square
         activateDot(movedFromSquare, squareNumber, "combat");
 }
@@ -149,7 +150,6 @@ function dotClicked(movedFromSquare, movedToSquare) {
     let blueSideLItems = document.getElementById("bluePieceHolder").getElementsByTagName("li");
 
     let movedFromHTML = lItems[movedFromSquare].innerHTML;
-    //let movedToHTML = lItems[movedToSquare].innerHTML;
 
     let squareID1 = (lItems[movedFromSquare].innerHTML).split(">")[0].split("\"").reverse()[1]; // gets the id
     let pieceA = squareID1.split("-")[0].replace("blue", "").replace("red", ""); // gets the name from the id
@@ -163,10 +163,10 @@ function dotClicked(movedFromSquare, movedToSquare) {
     let changedMovedToHTML;
     // -1 do nothing 
     if (result !== 3) {
-        // alert(squareID2); // doesnt like alerts
+        console.log(squareID2);
         flipSinglePiece(squareID2);
         changedMovedToHTML = lItems[movedToSquare].innerHTML;
-        alert("RAAAAAHHHAHAHAHAHHHHHAAHHHHH");
+        console.log("RAAAAAHHHAHAHAHAHHHHHAAHHHHH");
     }
     let openSideSquareA;
     let openSideSquareB;
@@ -216,7 +216,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
 
     } else if (result === 2) { // End the game
         document.getElementById("squareList").classList.add("hidden");
-        alert("Game ended! The flag has been captured");
+        console.log("Game ended! The flag has been captured");
         gameEnd();
     }
 
@@ -291,6 +291,7 @@ function recursive(movedToSquare, direction, movedFromSquare) {
                 break;
         }
     } else {
+        return;
     }
 }
 
@@ -341,9 +342,9 @@ function flipPieces(color) {
                 lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/webroot/assets/media/pieces/" + lineID + ".png");
             } else {
                 // change to backIMG
-                // alert(newSquare)
+                console.log(newSquare);
                 lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/webroot/assets/media/pieces/" + color + "Back.png");
-                // alert(wholeDocument)
+                console.log(wholeDocument);
 
             }
         }
