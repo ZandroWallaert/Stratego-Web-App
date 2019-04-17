@@ -2,19 +2,14 @@
 <html lang="en">
 <head>
     <title>Setup Stratego</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/setup.css"/>
+    <link href="./assets/css/setup.css" rel="stylesheet" type="text/css"/>
+    <script lang="javascript" src="./assets/js/setup.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
 </head>
 <body>
-<h1>Board Setup</h1>
-<div id="premade">
-    <ul>
-        <li><input id="switchSetup" type="button" value="Defensive" onclick="premadeSetup('blue','defensive')"/></li>
-        <li><input id="switchSetup" type="button" value="Offensive" onclick="premadeSetup('blue','offensive')"/></li>
-        <li><input id="switchSetup" type="button" value="Mixed" onclick="premadeSetup('blue','mixed')"/></li>
-    </ul>
-</div>
+
 <div id="playingField">
-    <img src="assets/media/board.jpg" alt="board" id="board">
+    <img alt="board" id="board" src="./assets/media/board.jpg">
     <ul id="squareList">
         <li>
             <div id="blankSquare-0"></div>
@@ -320,87 +315,94 @@
 </div>
 
 <ul id="pieceHolder">
-    <li><img src="assets/media/pieces/blue1.png" id="blue1-0"></li>
-    <li><img src="assets/media/pieces/blue2.png" id="blue2-1"></li>
-    <li><img src="assets/media/pieces/blue3.png" id="blue3-2"></li>
-    <li><img src="assets/media/pieces/blue3.png" id="blue3-3"></li>
-    <li><img src="assets/media/pieces/blue4.png" id="blue4-4"></li>
-    <li><img src="assets/media/pieces/blue4.png" id="blue4-5"></li>
-    <li><img src="assets/media/pieces/blue4.png" id="blue4-6"></li>
-    <li><img src="assets/media/pieces/blue5.png" id="blue5-7"></li>
-    <li><img src="assets/media/pieces/blue5.png" id="blue5-8"></li>
-    <li><img src="assets/media/pieces/blue5.png" id="blue5-9"></li>
-    <li><img src="assets/media/pieces/blue5.png" id="blue5-10"></li>
-    <li><img src="assets/media/pieces/blue6.png" id="blue6-11"></li>
-    <li><img src="assets/media/pieces/blue6.png" id="blue6-12"></li>
-    <li><img src="assets/media/pieces/blue6.png" id="blue6-13"></li>
-    <li><img src="assets/media/pieces/blue6.png" id="blue6-14"></li>
-    <li><img src="assets/media/pieces/blue7.png" id="blue7-15"></li>
-    <li><img src="assets/media/pieces/blue7.png" id="blue7-16"></li>
-    <li><img src="assets/media/pieces/blue7.png" id="blue7-17"></li>
-    <li><img src="assets/media/pieces/blue7.png" id="blue7-18"></li>
-    <li><img src="assets/media/pieces/blue8.png" id="blue8-19"></li>
-    <li><img src="assets/media/pieces/blue8.png" id="blue8-20"></li>
-    <li><img src="assets/media/pieces/blue8.png" id="blue8-21"></li>
-    <li><img src="assets/media/pieces/blue8.png" id="blue8-22"></li>
-    <li><img src="assets/media/pieces/blue8.png" id="blue8-23"></li>
-    <li><img src="assets/media/pieces/blue9.png" id="blue9-24"></li>
-    <li><img src="assets/media/pieces/blue9.png" id="blue9-25"></li>
-    <li><img src="assets/media/pieces/blue9.png" id="blue9-26"></li>
-    <li><img src="assets/media/pieces/blue9.png" id="blue9-27"></li>
-    <li><img src="assets/media/pieces/blue9.png" id="blue9-28"></li>
-    <li><img src="assets/media/pieces/blue9.png" id="blue9-29"></li>
-    <li><img src="assets/media/pieces/blue9.png" id="blue9-30"></li>
-    <li><img src="assets/media/pieces/blue9.png" id="blue9-31"></li>
-    <li><img src="assets/media/pieces/bluebomb.png" id="blueBomb-32"></li>
-    <li><img src="assets/media/pieces/bluebomb.png" id="blueBomb-33"></li>
-    <li><img src="assets/media/pieces/bluebomb.png" id="blueBomb-34"></li>
-    <li><img src="assets/media/pieces/bluebomb.png" id="blueBomb-35"></li>
-    <li><img src="assets/media/pieces/bluebomb.png" id="blueBomb-36"></li>
-    <li><img src="assets/media/pieces/bluebomb.png" id="blueBomb-37"></li>
-    <li><img src="assets/media/pieces/blueflag.png" id="blueFlag-38"></li>
-    <li><img src="assets/media/pieces/bluespy.png" id="blueSpy-39"></li>
-    <li><img src="assets/media/pieces/red1.png" id="red1-40"></li>
-    <li><img src="assets/media/pieces/red2.png" id="red2-41"></li>
-    <li><img src="assets/media/pieces/red3.png" id="red3-42"></li>
-    <li><img src="assets/media/pieces/red3.png" id="red3-43"></li>
-    <li><img src="assets/media/pieces/red4.png" id="red4-44"></li>
-    <li><img src="assets/media/pieces/red4.png" id="red4-45"></li>
-    <li><img src="assets/media/pieces/red4.png" id="red4-46"></li>
-    <li><img src="assets/media/pieces/red5.png" id="red5-47"></li>
-    <li><img src="assets/media/pieces/red5.png" id="red5-48"></li>
-    <li><img src="assets/media/pieces/red5.png" id="red5-49"></li>
-    <li><img src="assets/media/pieces/red5.png" id="red5-50"></li>
-    <li><img src="assets/media/pieces/red6.png" id="red6-51"></li>
-    <li><img src="assets/media/pieces/red6.png" id="red6-52"></li>
-    <li><img src="assets/media/pieces/red6.png" id="red6-53"></li>
-    <li><img src="assets/media/pieces/red6.png" id="red6-54"></li>
-    <li><img src="assets/media/pieces/red7.png" id="red7-55"></li>
-    <li><img src="assets/media/pieces/red7.png" id="red7-56"></li>
-    <li><img src="assets/media/pieces/red7.png" id="red7-57"></li>
-    <li><img src="assets/media/pieces/red7.png" id="red7-58"></li>
-    <li><img src="assets/media/pieces/red8.png" id="red8-59"></li>
-    <li><img src="assets/media/pieces/red8.png" id="red8-60"></li>
-    <li><img src="assets/media/pieces/red8.png" id="red8-61"></li>
-    <li><img src="assets/media/pieces/red8.png" id="red8-62"></li>
-    <li><img src="assets/media/pieces/red8.png" id="red8-63"></li>
-    <li><img src="assets/media/pieces/red9.png" id="red9-64"></li>
-    <li><img src="assets/media/pieces/red9.png" id="red9-65"></li>
-    <li><img src="assets/media/pieces/red9.png" id="red9-66"></li>
-    <li><img src="assets/media/pieces/red9.png" id="red9-67"></li>
-    <li><img src="assets/media/pieces/red9.png" id="red9-68"></li>
-    <li><img src="assets/media/pieces/red9.png" id="red9-69"></li>
-    <li><img src="assets/media/pieces/red9.png" id="red9-70"></li>
-    <li><img src="assets/media/pieces/red9.png" id="red9-71"></li>
-    <li><img src="assets/media/pieces/redbomb.png" id="redBomb-72"></li>
-    <li><img src="assets/media/pieces/redbomb.png" id="redBomb-73"></li>
-    <li><img src="assets/media/pieces/redbomb.png" id="redBomb-74"></li>
-    <li><img src="assets/media/pieces/redbomb.png" id="redBomb-75"></li>
-    <li><img src="assets/media/pieces/redbomb.png" id="redBomb-76"></li>
-    <li><img src="assets/media/pieces/redbomb.png" id="redBomb-77"></li>
-    <li><img src="assets/media/pieces/redflag.png" id="redFlag-78"></li>
-    <li><img src="assets/media/pieces/redspy.png" id="redSpy-79"></li>
+    <li><img id="blue1-0" src="./assets/media/pieces/blue1.png" alt=""></li>
+    <li><img id="blue2-1" src="./assets/media/pieces/blue2.png" alt=""></li>
+    <li><img id="blue3-2" src="./assets/media/pieces/blue3.png" alt=""></li>
+    <li><img id="blue3-3" src="./assets/media/pieces/blue3.png" alt=""></li>
+    <li><img id="blue4-4" src="./assets/media/pieces/blue4.png" alt=""></li>
+    <li><img id="blue4-5" src="./assets/media/pieces/blue4.png" alt=""></li>
+    <li><img id="blue4-6" src="./assets/media/pieces/blue4.png" alt=""></li>
+    <li><img id="blue5-7" src="./assets/media/pieces/blue5.png" alt=""></li>
+    <li><img id="blue5-8" src="./assets/media/pieces/blue5.png" alt=""></li>
+    <li><img id="blue5-9" src="./assets/media/pieces/blue5.png" alt=""></li>
+    <li><img id="blue5-10" src="./assets/media/pieces/blue5.png" alt=""></li>
+    <li><img id="blue6-11" src="./assets/media/pieces/blue6.png" alt=""></li>
+    <li><img id="blue6-12" src="./assets/media/pieces/blue6.png" alt=""></li>
+    <li><img id="blue6-13" src="./assets/media/pieces/blue6.png" alt=""></li>
+    <li><img id="blue6-14" src="./assets/media/pieces/blue6.png" alt=""></li>
+    <li><img id="blue7-15" src="./assets/media/pieces/blue7.png" alt=""></li>
+    <li><img id="blue7-16" src="./assets/media/pieces/blue7.png" alt=""></li>
+    <li><img id="blue7-17" src="./assets/media/pieces/blue7.png" alt=""></li>
+    <li><img id="blue7-18" src="./assets/media/pieces/blue7.png" alt=""></li>
+    <li><img id="blue8-19" src="./assets/media/pieces/blue8.png" alt=""></li>
+    <li><img id="blue8-20" src="./assets/media/pieces/blue8.png" alt=""></li>
+    <li><img id="blue8-21" src="./assets/media/pieces/blue8.png" alt=""></li>
+    <li><img id="blue8-22" src="./assets/media/pieces/blue8.png" alt=""></li>
+    <li><img id="blue8-23" src="./assets/media/pieces/blue8.png" alt=""></li>
+    <li><img id="blue9-24" src="./assets/media/pieces/blue9.png" alt=""></li>
+    <li><img id="blue9-25" src="./assets/media/pieces/blue9.png" alt=""></li>
+    <li><img id="blue9-26" src="./assets/media/pieces/blue9.png" alt=""></li>
+    <li><img id="blue9-27" src="./assets/media/pieces/blue9.png" alt=""></li>
+    <li><img id="blue9-28" src="./assets/media/pieces/blue9.png" alt=""></li>
+    <li><img id="blue9-29" src="./assets/media/pieces/blue9.png" alt=""></li>
+    <li><img id="blue9-30" src="./assets/media/pieces/blue9.png" alt=""></li>
+    <li><img id="blue9-31" src="./assets/media/pieces/blue9.png" alt=""></li>
+    <li><img id="blueBomb-32" src="./assets/media/pieces/bluebomb.png" alt=""></li>
+    <li><img id="blueBomb-33" src="./assets/media/pieces/bluebomb.png" alt=""></li>
+    <li><img id="blueBomb-34" src="./assets/media/pieces/bluebomb.png" alt=""></li>
+    <li><img id="blueBomb-35" src="./assets/media/pieces/bluebomb.png" alt=""></li>
+    <li><img id="blueBomb-36" src="./assets/media/pieces/bluebomb.png" alt=""></li>
+    <li><img id="blueBomb-37" src="./assets/media/pieces/bluebomb.png" alt=""></li>
+    <li><img id="blueFlag-38" src="./assets/media/pieces/blueflag.png" alt=""></li>
+    <li><img id="blueSpy-39" src="./assets/media/pieces/bluespy.png" alt=""></li>
+    <li><img id="red1-40" src="./assets/media/pieces/red1.png" alt=""></li>
+    <li><img id="red2-41" src="./assets/media/pieces/red2.png" alt=""></li>
+    <li><img id="red3-42" src="./assets/media/pieces/red3.png" alt=""></li>
+    <li><img id="red3-43" src="./assets/media/pieces/red3.png" alt=""></li>
+    <li><img id="red4-44" src="./assets/media/pieces/red4.png" alt=""></li>
+    <li><img id="red4-45" src="./assets/media/pieces/red4.png" alt=""></li>
+    <li><img id="red4-46" src="./assets/media/pieces/red4.png" alt=""></li>
+    <li><img id="red5-47" src="./assets/media/pieces/red5.png" alt=""></li>
+    <li><img id="red5-48" src="./assets/media/pieces/red5.png" alt=""></li>
+    <li><img id="red5-49" src="./assets/media/pieces/red5.png" alt=""></li>
+    <li><img id="red5-50" src="./assets/media/pieces/red5.png" alt=""></li>
+    <li><img id="red6-51" src="./assets/media/pieces/red6.png" alt=""></li>
+    <li><img id="red6-52" src="./assets/media/pieces/red6.png" alt=""></li>
+    <li><img id="red6-53" src="./assets/media/pieces/red6.png" alt=""></li>
+    <li><img id="red6-54" src="./assets/media/pieces/red6.png" alt=""></li>
+    <li><img id="red7-55" src="./assets/media/pieces/red7.png" alt=""></li>
+    <li><img id="red7-56" src="./assets/media/pieces/red7.png" alt=""></li>
+    <li><img id="red7-57" src="./assets/media/pieces/red7.png" alt=""></li>
+    <li><img id="red7-58" src="./assets/media/pieces/red7.png" alt=""></li>
+    <li><img id="red8-59" src="./assets/media/pieces/red8.png" alt=""></li>
+    <li><img id="red8-60" src="./assets/media/pieces/red8.png" alt=""></li>
+    <li><img id="red8-61" src="./assets/media/pieces/red8.png" alt=""></li>
+    <li><img id="red8-62" src="./assets/media/pieces/red8.png" alt=""></li>
+    <li><img id="red8-63" src="./assets/media/pieces/red8.png" alt=""></li>
+    <li><img id="red9-64" src="./assets/media/pieces/red9.png" alt=""></li>
+    <li><img id="red9-65" src="./assets/media/pieces/red9.png" alt=""></li>
+    <li><img id="red9-66" src="./assets/media/pieces/red9.png" alt=""></li>
+    <li><img id="red9-67" src="./assets/media/pieces/red9.png" alt=""></li>
+    <li><img id="red9-68" src="./assets/media/pieces/red9.png" alt=""></li>
+    <li><img id="red9-69" src="./assets/media/pieces/red9.png" alt=""></li>
+    <li><img id="red9-70" src="./assets/media/pieces/red9.png" alt=""></li>
+    <li><img id="red9-71" src="./assets/media/pieces/red9.png" alt=""></li>
+    <li><img id="redBomb-72" src="./assets/media/pieces/redbomb.png" alt=""></li>
+    <li><img id="redBomb-73" src="./assets/media/pieces/redbomb.png" alt=""></li>
+    <li><img id="redBomb-74" src="./assets/media/pieces/redbomb.png" alt=""></li>
+    <li><img id="redBomb-75" src="./assets/media/pieces/redbomb.png" alt=""></li>
+    <li><img id="redBomb-76" src="./assets/media/pieces/redbomb.png" alt=""></li>
+    <li><img id="redBomb-77" src="./assets/media/pieces/redbomb.png" alt=""></li>
+    <li><img id="redFlag-78" src="./assets/media/pieces/redflag.png" alt=""></li>
+    <li><img id="redSpy-79" src="./assets/media/pieces/redspy.png" alt=""></li>
 </ul>
+<div id="premade">
+    <ul>
+        <li><input onclick="premadeSetup('blue','defensive')" type="button" value="Defensive"/></li>
+        <li><input onclick="premadeSetup('blue','offensive')" type="button" value="Offensive"/></li>
+        <li><input onclick="premadeSetup('blue','mixed')" type="button" value="Mixed"/></li>
+    </ul>
+</div>
+
 </body>
-<script language="javascript" type="text/javascript" src="assets/js/setup.js"></script>
 </html>

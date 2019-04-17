@@ -3,18 +3,11 @@ body {
     margin-top: 0;
     padding-left: 0;
     padding-top: 0;
-    background: url("../media/mapBackground.jpg") no-repeat center center fixed;
-}
-
-h1 {
-    margin-bottom: 0.5rem;
-    color: floralwhite;
-    background-color: lightgreen;
 }
 
 #board {
-    width: 62.5rem;
-    height: 42rem;
+    width: 1000px;
+    height: 1000px;
     margin-right: auto;
     margin-left: auto;
     z-index: -1;
@@ -22,31 +15,38 @@ h1 {
 }
 
 #playingField {
-    width: 64.25rem;
+    width: 1028px;
     position: absolute;
 }
 
 #playingField ul {
     list-style: none;
-    padding-left: 1.75rem;
+    padding-left: 28px;
     margin-top: 0;
 }
 
 #playingField ul li {
     display: inline;
-    padding-right: 3.25rem;
+    padding-right: 52px;
 }
 
 #playingField ul li img {
     padding-left: 0;
-    width: 2.75rem;
-    height: 4.06rem;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 44px;
+    height: 65px;
+}
+
+#playingField ul li div {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 ul li div {
     padding-left: 0;
-    width: 2.75rem;
-    height: 3.7rem;
+    width: 44px;
+    height: 65px;
     display: inline-block;
 }
 
@@ -54,19 +54,18 @@ ul li div {
     background: #f00;
     border-radius: 50%;
     position: absolute;
-    padding-left: 3.12rem;
+    padding-left: 50px;
     -moz-transform: scale(0.35);
     -webkit-transform: scale(0.35);
     transform: scale(0.35);
-    margin-left: -4.37rem;
+    margin-left: -70px;
     margin-top: 0;
     opacity: .5;
 }
 
 #pieceHolder {
-    padding-left: 65.62rem;
-    width: 25rem;
-    margin-top: -2rem;
+    padding-left: 1050px;
+    width: 400px;
 }
 
 #pieceHolder li {
@@ -74,8 +73,8 @@ ul li div {
 }
 
 #pieceHolder li img {
-    width: 2.75rem;
-    height: 4.06rem;
+    width: 44px;
+    height: 65px;
 }
 
 #pieceHolder div[id*="blankSquare"] {
@@ -89,23 +88,26 @@ ul li div {
     background: #f00;
     border-radius: 50%;
     position: absolute;
-    padding-left: 3.12rem;
+    padding-left: 50px;
+    -moz-transform: scale(0.35);
+    -webkit-transform: scale(0.35);
     transform: scale(0.35);
-    margin-left: -3.43rem;
+    margin-left: -55px;
     margin-top: 0;
     opacity: .5;
-    width: 1.25rem;
+    width: 20px;
 }
 
 #premade {
     position: absolute;
-    left: 40rem;
-    transform: scale(1.5);
-    margin-top: -3.5rem;
+    padding-top: 50px;
+    left: 1108px;
+    -moz-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
 }
 
 #premade ul {
-    display: flex;
     list-style: none;
     padding-left: 0;
 }
@@ -116,3 +118,4 @@ ul li div {
     width: 11%;
     height: 4.15%;
 }
+

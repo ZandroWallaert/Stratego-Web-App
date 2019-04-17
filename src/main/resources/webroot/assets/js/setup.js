@@ -1,13 +1,21 @@
 "use strict";
-
 document.addEventListener("DOMContentLoaded", init);
+let squareList;
+let pieceHolder;
+let name;
+let color;
+let square;
+let playerColor;
 
 function init() {
-    window.onload = function () {
-        console.log("Blue player setup");
-        setupOnClick("blue");
-    };
+    squareList = document.getElementById('squareList');
+    pieceHolder = document.getElementById('pieceHolder');
 }
+
+window.onload = function () {
+    alert("Blue player setup");
+    setupOnClick("blue");
+};
 
 function startGame() {
     let listTextStr = document.getElementById('squareList').innerHTML;
@@ -19,25 +27,18 @@ function redTurn() {
     flipPieces("blue");
     setupOnClick("red");
     let setupDiv = document.getElementById('premade');
-    setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" onclick="premadeSetup(\'red\',\'defensive\')" /></li>' +
-        '<li><input id="switchSetup" type="button" value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li>' +
-        '<li><input id="switchSetup" type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
+    setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" onclick="premadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li><li><input id="switchSetup" type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
 }
-
-let squareList = document.getElementById('squareList');
-let pieceHolder = document.getElementById('pieceHolder');
 
 function setupOnClick(playerColor) {
     squareList.onclick = function (e) {
         deleteAllDots();
         boardPiecePlacement(e.target.id, playerColor);
-        console.log(e.target.id);
     };
 
     pieceHolder.onclick = function (e) {
         deleteAllDots();
         sidePiecePlacement(e.target.id, playerColor);
-        console.log(e.target.id);
     };
 }
 
@@ -45,10 +46,11 @@ function sidePiecePlacement(pieceName, playerColor) {
 
     setupOnClick(playerColor);
 
-    let color = colorOfClick(pieceName);
-    let square = pieceName.split("-")[1];
+    name = pieceName.split("-")[0].replace("blue", "").replace("red", "");
+    color = colorOfClick(pieceName);
+    square = pieceName.split("-")[1];
 
-    if (color === "blank") //makes sure we don't allow them to click on blank squares
+    if (color === "blank") //don't allow to click on blank squares
         return;
 
     function activateDotBoard(startPoint) {
@@ -67,12 +69,12 @@ function sidePiecePlacement(pieceName, playerColor) {
 function boardPiecePlacement(pieceName, playerColor) {
 
     setupOnClick(playerColor);
-    let name = pieceName.split("-")[0].replace("blue", "").replace("red", "");
-    let color = colorOfClick(pieceName);
-    let square = pieceName.split("-")[1];
 
+    color = colorOfClick(pieceName);
+    square = pieceName.split("-")[1];
+    name = pieceName.split("-")[0].replace("blue", "").replace("red", "");
 
-    if (name === "blankSquare") //makes sure we don't allow them to click on blank squares
+    if (name === "blankSquare") //don't allow to click on blank squares
         return;
 
     function activate(startPoint, subtract) {
@@ -99,11 +101,9 @@ function checkstatus(squareNumber, movedFromSquare) {
     }
 }
 
-let board = document.getElementById("squareList").getElementsByTagName("li");
-let sideboard = document.getElementById("pieceHolder").getElementsByTagName("li");
-
 function activateDot(movedFromSquare, movedToSquare, type) {
-
+    let board = document.getElementById("squareList").getElementsByTagName("li");
+    let sideboard = document.getElementById("pieceHolder").getElementsByTagName("li");
     let currentHTML;
     let newHTML;
 
@@ -123,6 +123,8 @@ function activateDot(movedFromSquare, movedToSquare, type) {
 
 function dotClicked(movedFromSquare, movedToSquare, type) {
 
+    let board = document.getElementById("squareList").getElementsByTagName("li");
+    let sideboard = document.getElementById("pieceHolder").getElementsByTagName("li");
     let movedFromHTML;
     let movedToHTML;
 
@@ -157,7 +159,7 @@ function dotClicked(movedFromSquare, movedToSquare, type) {
         board[movedToSquare].innerHTML = movedFromHTMLUpdated;
     }
 
-    let playerColor = colorOfClick(squareID1); //used to tell whose turn it is
+    playerColor = colorOfClick(squareID1); //used to tell whose turn it is
     let sideboardInner = pieceHolder.innerHTML;
 
     if (((sideboardInner.match(/blankSquare/g)).length) >= 40 && playerColor === "blue") {
@@ -184,6 +186,7 @@ function colorOfClick(idname) {
 function deleteAllDots() {
     // clear main board
     function deleteDots(elementGroup, size) {
+        let board = document.getElementById(elementGroup).getElementsByTagName("li");
         for (let i = 0; i < size; i++) {
             let line = board[i].innerHTML;
             if (line.indexOf("moveCircle") !== -1) { // section to change
@@ -205,10 +208,10 @@ function flipPieces(color) {
             if (line.indexOf(color + "Back") !== -1) {
                 // change to pieceIMG
                 let lineID = line.split("-")[0].split("id=\"")[1];
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/webroot/assets/media/pieces/" + lineID + ".png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + lineID + ".png");
             } else {
                 // change to backIMG
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/webroot/assets/media/pieces/" + color + "Back.png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + color + "Back.png");
             }
         }
     }
@@ -257,7 +260,7 @@ function premadeSetup(color, setupType) {
     let boardLines = document.getElementById("squareList").getElementsByTagName("li");
     let sideLines = document.getElementById("pieceHolder").getElementsByTagName("li");
     for (let i = 0; i < setupList.length; i++) {
-        boardLines[i + range].innerHTML = "<img src=\"../webroot/assets/media/pieces/" + color + setupList[i] + ".png\" id=\"" + color + setupList[i] + "-" + (i + range) + "\" alt='#'>";
+        boardLines[i + range].innerHTML = "<img src=\"./assets/media/pieces/" + color + setupList[i] + ".png\" id=\"" + color + setupList[i] + "-" + (i + range) + "\">";
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
 }

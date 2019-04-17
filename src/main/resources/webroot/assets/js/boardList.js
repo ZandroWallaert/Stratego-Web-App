@@ -1,14 +1,23 @@
 "use strict";
-
 document.addEventListener("DOMContentLoaded", init);
+let squareList;
+let color;
+let lItems;
+let currentSquare;
+let lines;
 
 function init() {
+    squareList = document.getElementById("squareList");
+    lItems = document.getElementById("squareList").getElementsByTagName("li");
+    lines = document.getElementById("squareList").getElementsByTagName("li");
+    for (let i = 0; i < 40; i++) {
+        document.getElementById("bluePieceHolder").innerHTML += `<li>
+            <div id="blankSquare-${i}"></div>
+        </li>`
+    }
 }
 
-let squareList = document.getElementById("squareList");
-
 function setupClick() {
-    // When setup completely set up
     squareList.onclick = function (e) {
         deleteAllDots();
         if (colorOfClick(e.target.id) === localStorage.getItem("turn")) {
@@ -24,7 +33,7 @@ window.onload = function () {
     squareList.innerHTML = localStorage.getItem('testObject');
     localStorage.setItem("turn", "blue");
     flipPieces("red");
-    console.log("Blue goes first, don't look red!");
+    alert("Blue goes first, don't look red!");
     flipPieces("blue");
     setupClick();
 };
@@ -34,9 +43,10 @@ function posmoves(pieceName) {
     let name = pieceName.split("-")[0].replace("blue", "").replace("red", ""); // the name of the piece (Spy, Bomb, 9 etc..)
     let square = pieceName.split("-")[1]; // the position on the board
     square = parseInt(square, 10);
-    let color = colorOfClick(pieceName);
+    color = colorOfClick(pieceName);
 
     setupClick();
+    // activateDot(33, 34); // we need to call in the the variables moveTo and moveFrom
 
     if (name === "Bomb" || name === "Flag" || name === "lakeSquare" || name === "blankSquare")
         return; // if it's a piece that can't move
@@ -85,27 +95,25 @@ function colorOfClick(idname) {
     }
 }
 
-let lItems = document.getElementById("squareList").getElementsByTagName("li");
-
 function checkstatus(squareNumber, color, movedFromSquare) {
 
-    let currentSquare = (lItems[squareNumber].innerHTML).split("\"").reverse()[1];
+    currentSquare = (lItems[squareNumber].innerHTML).split("\"").reverse()[1];
 
     let squareColor = colorOfClick(currentSquare); // Finds the color of the piece on this square
 
     if (currentSquare.split("-")[0] === "blankSquare") {
         activateDot(movedFromSquare, squareNumber, "blank");
         return 1;
-    } else if (currentSquare.split("-")[0] === "lakeSquare") {
+    } else if (currentSquare.split("-")[0] === "lakeSquare")
         return;
-    } else if (color !== squareColor) // If the color of the piece being moved is different from the color of the piece on the square
+
+    else if (color !== squareColor) // If the color of the piece being moved is different from the color of the piece on the square
         activateDot(movedFromSquare, squareNumber, "combat");
 }
 
 function checkSideboard(color) {
     let redLItems = document.getElementById("redPieceHolder").getElementsByTagName("li");
     let blueLItems = document.getElementById("bluePieceHolder").getElementsByTagName("li");
-    let currentSquare;
 
     if (color === "blue") {
 
@@ -144,12 +152,24 @@ function activateDot(movedFromSquare, movedToSquare, type) {
     };
 }
 
+function sleep(milliseconds) {
+
+    let start = new Date().getTime();
+    for (let i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds) {
+            break;
+        }
+    }
+}
+
 function dotClicked(movedFromSquare, movedToSquare) {
     deleteAllDots();
+
     let redSideLItems = document.getElementById("redPieceHolder").getElementsByTagName("li");
     let blueSideLItems = document.getElementById("bluePieceHolder").getElementsByTagName("li");
 
     let movedFromHTML = lItems[movedFromSquare].innerHTML;
+    let movedToHTML = lItems[movedToSquare].innerHTML;
 
     let squareID1 = (lItems[movedFromSquare].innerHTML).split(">")[0].split("\"").reverse()[1]; // gets the id
     let pieceA = squareID1.split("-")[0].replace("blue", "").replace("red", ""); // gets the name from the id
@@ -163,18 +183,15 @@ function dotClicked(movedFromSquare, movedToSquare) {
     let changedMovedToHTML;
     // -1 do nothing 
     if (result !== 3) {
-        console.log(squareID2);
+        // alert(squareID2); // doesnt like alerts
         flipSinglePiece(squareID2);
         changedMovedToHTML = lItems[movedToSquare].innerHTML;
-        console.log("RAAAAAHHHAHAHAHAHHHHHAAHHHHH");
+        alert("RAAAAAHHHAHAHAHAHHHHHAAHHHHH");
     }
     let openSideSquareA;
     let openSideSquareB;
     // 3 is for when you attack a blank square
     let newSquareID1;
-    let colorAndStuff = movedFromHTML.split("=")[2].replace("\"", "").split("-")[0] + "-";
-    let innerHTMLList = movedFromHTML.split("\"");
-    let newHTMLInner = (innerHTMLList[0] + "\"" + innerHTMLList[1] + "\"" + innerHTMLList[2] + "\"" + colorAndStuff + movedToSquare + "\">");
     if (result === 1) {
         // The squareID2 needs to be moved to the sideboard
         openSideSquareB = checkSideboard(pieceBColor); //The first spot on the side where the captured piece can be put
@@ -187,10 +204,15 @@ function dotClicked(movedFromSquare, movedToSquare) {
         }
 
 
+        let colorAndStuff = movedFromHTML.split("=")[2].replace("\"", "").split("-")[0] + "-";
+        let innerHTMLList = movedFromHTML.split("\"");
+        let newHTMLInner = (innerHTMLList[0] + "\"" + innerHTMLList[1] + "\"" + innerHTMLList[2] + "\"" + colorAndStuff + movedToSquare + "\">");
         newSquareID1 = newHTMLInner.split(">")[0].split("\"").reverse()[1];
         lItems[movedToSquare].innerHTML = newHTMLInner;
     } else if (result === 3) { // for when you attack a blank square
-        lItems[movedToSquare].innerHTML = newHTMLInner;
+        let colorAndStuff = movedFromHTML.split("=")[2].replace("\"", "").split("-")[0] + "-";
+        let innerHTMLList = movedFromHTML.split("\"");
+        lItems[movedToSquare].innerHTML = (innerHTMLList[0] + "\"" + innerHTMLList[1] + "\"" + innerHTMLList[2] + "\"" + colorAndStuff + movedToSquare + "\">");
     } else if (result === -1) {
         // squareID1 needs to be moved to the sideboard
         openSideSquareA = checkSideboard(pieceAColor);
@@ -201,7 +223,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
         }
 
     } else if (result === 0) {// If they tie
-        // Both squares need to be moved to the sideboard
+        // Both squareIds need to be moved to the sideboard
         openSideSquareA = checkSideboard(pieceAColor);
         openSideSquareB = checkSideboard(pieceBColor);
         if (pieceAColor === "red") {
@@ -214,14 +236,12 @@ function dotClicked(movedFromSquare, movedToSquare) {
 
         lItems[movedToSquare].innerHTML = "<div id=\"blankSquare-" + movedToSquare + "\">";
 
-    } else if (result === 2) { // End the game
-        document.getElementById("squareList").classList.add("hidden");
-        console.log("Game ended! The flag has been captured");
-        gameEnd();
-    }
-
-    function gameEnd() {
-        window.location.href = "app.html";
+    } else if (result === 2) {
+        document.getElementById("squareList").innerHTML = "";
+        alert("Game Ended!");
+        setTimeout(() => {
+            window.location.href = "app.html";
+        }, 2000);
     }
 
     lItems[movedFromSquare].innerHTML = "<div id=\"blankSquare-" + movedFromSquare + "\">"; // blank square leaving piece
@@ -239,6 +259,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("blue");
+        alert("switch people");
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
@@ -252,6 +273,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("red");
+        alert("switch people");
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
@@ -265,7 +287,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
 
 function recursive(movedToSquare, direction, movedFromSquare) {
 
-    let currentSquare = (lItems[movedToSquare].innerHTML).split("\"").reverse()[1];
+    currentSquare = (lItems[movedToSquare].innerHTML).split("\"").reverse()[1];
 
     if (currentSquare.split("-")[0] === "blankSquare") {
         activateDot(movedFromSquare, movedToSquare, "blank");
@@ -290,9 +312,8 @@ function recursive(movedToSquare, direction, movedFromSquare) {
                     recursive(movedToSquare - 10, "u", movedFromSquare);
                 break;
         }
-    } else {
+    } else
         return;
-    }
 }
 
 
@@ -328,7 +349,6 @@ function combat(a, b) { // a is the attacking piece, if a wins the function retu
         return -1;
 }
 
-let lines = document.getElementById("squareList").getElementsByTagName("li");
 
 // a function to switch the backs of the pieces
 function flipPieces(color) {
@@ -339,12 +359,10 @@ function flipPieces(color) {
             if (line.indexOf(color + "Back") !== -1) {
                 // change to pieceIMG
                 let lineID = line.split("-")[0].split("id=\"")[1];
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/webroot/assets/media/pieces/" + lineID + ".png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + lineID + ".png");
             } else {
                 // change to backIMG
-                console.log(newSquare);
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/webroot/assets/media/pieces/" + color + "Back.png");
-                console.log(wholeDocument);
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + color + "Back.png");
 
             }
         }
@@ -353,32 +371,35 @@ function flipPieces(color) {
 
 // a function to switch the backs of the pieces
 function flipSinglePiece(pieceName) {
+
     for (let i = 0; i < 100; i++) {
         let line = lines[i].innerHTML;
         if (line.indexOf(pieceName) !== -1) {
             // get the color of the piece
-            let color = "";
+            color = "";
             if (pieceName.indexOf("red") !== -1) {
                 color = "red";
             } else {
                 color = "blue";
             }
+
             if (line.indexOf(color + "Back") !== -1) {
                 // change to pieceIMG
                 let lineID = line.split("-")[0].split("id=\"")[1];
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/webroot/assets/media/pieces/" + lineID + ".png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + lineID + ".png");
             } else {
                 // change to backIMG
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/webroot/assets/media/pieces/" + color + "Back.png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + color + "Back.png");
             }
         }
     }
 }
 
 function deleteAllDots() {
+
     for (let i = 0; i < 100; i++) {
         let line = lines[i].innerHTML;
-        if (line.indexOf("moveCircle") !== -1) { // section to change
+        if (line.indexOf("moveCircle") !== -1) {
             lines[i].innerHTML = line.replace(new RegExp("(<div class=\"moveCircle\" id=\"listenForClick..\"></div>)|(<div class=\"moveCircle\" id=\"listenForClick.\"></div>)|(<div class=\"moveCircleCombat\" id=\"listenForClick..\"></div>)|(<div class=\"moveCircleCombat\" id=\"listenForClick.\"></div>)", "g"), "");
         }
     }
