@@ -3,28 +3,29 @@ body {
     margin-top: 0;
     padding-left: 0;
     padding-top: 0;
+    background: lightgreen;
 }
 
 #board {
-    width: 1000px;
-    height: 1000px;
+    width: 62.5rem;
+    height: 62.5rem;
     z-index: -1;
     position: absolute;
 }
 
 #playingField {
-    width: 1028px;
-    padding-left: 240px;
+    width: 64.25rem;
+    padding-left: 15rem;
 }
 
 #main {
-    width: 1450px;
+    width: 90.625rem;
     margin-left: auto;
     margin-right: auto;
 }
 
 #main ul {
-    padding-left: 28px;
+    padding-left: 1.75rem;
     margin-top: 0;
 }
 
@@ -33,24 +34,24 @@ body {
 }
 
 #squareList li {
-    padding-right: 52px;
+    padding-right: 3.25rem;
     position: relative;
 }
 
 #squareList img {
     padding-left: 0;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    width: 44px;
-    height: 65px;
+    padding-top: 0.9375rem;
+    padding-bottom: 0.9375rem;
+    width: 2.75rem;
+    height: 4.0625rem;
 }
 
 #squareList li div {
     padding-left: 0;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    width: 44px;
-    height: 65px;
+    padding-top: 0.9375rem;
+    padding-bottom: 0.9375rem;
+    width: 2.75rem;
+    height: 4.0625rem;
     display: inline-block;
 }
 
@@ -68,9 +69,9 @@ body {
     -moz-transform: scale(0.7);
     -webkit-transform: scale(0.7);
     transform: scale(0.7);
-    margin-left: -45px;
-    margin-bottom: 20px;
-    height: 15px;
+    margin-left: -2.8125rem;
+    margin-bottom: 1.25rem;
+    height: 0.9375rem;
     opacity: .5;
 }
 
@@ -79,15 +80,15 @@ body {
 }
 
 #redPieceHolder {
-    top: -1005px;
-    left: 1000px;
+    top: -62.8125rem;
+    left: 62.5rem;
     position: relative;
 }
 
 #bluePieceHolder,
 #redPieceHolder {
-    padding-top: 5px;
-    width: 189px;
+    padding-top: 0.3125rem;
+    width: 11.8125rem;
 }
 
 #redPieceHolder ul li div {

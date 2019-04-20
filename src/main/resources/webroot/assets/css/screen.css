@@ -2,14 +2,11 @@ body{
     font-family: "Cooper Black", sans-serif;
     color: khaki;
     background: url(../media/background.png) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 0.625rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -31,7 +28,7 @@ nav, div a {
 main {
     margin-left: auto;
     margin-right: auto;
-    width: 900px;
+    width: 56.25rem;
     background-color: black;
     border: solid khaki;
 }
@@ -85,7 +82,7 @@ main p {
 }
 
 #loading {
-    width: 70px;
+    width: 4.375rem;
     background: none;
     border: none;
     position: fixed;
@@ -95,15 +92,15 @@ main p {
 }
 
 #loading img {
-    width: 100px;
-    height: 80px;
+    width: 6.25rem;
+    height: 5rem;
 }
 
 #loading h1 {
     font-family: "Microsoft Himalaya", sans-serif;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
     border-bottom: black solid;
-    border-width: 1px;
+    border-width: 0.0625rem;
     color: black;
 }
 
@@ -116,9 +113,9 @@ main p {
 #donate {
     margin-left: auto;
     margin-right: auto;
-    width: 350px;
+    width: 21.875rem;
     background-color: black;
-    border: 1px solid khaki;
+    border: 0.0625rem solid khaki;
     padding: 1rem;
     margin-top: 15rem;
 }
@@ -129,47 +126,45 @@ main p {
     color: black;
     display: block;
     float: right;
-    margin-top: 20px;
-    padding: 5px;
+    margin-top: 1.25rem;
+    padding: 0.3125rem;
 }
 
 #donate input {
-    margin-bottom: 10px;
-    margin-top: 20px;
-    height: 20px;
+    margin-bottom: 0.625rem;
+    margin-top: 1.25rem;
+    height: 1.25rem;
 }
 
 #donate label {
     font-size: 1.5rem;
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
 }
 
 #paymentMethod {
     margin-left: auto;
     margin-right: auto;
-    width: 350px;
+    width: 21.875rem;
     background-color: black;
-    border: 1px solid khaki;
+    border: 0.0625rem solid khaki;
     padding: 1rem;
     margin-top: 15rem;
 }
 
 #paymentMethod p {
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
     font-size: 1.5rem;
 }
 
 #paymentMethod img {
-    width: 100px;
-    height: 65px;
-    margin-left: 5px;
-    margin-top: 5px;
+    width: 6.25rem;
+    height: 4.0625rem;
+    margin-left: 0.3125rem;
+    margin-top: 0.3125rem;
 }
 
 #paymentMethod ul {
     display: flex;
 
 }
-
-
 
