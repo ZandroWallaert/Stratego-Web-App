@@ -13,7 +13,7 @@ function init() {
 }
 
 window.onload = function () {
-    alert("Blue player setup");
+    document.querySelector("body h1").innerHTML = ("First Player Setup (Blue)");
     setupOnClick("blue");
 };
 
@@ -24,6 +24,7 @@ function startGame() {
 }
 
 function redTurn() {
+    document.querySelector("body h1").innerHTML = ("Second Player Setup (Red)");
     flipPieces("blue");
     setupOnClick("red");
     let setupDiv = document.getElementById('premade');
@@ -99,11 +100,11 @@ function checkstatus(squareNumber, movedFromSquare) {
         activateDot(movedFromSquare, squareNumber, "boardToSide");
         return 1;
     }
+    return 11
 }
 
 function activateDot(movedFromSquare, movedToSquare, type) {
     let board = document.getElementById("squareList").getElementsByTagName("li");
-    let sideboard = document.getElementById("pieceHolder").getElementsByTagName("li");
     let currentHTML;
     let newHTML;
 
@@ -114,10 +115,6 @@ function activateDot(movedFromSquare, movedToSquare, type) {
         document.getElementById("listenForClick" + movedToSquare).onclick = function () {
             dotClicked(movedFromSquare, movedToSquare, type);
         };
-    }
-    if (type === "boardToSide") { // if the piece you clicked on was on the board and you want to move it to the side
-        currentHTML = sideboard[movedToSquare].innerHTML;
-        newHTML = currentHTML + '<div class="moveCircle" id="listenForClickSide' + movedToSquare + '"></div>';
     }
 }
 

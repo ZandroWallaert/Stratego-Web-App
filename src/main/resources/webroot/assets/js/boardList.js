@@ -33,7 +33,7 @@ window.onload = function () {
     squareList.innerHTML = localStorage.getItem('testObject');
     localStorage.setItem("turn", "blue");
     flipPieces("red");
-    alert("Blue goes first, don't look red!");
+    document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
     flipPieces("blue");
     setupClick();
 };
@@ -46,7 +46,6 @@ function posmoves(pieceName) {
     color = colorOfClick(pieceName);
 
     setupClick();
-    // activateDot(33, 34); // we need to call in the the variables moveTo and moveFrom
 
     if (name === "Bomb" || name === "Flag" || name === "lakeSquare" || name === "blankSquare")
         return; // if it's a piece that can't move
@@ -104,11 +103,13 @@ function checkstatus(squareNumber, color, movedFromSquare) {
     if (currentSquare.split("-")[0] === "blankSquare") {
         activateDot(movedFromSquare, squareNumber, "blank");
         return 1;
-    } else if (currentSquare.split("-")[0] === "lakeSquare")
-        return;
-
-    else if (color !== squareColor) // If the color of the piece being moved is different from the color of the piece on the square
+    } else if (currentSquare.split("-")[0] === "lakeSquare") {
+        return 10
+    } else if (color !== squareColor) {
         activateDot(movedFromSquare, squareNumber, "combat");
+    } // If the color of the piece being moved is different from the color of the piece on the square
+
+    return 11
 }
 
 function checkSideboard(color) {
@@ -134,6 +135,7 @@ function checkSideboard(color) {
         }
     }
 
+    return 11
 }
 
 function activateDot(movedFromSquare, movedToSquare, type) {
@@ -164,29 +166,22 @@ function sleep(milliseconds) {
 
 function dotClicked(movedFromSquare, movedToSquare) {
     deleteAllDots();
-
     let redSideLItems = document.getElementById("redPieceHolder").getElementsByTagName("li");
     let blueSideLItems = document.getElementById("bluePieceHolder").getElementsByTagName("li");
-
     let movedFromHTML = lItems[movedFromSquare].innerHTML;
-    let movedToHTML = lItems[movedToSquare].innerHTML;
-
     let squareID1 = (lItems[movedFromSquare].innerHTML).split(">")[0].split("\"").reverse()[1]; // gets the id
     let pieceA = squareID1.split("-")[0].replace("blue", "").replace("red", ""); // gets the name from the id
     let pieceAColor = colorOfClick(squareID1);
-
     let squareID2 = (lItems[movedToSquare].innerHTML).split(">")[0].split("\"").reverse()[1]; // gets the id
     let pieceB = squareID2.split("-")[0].replace("blue", "").replace("red", ""); // gets the name from the id
     let pieceBColor = colorOfClick(squareID2);
-
     let result = combat(pieceA, pieceB);
     let changedMovedToHTML;
-    // -1 do nothing 
+    // -1 do nothing
     if (result !== 3) {
-        // alert(squareID2); // doesnt like alerts
         flipSinglePiece(squareID2);
         changedMovedToHTML = lItems[movedToSquare].innerHTML;
-        alert("RAAAAAHHHAHAHAHAHHHHHAAHHHHH");
+        document.querySelector("body h1").innerHTML = ("KILL");
     }
     let openSideSquareA;
     let openSideSquareB;
@@ -238,7 +233,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
 
     } else if (result === 2) {
         document.getElementById("squareList").innerHTML = "";
-        alert("Game Ended!");
+        document.querySelector("body h1").innerHTML = ("Game Ended!");
         setTimeout(() => {
             window.location.href = "app.html";
         }, 2000);
@@ -253,13 +248,13 @@ function dotClicked(movedFromSquare, movedToSquare) {
         localStorage.setItem("turn", "blue");
     }
 
-
+    let Switch = "Switch Player!";
     if (pieceAColor === "blue") {
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("blue");
-        alert("switch people");
+        document.querySelector("body h1").innerHTML = Switch;
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
@@ -273,7 +268,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("red");
-        alert("switch people");
+        document.querySelector("body h1").innerHTML = Switch;
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
@@ -349,6 +344,7 @@ function combat(a, b) { // a is the attacking piece, if a wins the function retu
         return -1;
 }
 
+let pieces = "/assets/media/pieces/";
 
 // a function to switch the backs of the pieces
 function flipPieces(color) {
@@ -359,10 +355,10 @@ function flipPieces(color) {
             if (line.indexOf(color + "Back") !== -1) {
                 // change to pieceIMG
                 let lineID = line.split("-")[0].split("id=\"")[1];
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + lineID + ".png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), pieces + lineID + ".png");
             } else {
                 // change to backIMG
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + color + "Back.png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), pieces + color + "Back.png");
 
             }
         }
@@ -386,10 +382,10 @@ function flipSinglePiece(pieceName) {
             if (line.indexOf(color + "Back") !== -1) {
                 // change to pieceIMG
                 let lineID = line.split("-")[0].split("id=\"")[1];
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + lineID + ".png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), pieces + lineID + ".png");
             } else {
                 // change to backIMG
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + color + "Back.png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), pieces + color + "Back.png");
             }
         }
     }

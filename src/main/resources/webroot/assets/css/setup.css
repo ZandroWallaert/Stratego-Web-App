@@ -81,8 +81,8 @@ ul li div {
 #pieceHolder div[id*="blankSquare"] {
     padding-bottom: 0;
     padding-top: 0;
-    width: 10%;
-    height: 10%;
+    width: 11%;
+    height: 4.15%;
 }
 
 #pieceHolder .moveCircle {
@@ -111,13 +111,6 @@ ul li div {
 #premade ul {
     list-style: none;
     padding-left: 0;
-}
-
-#pieceHolder div[id*="blankSquare"] {
-    padding-bottom: 0;
-    padding-top: 0;
-    width: 11%;
-    height: 4.15%;
 }
 
 .button-3d, #switchSetup, #startGame {
