@@ -28,7 +28,7 @@
 }
 
 #mainMenu {
-    border-right-width: 7px;
+    border-right-width: 0.4375rem;
     border-style: solid;
 }
 
@@ -90,3 +90,4 @@ input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[
 .lds-ring div {
     border-color: rgba(255, 235, 153, 0.7) transparent transparent transparent;
 }
+

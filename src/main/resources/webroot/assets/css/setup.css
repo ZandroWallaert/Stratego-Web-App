@@ -1,0 +1,136 @@
+body {
+    margin-left: 0;
+    margin-top: 0;
+    padding-left: 0;
+    padding-top: 0;
+    background: lightgreen;
+}
+
+#board {
+    width: 62.5rem;
+    height: 62.5rem;
+    margin-right: auto;
+    margin-left: auto;
+    z-index: -1;
+    position: absolute;
+}
+
+#playingField {
+    width: 64.25rem;
+    position: absolute;
+}
+
+#playingField ul {
+    list-style: none;
+    padding-left: 1.75rem;
+    margin-top: 0;
+}
+
+#playingField ul li {
+    display: inline;
+    padding-right: 3.25rem;
+}
+
+#playingField ul li img {
+    padding-left: 0;
+    padding-top: 0.9375rem;
+    padding-bottom: 0.9375rem;
+    width: 2.75rem;
+    height: 4.0625rem;
+}
+
+#playingField ul li div {
+    padding-top: 0.9375rem;
+    padding-bottom: 0.9375rem;
+}
+
+ul li div {
+    padding-left: 0;
+    width: 2.75rem;
+    height: 4.0625rem;
+    display: inline-block;
+}
+
+#playingField .moveCircle {
+    background: #f00;
+    border-radius: 50%;
+    position: absolute;
+    padding-left: 3.125rem;
+    -moz-transform: scale(0.35);
+    -webkit-transform: scale(0.35);
+    transform: scale(0.35);
+    margin-left: -4.375rem;
+    margin-top: 0;
+    opacity: .5;
+}
+
+#pieceHolder {
+    padding-left: 65.625rem;
+    width: 25rem;
+}
+
+#pieceHolder li {
+    display: inline;
+}
+
+#pieceHolder li img {
+    width: 2.75rem;
+    height: 4.0625rem;
+}
+
+#pieceHolder div[id*="blankSquare"] {
+    padding-bottom: 0;
+    padding-top: 0;
+    width: 11%;
+    height: 4.15%;
+}
+
+#pieceHolder .moveCircle {
+    background: #f00;
+    border-radius: 50%;
+    position: absolute;
+    padding-left: 3.125rem;
+    -moz-transform: scale(0.35);
+    -webkit-transform: scale(0.35);
+    transform: scale(0.35);
+    margin-left: -3.4375rem;
+    margin-top: 0;
+    opacity: .5;
+    width: 1.25rem;
+}
+
+#premade {
+    position: absolute;
+    margin-top: 3.125rem;
+    left: 69.25rem;
+    -moz-transform: scale(2.5);
+    -webkit-transform: scale(2.5);
+    transform: scale(2.5);
+}
+
+#premade ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.button-3d, #switchSetup, #startGame {
+    position: relative;
+    width: auto;
+    display: inline-block;
+    color: #ecf0f1;
+    text-decoration: none;
+    border-radius: 0.3125rem;
+    border: solid 0.0625rem #f39c12;
+    background: #e67e22;
+    text-align: center;
+    margin: 0.75rem;
+    transition: all 0.1s;
+    box-shadow: 0 0.375rem 0 #d35400;
+}
+
+.button-3d:active, #switchSetup:active, #startGame:active {
+    box-shadow: 0 0.125rem 0 #d35400;
+    position: relative;
+    top: 0.25rem;
+}
+

@@ -3,12 +3,12 @@
 .lds-spinner {
     display: inline-block;
     position: relative;
-    width: 64px;
-    height: 64px;
+    width: 4rem;
+    height: 4rem;
 }
 
 .lds-spinner div {
-    transform-origin: 32px 32px;
+    transform-origin: 2rem 2rem;
     animation: lds-spinner 1.2s linear infinite;
 }
 
@@ -16,10 +16,10 @@
     content: " ";
     display: block;
     position: absolute;
-    top: 3px;
-    left: 29px;
-    width: 5px;
-    height: 14px;
+    top: 0.1875rem;
+    left: 1.8125rem;
+    width: 0.3125rem;
+    height: 0.875rem;
     border-radius: 20%;
     background: #000;
 }
@@ -96,20 +96,20 @@
 .lds-ring {
     display: block;
     position: relative;
-    width: 64px;
-    height: 64px;
-    margin-bottom: 40px;
-    margin-left: 50px;
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 2.5rem;
+    margin-left: 3.125rem;
 }
 
 .lds-ring div {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 70px;
-    height: 70px;
-    margin: 6px;
-    border: 6px solid;
+    width: 4.375rem;
+    height: 4.375rem;
+    margin: 0.375rem;
+    border: 0.375rem solid;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: rgba(153, 206, 255, 0.7) transparent transparent transparent;

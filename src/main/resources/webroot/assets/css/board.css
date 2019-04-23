@@ -1,0 +1,98 @@
+body {
+    margin-left: 0;
+    margin-top: 0;
+    padding-left: 0;
+    padding-top: 0;
+    background: lightgreen;
+}
+
+#board {
+    width: 62.5rem;
+    height: 62.5rem;
+    z-index: -1;
+    position: absolute;
+}
+
+#playingField {
+    width: 64.25rem;
+    padding-left: 15rem;
+}
+
+#main {
+    width: 90.625rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#main ul {
+    padding-left: 1.75rem;
+    margin-top: 0;
+}
+
+#main ul li {
+    display: inline;
+}
+
+#squareList li {
+    padding-right: 3.25rem;
+    position: relative;
+}
+
+#squareList img {
+    padding-left: 0;
+    padding-top: 0.9375rem;
+    padding-bottom: 0.9375rem;
+    width: 2.75rem;
+    height: 4.0625rem;
+}
+
+#squareList li div {
+    padding-left: 0;
+    padding-top: 0.9375rem;
+    padding-bottom: 0.9375rem;
+    width: 2.75rem;
+    height: 4.0625rem;
+    display: inline-block;
+}
+
+#squareList li .moveCircle {
+    background: #f00;
+}
+
+#squareList li .moveCircleCombat {
+    background: green;
+}
+
+#squareList li .moveCircleCombat,
+#squareList li .moveCircle {
+    border-radius: 50%;
+    -moz-transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    transform: scale(0.7);
+    margin-left: -2.8125rem;
+    margin-bottom: 1.25rem;
+    height: 0.9375rem;
+    opacity: .5;
+}
+
+#bluePieceHolder {
+    position: absolute;
+}
+
+#redPieceHolder {
+    top: -62.8125rem;
+    left: 62.5rem;
+    position: relative;
+}
+
+#bluePieceHolder,
+#redPieceHolder {
+    padding-top: 0.3125rem;
+    width: 11.8125rem;
+}
+
+#redPieceHolder ul li div {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
