@@ -44,7 +44,10 @@ function redTurn() {
     flipPieces("blue");
     setupOnClick("red");
     let setupDiv = document.getElementById('premade');
-    setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" onclick="premadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li><li><input id="switchSetup" type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
+    setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" ' +
+        'onclick="premadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" ' +
+        'value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li><li><input id="switchSetup" ' +
+        'type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
 }
 
 function setupOnClick(playerColor) {
@@ -151,15 +154,29 @@ function dotClicked(movedFromSquare, movedToSquare, type) {
         movedFromHTML = sideboard[movedFromSquare].innerHTML;
         movedToHTML = board[movedToSquare].innerHTML;
     }
+    let squareID1;
+    if (typeof movedFromHTML !== 'undefined') {
+        squareID1 = (movedFromHTML).split(">")[0].split('"').reverse()[1];
+    }
+    let squareID2;
+    let movedToHTMLUpdated;
+    if (typeof movedToHTML !== 'undefined') {
+        squareID2 = (movedToHTML).split(">")[0].split('"').reverse()[1];
+        movedToHTMLUpdated = movedToHTML.replace(new RegExp('-[0-9][0-9]"|-[0-9]"', 'g'),
+            "-" + squareID1 + '"');
+    }
 
-    let squareID1 = (movedFromHTML).split(">")[0].split('"').reverse()[1];
-    let squareID2 = (movedToHTML).split(">")[0].split('"').reverse()[1];
-
-    let movedToHTMLUpdated = movedToHTML.replace(new RegExp('-[0-9][0-9]"|-[0-9]"', 'g'), "-" + squareID1 + '"');
-    let movedFromHTMLUpdated = movedFromHTML.replace(new RegExp('-[0-9][0-9]"|-[0-9]"', 'g'), "-" + squareID2 + '"');
-
-    movedToHTMLUpdated = movedToHTMLUpdated.replace(new RegExp('-(.*)-', 'g'), "-");
-    movedFromHTMLUpdated = movedFromHTMLUpdated.replace(new RegExp('-(.*)-', 'g'), "-");
+    let movedFromHTMLUpdated;
+    if (typeof movedFromHTML !== 'undefined') {
+        movedFromHTMLUpdated = movedFromHTML.replace(new RegExp('-[0-9][0-9]"|-[0-9]"', 'g'),
+            "-" + squareID2 + '"');
+    }
+    if (typeof movedToHTMLUpdated !== 'undefined') {
+        movedToHTMLUpdated = movedToHTMLUpdated.replace(new RegExp('-(.*)-', 'g'), "-");
+    }
+    if (typeof movedFromHTMLUpdated !== 'undefined') {
+        movedFromHTMLUpdated = movedFromHTMLUpdated.replace(new RegExp('-(.*)-', 'g'), "-");
+    }
 
     if (type === "boardToBoard") {
         board[movedFromSquare].innerHTML = movedToHTMLUpdated;
@@ -203,7 +220,10 @@ function deleteAllDots() {
         for (let i = 0; i < size; i++) {
             let line = board[i].innerHTML;
             if (line.indexOf("moveCircle") !== -1) { // section to change
-                board[i].innerHTML = line.replace(new RegExp("(<div class=\"moveCircle\" id=\"listenForClick..\"></div>)|(<div class=\"moveCircle\" id=\"listenForClick.\"></div>)|(<div class=\"moveCircleCombat\" id=\"listenForClick..\"></div>)|(<div class=\"moveCircleCombat\" id=\"listenForClick.\"></div>)", "g"), "");
+                board[i].innerHTML = line.replace(new RegExp("(<div class=\"moveCircle\" id=\"listenForClick..\"></div>)|" +
+                    "(<div class=\"moveCircle\" id=\"listenForClick.\"></div>)|" +
+                    "(<div class=\"moveCircleCombat\" id=\"listenForClick..\"></div>)|" +
+                    "(<div class=\"moveCircleCombat\" id=\"listenForClick.\"></div>)", "g"), "");
             }
         }
     }
@@ -221,10 +241,12 @@ function flipPieces(color) {
             if (line.indexOf(color + "Back") !== -1) {
                 // change to pieceIMG
                 let lineID = line.split("-")[0].split("id=\"")[1];
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + lineID + ".png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"),
+                    "/assets/media/pieces/" + lineID + ".png");
             } else {
                 // change to backIMG
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), "/assets/media/pieces/" + color + "Back.png");
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"),
+                    "/assets/media/pieces/" + color + "Back.png");
             }
         }
     }
@@ -243,7 +265,8 @@ function premadeButton(id, value, functionCall) {
     }
 
     //if not put it on the board
-    premadeDiv.innerHTML = (premadeDiv.innerHTML).replace("</ul>", "") + "<li>" + button + '</li></ul>';
+    premadeDiv.innerHTML = (premadeDiv.innerHTML).replace("</ul>", "") +
+        "<li>" + button + '</li></ul>';
 }
 
 function premadeSetup(color, setupType) {
@@ -251,11 +274,17 @@ function premadeSetup(color, setupType) {
     document.getElementById("premade").classList.add("moveUp");
     let setupList = [];
     if (setupType === "defensive") {
-        setupList = ["8", "8", "8", "9", "6", "9", "4", "Flag", "5", "5", "9", "9", "8", "6", "Bomb", "Bomb", "6", "4", "4", "5", "8", "1", "6", "Bomb", "7", "7", "Bomb", "3", "Spy", "3", "9", "9", "Bomb", "7", "9", "9", "7", "Bomb", "2", "5"];
+        setupList = ["8", "8", "8", "9", "6", "9", "4", "Flag", "5", "5", "9", "9", "8", "6", "Bomb", "Bomb", "6",
+            "4", "4", "5", "8", "1", "6", "Bomb", "7", "7", "Bomb", "3", "Spy", "3", "9", "9", "Bomb", "7", "9", "9",
+            "7", "Bomb", "2", "5"];
     } else if (setupType === "offensive") {
-        setupList = ["Bomb", "6", "8", "5", "7", "8", "4", "Bomb", "7", "Flag", "8", "9", "Bomb", "Spy", "5", "Bomb", "6", "9", "Bomb", "7", "4", "8", "9", "8", "9", "3", "5", "4", "1", "Bomb", "9", "6", "2", "9", "3", "9", "6", "7", "9", "5"];
+        setupList = ["Bomb", "6", "8", "5", "7", "8", "4", "Bomb", "7", "Flag", "8", "9", "Bomb", "Spy", "5", "Bomb",
+            "6", "9", "Bomb", "7", "4", "8", "9", "8", "9", "3", "5", "4", "1", "Bomb", "9", "6", "2", "9", "3", "9",
+            "6", "7", "9", "5"];
     } else if (setupType === "mixed") {
-        setupList = ["9", "8", "8", "9", "6", "Bomb", "Flag", "Bomb", "5", "8", "7", "5", "9", "8", "5", "4", "3", "6", "7", "7", "4", "Bomb", "7", "6", "5", "Bomb", "6", "4", "Bomb", "Bomb", "9", "2", "Spy", "3", "9", "9", "8", "1", "9", "9"];
+        setupList = ["9", "8", "8", "9", "6", "Bomb", "Flag", "Bomb", "5", "8", "7", "5", "9", "8", "5", "4", "3",
+            "6", "7", "7", "4", "Bomb", "7", "6", "5", "Bomb", "6", "4", "Bomb", "Bomb", "9", "2", "Spy", "3", "9",
+            "9", "8", "1", "9", "9"];
     }
 
     if (color === "blue") {
@@ -275,7 +304,9 @@ function premadeSetup(color, setupType) {
     let boardLines = document.getElementById("squareList").getElementsByTagName("li");
     let sideLines = document.getElementById("pieceHolder").getElementsByTagName("li");
     for (let i = 0; i < setupList.length; i++) {
-        boardLines[i + range].innerHTML = "<img src=\"./assets/media/pieces/" + color + setupList[i] + ".png\" id=\"" + color + setupList[i] + "-" + (i + range) + "\">";
+        boardLines[i + range].innerHTML = "<img src=\"./assets/media/pieces/" + color + setupList[i] + ".png\" id=\"" +
+            color + setupList[i] + "-" + (i + range) + "\">";
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
 }
+
