@@ -1,3 +1,6 @@
+html {
+    overflow-y: hidden;
+}
 body {
     margin: 0;
     background: lightgreen;
@@ -5,6 +8,10 @@ body {
     transform-origin: top;
 }
 
+h1 {
+    font-size: 1rem;
+    margin: 0;
+}
 #board {
     width: 62.5rem;
     height: 62.5rem;
@@ -97,7 +104,7 @@ ul li div {
 #premade {
     position: absolute;
     left: 69.25rem;
-    top: 50rem;
+    top: 49rem;
     transform: scale(2.5);
 }
 
