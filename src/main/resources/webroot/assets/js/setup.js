@@ -10,6 +10,22 @@ let playerColor;
 function init() {
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
+    setupPage();
+}
+
+function setupPage() {
+    let lake = document.getElementById("lake1");
+    let lake2 = document.getElementById("lake2");
+    for (let i = 0; i < 42; i++) {
+        lake.insertAdjacentHTML('beforebegin', `<li>
+    <div id="blankSquare-${i}"></div>
+        </li>`);
+    }
+    for (let i = 99; i > 57; i--) {
+        lake2.insertAdjacentHTML('afterend', `<li>
+    <div id="blankSquare-${i}"></div>
+        </li>`);
+    }
 }
 
 window.onload = function () {
@@ -231,6 +247,8 @@ function premadeButton(id, value, functionCall) {
 }
 
 function premadeSetup(color, setupType) {
+    document.getElementById("premade").removeAttribute("style");
+    document.getElementById("premade").classList.add("moveUp");
     let setupList = [];
     if (setupType === "defensive") {
         setupList = ["8", "8", "8", "9", "6", "9", "4", "Flag", "5", "5", "9", "9", "8", "6", "Bomb", "Bomb", "6", "4", "4", "5", "8", "1", "6", "Bomb", "7", "7", "Bomb", "3", "Spy", "3", "9", "9", "Bomb", "7", "9", "9", "7", "Bomb", "2", "5"];

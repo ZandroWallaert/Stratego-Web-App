@@ -1,9 +1,11 @@
+html {
+    overflow-y: hidden;
+}
 body {
-    margin-left: 0;
-    margin-top: 0;
-    padding-left: 0;
-    padding-top: 0;
+    margin: 0;
     background: lightgreen;
+    transform: scale(0.7);
+    transform-origin: top;
 }
 
 #board {
@@ -19,7 +21,7 @@ body {
 }
 
 #main {
-    width: 90.625rem;
+    width: 65rem;
     margin-left: auto;
     margin-right: auto;
 }
@@ -40,9 +42,9 @@ body {
 
 #squareList img {
     padding-left: 0;
-    padding-top: 0.9375rem;
+    padding-top: 1.1rem;
     padding-bottom: 0.9375rem;
-    width: 2.75rem;
+    width: 3rem;
     height: 4.0625rem;
 }
 
@@ -66,8 +68,6 @@ body {
 #squareList li .moveCircleCombat,
 #squareList li .moveCircle {
     border-radius: 50%;
-    -moz-transform: scale(0.7);
-    -webkit-transform: scale(0.7);
     transform: scale(0.7);
     margin-left: -2.8125rem;
     margin-bottom: 1.25rem;
@@ -77,10 +77,11 @@ body {
 
 #bluePieceHolder {
     position: absolute;
+    left: -1.875rem;
 }
 
 #redPieceHolder {
-    top: -62.8125rem;
+    top: -60rem;
     left: 62.5rem;
     position: relative;
 }

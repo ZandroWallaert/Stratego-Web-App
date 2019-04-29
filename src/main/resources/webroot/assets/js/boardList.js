@@ -10,13 +10,21 @@ function init() {
     squareList = document.getElementById("squareList");
     lItems = document.getElementById("squareList").getElementsByTagName("li");
     lines = document.getElementById("squareList").getElementsByTagName("li");
+    setupHtml();
+}
+
+function setupHtml() {
     for (let i = 0; i < 40; i++) {
         document.getElementById("bluePieceHolder").innerHTML += `<li>
             <div id="blankSquare-${i}"></div>
         </li>`
     }
+    for (let i = 0; i < 40; i++) {
+        document.getElementById("redPieceHolder").innerHTML += `<li>
+            <div id="blankSquare-${i}"></div>
+        </li>`
+    }
 }
-
 function setupClick() {
     squareList.onclick = function (e) {
         deleteAllDots();
@@ -152,16 +160,6 @@ function activateDot(movedFromSquare, movedToSquare, type) {
     document.getElementById("listenForClick" + movedToSquare).onclick = function () {
         dotClicked(movedFromSquare, movedToSquare);
     };
-}
-
-function sleep(milliseconds) {
-
-    let start = new Date().getTime();
-    for (let i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds) {
-            break;
-        }
-    }
 }
 
 function dotClicked(movedFromSquare, movedToSquare) {
@@ -307,8 +305,7 @@ function recursive(movedToSquare, direction, movedFromSquare) {
                     recursive(movedToSquare - 10, "u", movedFromSquare);
                 break;
         }
-    } else
-        return;
+    }
 }
 
 
