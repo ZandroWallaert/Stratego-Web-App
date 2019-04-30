@@ -40,7 +40,8 @@ window.onload = function () {
 
 function posmoves(pieceName) {
 
-    let name = pieceName.split("-")[0].replace("blue", "").replace("red", ""); // the name of the piece (Spy, Bomb, 9 etc..)
+    let name = pieceName.split("-")[0].replace("blue", "")
+        .replace("red", ""); // the name of the piece (Spy, Bomb, 9 etc..)
     let square = pieceName.split("-")[1]; // the position on the board
     square = parseInt(square, 10);
     color = colorOfClick(pieceName);
@@ -170,10 +171,12 @@ function dotClicked(movedFromSquare, movedToSquare) {
     let blueSideLItems = document.getElementById("bluePieceHolder").getElementsByTagName("li");
     let movedFromHTML = lItems[movedFromSquare].innerHTML;
     let squareID1 = (lItems[movedFromSquare].innerHTML).split(">")[0].split("\"").reverse()[1]; // gets the id
-    let pieceA = squareID1.split("-")[0].replace("blue", "").replace("red", ""); // gets the name from the id
+    let pieceA = squareID1.split("-")[0].replace("blue", "")
+        .replace("red", ""); // gets the name from the id
     let pieceAColor = colorOfClick(squareID1);
     let squareID2 = (lItems[movedToSquare].innerHTML).split(">")[0].split("\"").reverse()[1]; // gets the id
-    let pieceB = squareID2.split("-")[0].replace("blue", "").replace("red", ""); // gets the name from the id
+    let pieceB = squareID2.split("-")[0].replace("blue", "")
+        .replace("red", ""); // gets the name from the id
     let pieceBColor = colorOfClick(squareID2);
     let result = combat(pieceA, pieceB);
     let changedMovedToHTML;
@@ -199,15 +202,19 @@ function dotClicked(movedFromSquare, movedToSquare) {
         }
 
 
-        let colorAndStuff = movedFromHTML.split("=")[2].replace("\"", "").split("-")[0] + "-";
+        let colorAndStuff = movedFromHTML.split("=")[2].replace("\"", "")
+            .split("-")[0] + "-";
         let innerHTMLList = movedFromHTML.split("\"");
-        let newHTMLInner = (innerHTMLList[0] + "\"" + innerHTMLList[1] + "\"" + innerHTMLList[2] + "\"" + colorAndStuff + movedToSquare + "\">");
+        let newHTMLInner = (innerHTMLList[0] + "\"" + innerHTMLList[1] + "\"" + innerHTMLList[2] + "\"" +
+            colorAndStuff + movedToSquare + "\">");
         newSquareID1 = newHTMLInner.split(">")[0].split("\"").reverse()[1];
         lItems[movedToSquare].innerHTML = newHTMLInner;
     } else if (result === 3) { // for when you attack a blank square
-        let colorAndStuff = movedFromHTML.split("=")[2].replace("\"", "").split("-")[0] + "-";
+        let colorAndStuff = movedFromHTML.split("=")[2].replace("\"", "")
+            .split("-")[0] + "-";
         let innerHTMLList = movedFromHTML.split("\"");
-        lItems[movedToSquare].innerHTML = (innerHTMLList[0] + "\"" + innerHTMLList[1] + "\"" + innerHTMLList[2] + "\"" + colorAndStuff + movedToSquare + "\">");
+        lItems[movedToSquare].innerHTML = (innerHTMLList[0] + "\"" + innerHTMLList[1] + "\"" + innerHTMLList[2] +
+            "\"" + colorAndStuff + movedToSquare + "\">");
     } else if (result === -1) {
         // squareID1 needs to be moved to the sideboard
         openSideSquareA = checkSideboard(pieceAColor);
@@ -312,8 +319,8 @@ function recursive(movedToSquare, direction, movedFromSquare) {
 }
 
 
-function combat(a, b) { // a is the attacking piece, if a wins the function returns 1, if b wins it returns -1, otherwise returns 0 if they tie both die, or 2 if its a flag
-
+function combat(a, b) {
+// a is the attacking piece, if a wins the function returns 1, if b wins it returns -1, otherwise returns 0 if they tie both die, or 2 if its a flag
     if (a === b) // If they tie
         return 0;
 
@@ -392,11 +399,13 @@ function flipSinglePiece(pieceName) {
 }
 
 function deleteAllDots() {
-
     for (let i = 0; i < 100; i++) {
         let line = lines[i].innerHTML;
         if (line.indexOf("moveCircle") !== -1) {
-            lines[i].innerHTML = line.replace(new RegExp("(<div class=\"moveCircle\" id=\"listenForClick..\"></div>)|(<div class=\"moveCircle\" id=\"listenForClick.\"></div>)|(<div class=\"moveCircleCombat\" id=\"listenForClick..\"></div>)|(<div class=\"moveCircleCombat\" id=\"listenForClick.\"></div>)", "g"), "");
+            lines[i].innerHTML = line.replace(new RegExp("(<div class=\"moveCircle\" id=\"listenForClick..\"></div>)|" +
+                "(<div class=\"moveCircle\" id=\"listenForClick.\"></div>)|" +
+                "(<div class=\"moveCircleCombat\" id=\"listenForClick..\"></div>)|" +
+                "(<div class=\"moveCircleCombat\" id=\"listenForClick.\"></div>)", "g"), "");
         }
     }
 }

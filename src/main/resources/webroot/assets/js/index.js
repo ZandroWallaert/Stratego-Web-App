@@ -68,7 +68,8 @@ function init() {
 }
 
 let selector = document.querySelectorAll('a');
-document.querySelector('#createPersonForm input[type=submit]').addEventListener('mouseover', playAudioHover);
+document.querySelector('#createPersonForm input[type=submit]')
+    .addEventListener('mouseover', playAudioHover);
 for (let i = 0; i < selector.length; i++) {
     selector[i].addEventListener('mouseover', playAudioHover);
 }
@@ -87,15 +88,16 @@ function enableCollapsible() {
 
     let selectorCollapse = document.getElementsByClassName('collapsible');
 
-    for (let i = 0; i < selectorCollapse.length; i++) selectorCollapse[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        let content = this.nextElementSibling;
-        if (content.style.display === "block") {
-            content.style.display = "none";
-        } else {
-            content.style.display = "block";
-        }
-    });
+    for (let i = 0; i < selectorCollapse.length; i++) selectorCollapse[i]
+        .addEventListener("click", function () {
+            this.classList.toggle("active");
+            let content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
 }
 
 function preventEarlyEvents() {
@@ -454,3 +456,4 @@ function cancelSearch() {
     document.getElementById('backgroundVideo').style.filter = 'blur(7px)';
     clearTimeout(timeVar);
 }
+

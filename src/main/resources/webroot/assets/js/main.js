@@ -27,3 +27,4 @@ function showProceedToPayment() {
     document.getElementById('paymentMethod').classList.remove('hidden');
     document.getElementById('donate').classList.add('hidden');
 }
+
