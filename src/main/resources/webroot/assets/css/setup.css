@@ -1,11 +1,17 @@
+html {
+    overflow-y: hidden;
+}
 body {
-    margin-left: 0;
-    margin-top: 0;
-    padding-left: 0;
-    padding-top: 0;
+    margin: 0;
     background: lightgreen;
+    transform: scale(0.7);
+    transform-origin: top;
 }
 
+h1 {
+    font-size: 1rem;
+    margin: 0;
+}
 #board {
     width: 62.5rem;
     height: 62.5rem;
@@ -33,9 +39,9 @@ body {
 
 #playingField ul li img {
     padding-left: 0;
-    padding-top: 0.9375rem;
+    padding-top: 1.1rem;
     padding-bottom: 0.9375rem;
-    width: 2.75rem;
+    width: 3rem;
     height: 4.0625rem;
 }
 
@@ -56,8 +62,6 @@ ul li div {
     border-radius: 50%;
     position: absolute;
     padding-left: 3.125rem;
-    -moz-transform: scale(0.35);
-    -webkit-transform: scale(0.35);
     transform: scale(0.35);
     margin-left: -4.375rem;
     margin-top: 0;
@@ -90,8 +94,6 @@ ul li div {
     border-radius: 50%;
     position: absolute;
     padding-left: 3.125rem;
-    -moz-transform: scale(0.35);
-    -webkit-transform: scale(0.35);
     transform: scale(0.35);
     margin-left: -3.4375rem;
     margin-top: 0;
@@ -101,16 +103,19 @@ ul li div {
 
 #premade {
     position: absolute;
-    margin-top: 3.125rem;
     left: 69.25rem;
-    -moz-transform: scale(2.5);
-    -webkit-transform: scale(2.5);
+    top: 49rem;
     transform: scale(2.5);
 }
 
+#premade.moveUp {
+    position: absolute;
+    left: 69.25rem;
+    top: 40rem;
+    transform: scale(2.5);
+}
 #premade ul {
     list-style: none;
-    padding-left: 0;
 }
 
 .button-3d, #switchSetup, #startGame {
@@ -133,4 +138,5 @@ ul li div {
     position: relative;
     top: 0.25rem;
 }
+
 
