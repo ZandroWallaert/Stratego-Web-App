@@ -398,7 +398,7 @@ function showModeDetails(i) {
         "Capture the flag using all of the pieces except the infiltrator.",
         "Capture the flag using 10 specific pieces.",
         "Capture the flag with only 7 scouts and the Infiltrator.",
-        "Locked mode."
+        "Capture the flag but Scouts are replaced with pilots and airports."
     ];
     document.getElementById('infoBox').classList.remove('hidden');
     document.querySelector('#infoBox').innerHTML = `<p>${info[i]}</p>`;

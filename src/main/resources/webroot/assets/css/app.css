@@ -237,13 +237,13 @@ body {
     transform: scale(-1, 1);
 }
 
-#gameMode #Secret {
+#gameMode #Airborn {
     filter: brightness(8%);
     box-shadow: none;
     margin-bottom: 1.875rem;
 }
 
-#gameMode #Secret:hover {
+#gameMode #Airborn:hover {
     background-color: rgba(0, 66, 128, 0.50);
     filter: brightness(8%);
 }
@@ -270,14 +270,7 @@ body {
 }
 
 #gameMode h4:nth-of-type(4) {
-    font-family: Impact, sans-serif;
-    font-size: 2rem;
-    margin-left: 5.625rem;
-    top: 37rem;
-    color: rgba(255, 77, 77, 0.8);
-    letter-spacing: 0.3125rem;
-    filter: brightness(50%);
-    transform: rotate(340deg);
+    top: 34.65rem;
 }
 
 #gameMode .back {
