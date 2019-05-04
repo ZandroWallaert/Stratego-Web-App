@@ -1,6 +1,6 @@
 package be.howest.ti.project1.stratego.stratego;
 
-import be.howest.ti.project1.stratego.stratego.pawns_stratego.Pawn;
+import be.howest.ti.project1.stratego.stratego.pawns.Pawn;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,8 +28,16 @@ public class Stratego {
         return player1;
     }
 
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
+
     public Player getPlayer2() {
         return player2;
+    }
+
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
     }
 
     public Player getPlayer(int playerNr) {
@@ -49,19 +57,6 @@ public class Stratego {
         }
     }
 
-    public void setPlayer1(Player player1) {
-        this.player1 = player1;
-    }
-
-    public void setPlayer2(Player player2) {
-        this.player2 = player2;
-    }
-
-    public void setGameMode(GameMode gameMode) {
-        this.gameMode = gameMode;
-        this.pawns = new PawnCollection(gameMode);
-    }
-
     public PawnCollection getPawns() {
         return pawns;
     }
@@ -72,6 +67,11 @@ public class Stratego {
 
     public GameMode getGameMode() {
         return gameMode;
+    }
+
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
+        this.pawns = new PawnCollection(gameMode);
     }
 
     public Token getToken() {
@@ -96,7 +96,6 @@ public class Stratego {
 
 
         } else {
-            //Replace this with server response
             return false;
         }
 
@@ -110,12 +109,8 @@ public class Stratego {
             if (madeMoveLessNthTimes(currentPlayer, currentPawn, startCo, destCo)) {
                 addMove(new Move(currentPawn, startCo, destCo));
                 return gameBoard.movePawn(startCo, destCo);
-
-
-                //move pawn to defeated if he is defeated!
             }
         } else {
-            //Replace this with server responser
             return false;
         }
         return false;

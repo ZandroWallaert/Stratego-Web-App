@@ -1,4 +1,4 @@
-package be.howest.ti.project1.stratego.stratego.pawns_stratego;
+package be.howest.ti.project1.stratego.stratego.pawns;
 
 import java.util.Objects;
 
@@ -39,7 +39,6 @@ public class Pawn {
         return name;
     }
 
-    //Note: will later be changed to Enum? See UML scheme
     public Pawn attack(Pawn enemy) {
         Pawn winner;
         switch (enemy.getName()) {
@@ -55,7 +54,6 @@ public class Pawn {
                 } else if (this.getRank() < enemy.getRank()) {
                     winner = enemy;
                 } else {
-                    //If ranks are equal, nobody wins
                     winner = null;
                 }
                 break;

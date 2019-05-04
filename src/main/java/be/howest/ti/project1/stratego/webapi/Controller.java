@@ -128,6 +128,9 @@ class Controller {
             case "infiltrator":
                 return GameMode.INFILTRATOR;
 
+            case "airborn":
+                return GameMode.AIRBORN;
+
             default:
                 return null;
         }

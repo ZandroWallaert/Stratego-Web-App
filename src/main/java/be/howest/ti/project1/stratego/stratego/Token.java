@@ -6,9 +6,8 @@ import java.util.Random;
 import java.util.Set;
 
 public class Token {
-    private String myToken;
-
     private static Set<String> inUse = new HashSet<>();
+    private String myToken;
 
     public Token(String myToken) {
         this.myToken = myToken;

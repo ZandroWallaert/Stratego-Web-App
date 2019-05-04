@@ -1,4 +1,4 @@
-package be.howest.ti.project1.stratego.stratego.pawns_stratego;
+package be.howest.ti.project1.stratego.stratego.pawns;
 
 
 public class Infiltrator extends Pawn {

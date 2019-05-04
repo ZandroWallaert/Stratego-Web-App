@@ -1,8 +1,8 @@
 package be.howest.ti.project1.stratego.stratego;
 
 
-import be.howest.ti.project1.stratego.stratego.pawns_stratego.Pawn;
-import be.howest.ti.project1.stratego.stratego.pawns_stratego.Spy;
+import be.howest.ti.project1.stratego.stratego.pawns.Pawn;
+import be.howest.ti.project1.stratego.stratego.pawns.Spy;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -74,7 +74,7 @@ public class BoardTest {
         b.placePawn(spy, c1);
         b.placePawn(spy2, c2);
 
-        //pawns_stratego
+        //pawns
         assertEquals(spy, b.getPawnOnPosition(7, 7));
         assertEquals(spy2, b.getPawnOnPosition(7, 2));
 

@@ -30,7 +30,7 @@ public class WebServer extends AbstractVerticle {
         router.route("/*").handler(StaticHandler.create());
 
 
-        // Start Server at port 8000
+        // Start Server at port 8025
         server.requestHandler(router).listen(8025);
 
     }
@@ -38,14 +38,14 @@ public class WebServer extends AbstractVerticle {
     private void handleException(RoutingContext routingContext) {
         Throwable failure = routingContext.failure();
         if (
-            failure instanceof IllegalArgumentException ||
-                failure instanceof IllegalStateException
+                failure instanceof IllegalArgumentException ||
+                        failure instanceof IllegalStateException
         ) {
             routingContext
-                .response()
-                .setStatusCode(403)
-                .putHeader("Content-Type", "application/json; charset=utf-8")
-                .end(Json.encodePrettily(failure));
+                    .response()
+                    .setStatusCode(403)
+                    .putHeader("Content-Type", "application/json; charset=utf-8")
+                    .end(Json.encodePrettily(failure));
         } else {
             routingContext.next();
         }

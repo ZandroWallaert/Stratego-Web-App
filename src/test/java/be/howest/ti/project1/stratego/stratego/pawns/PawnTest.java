@@ -1,10 +1,6 @@
 package be.howest.ti.project1.stratego.stratego.pawns;
 
 import be.howest.ti.project1.stratego.stratego.Player;
-import be.howest.ti.project1.stratego.stratego.pawns_stratego.Infiltrator;
-import be.howest.ti.project1.stratego.stratego.pawns_stratego.Miner;
-import be.howest.ti.project1.stratego.stratego.pawns_stratego.Pawn;
-import be.howest.ti.project1.stratego.stratego.pawns_stratego.Spy;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

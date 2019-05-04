@@ -1,4 +1,4 @@
-package be.howest.ti.project1.stratego.stratego.pawns_stratego;
+package be.howest.ti.project1.stratego.stratego.pawns;
 
 public class Miner extends Pawn {
 
@@ -16,7 +16,6 @@ public class Miner extends Pawn {
             } else if (this.getRank() < enemy.getRank()) {
                 return enemy;
             } else {
-                //If ranks are equal, nobody wins
                 return null;
             }
 

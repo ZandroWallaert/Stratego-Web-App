@@ -6,20 +6,20 @@ public class NewGame {
     private String token;
     private String link;
 
-    public String getToken() {
-        return token;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
     NewGame() {
     }
 
     NewGame(Token token, String link) {
         this.token = token.getMyToken();
         this.link = link;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public String getLink() {
+        return link;
     }
 }
 

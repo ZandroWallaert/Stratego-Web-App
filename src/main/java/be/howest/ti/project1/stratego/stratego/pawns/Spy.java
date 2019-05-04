@@ -1,4 +1,4 @@
-package be.howest.ti.project1.stratego.stratego.pawns_stratego;
+package be.howest.ti.project1.stratego.stratego.pawns;
 
 public class Spy extends Pawn {
 
@@ -25,7 +25,6 @@ public class Spy extends Pawn {
                 } else if (this.getRank() < enemy.getRank()) {
                     winner = enemy;
                 } else {
-                    //If ranks are equal, nobody wins
                     winner = null;
                 }
                 break;

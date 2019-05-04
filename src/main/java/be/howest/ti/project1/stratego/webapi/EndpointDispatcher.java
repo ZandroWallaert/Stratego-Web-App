@@ -17,21 +17,21 @@ class EndpointDispatcher {
 
     private void sendJson(HttpServerResponse res, Object object) {
         res.putHeader("Content-Type", "application/json; charset=utf-8")
-            .end(Json.encodePrettily(object));
+                .end(Json.encodePrettily(object));
     }
 
     private void getPeople(RoutingContext routingContext) {
         sendJson(
-            routingContext.response(),
-            application.getPeople()
+                routingContext.response(),
+                application.getPeople()
         );
     }
 
     private void getPerson(RoutingContext routingContext) {
         String expectedName = routingContext.request().getParam("name");
         sendJson(
-            routingContext.response(),
-            application.find(expectedName) // can fail !!!
+                routingContext.response(),
+                application.find(expectedName) // can fail !!!
         );
     }
 
@@ -43,14 +43,14 @@ class EndpointDispatcher {
             try {
                 application.add(req.getPerson());
                 sendJson(routingContext.response()
-                    .setStatusCode(201), "person added");
+                        .setStatusCode(201), "person added");
             } catch (IllegalArgumentException ex) {
                 sendJson(routingContext.response()
-                    .setStatusCode(409), "person already exists");
+                        .setStatusCode(409), "person already exists");
             }
         } else {
             sendJson(routingContext.response()
-                .setStatusCode(401),"invalid token");
+                    .setStatusCode(401), "invalid token");
         }
     }
 

@@ -1,7 +1,7 @@
 package be.howest.ti.project1.stratego.stratego;
 
 
-import be.howest.ti.project1.stratego.stratego.pawns_stratego.Pawn;
+import be.howest.ti.project1.stratego.stratego.pawns.Pawn;
 
 public class Board {
 
@@ -60,8 +60,6 @@ public class Board {
                 setPosition(destCo, currentPawn.attack(destination));
                 setPosition(startCo, null);
                 return true;
-            } else {
-                //case pawn is infiltrator
             }
         }
         return false;
