@@ -259,7 +259,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("blue");
-        document.querySelector("body h1").innerHTML = Switch;
+        console.log(Switch);
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
@@ -273,7 +273,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("red");
-        document.querySelector("body h1").innerHTML = Switch;
+        console.log(Switch);
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
