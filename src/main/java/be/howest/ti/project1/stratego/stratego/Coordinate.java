@@ -12,10 +12,10 @@ public class Coordinate {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Coordinate)) return false;
-        Coordinate that = (Coordinate) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Coordinate)) return false;
+        Coordinate that = (Coordinate) obj;
         return getX() == that.getX() &&
                 getY() == that.getY();
     }
