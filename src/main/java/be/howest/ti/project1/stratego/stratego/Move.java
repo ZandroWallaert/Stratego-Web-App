@@ -33,10 +33,10 @@ public class Move {
 
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Move)) return false;
-        Move move = (Move) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Move)) return false;
+        Move move = (Move) obj;
         return Objects.equals(pawn.getPlayer(), move.getPawn().getPlayer()) &&
                 Objects.equals(getPawn(), move.getPawn()) &&
 

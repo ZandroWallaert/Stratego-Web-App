@@ -10,10 +10,10 @@ public class Stratego {
     private Player player1;
     private Player player2;
     private Token token;
+    private PawnCollection pawns;
     private List<Move> moveHistory;
     private Board gameBoard;
     private GameMode gameMode;
-    private PawnCollection pawns;
 
 
     public Stratego() {
