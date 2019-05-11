@@ -20,7 +20,7 @@ public class StrategoTest {
 
         Coordinate c1 = new Coordinate(7, 7);
         Coordinate c2 = new Coordinate(1, 2);
-        Coordinate c3 = new Coordinate(2, 7);
+        Coordinate c3 = new Coordinate(2, 4);
         Coordinate c4 = new Coordinate(-1, -1);
         Coordinate c5 = new Coordinate(11, 11);
         Coordinate c6 = new Coordinate(1, 2);
@@ -30,7 +30,7 @@ public class StrategoTest {
         //test response
         assertTrue(s.placePawn(spy, c1));
         assertTrue(s.placePawn(spy2, c2));
-        assertFalse(s.placePawn(spy2, c3));
+        assertFalse(s.placePawn(spy2, c3)); // false want die spy is al eens geplaatst
         assertFalse(s.placePawn(spy3, c4));
         assertFalse(s.placePawn(spy3, c5));
 
@@ -60,9 +60,10 @@ public class StrategoTest {
         Stratego s = new Stratego();
 
         Player p1 = new Player("p1", 10);
+        Player p2 = new Player("p2", 10);
+
         Pawn spy = new Pawn("spy1 ", 1, 2, 2);
 
-        Player p2 = new Player("p2", 10);
         Pawn spy2 = new Pawn("spy2 ", 2, 1, 1);
         Pawn spy3 = new Pawn("spy3 ", 2, 10, 1);
 
@@ -94,32 +95,30 @@ public class StrategoTest {
         assertEquals(spy2, s.getGameBoard().getPawnOnPosition(0, 1));
 
         //Test attack
-
-
         assertTrue(s.movePawn(new Coordinate(1, 5), new Coordinate(1, 4)));
         assertEquals(spy3, s.getGameBoard().getPawnOnPosition(1, 4));
         assertNull(s.getGameBoard().getPawnOnPosition(1, 5));
 
+        //Test attacking Scout
+        Pawn scout = new Pawn("scout", 2, 2, 10);
+        Pawn rank1 = new Pawn("rank1", 1, 1);
+        Pawn pawn1 = new Pawn("pawn1", 1, 1);
+        Pawn rank8 = new Pawn("rank8", 1, 8);
+
+        assertTrue(s.placePawn(scout, new Coordinate(5, 3)));
+        assertTrue(s.placePawn(rank1, new Coordinate(5, 6)));
+        assertTrue(s.placePawn(pawn1, new Coordinate(3, 6)));
+        assertTrue(s.placePawn(rank8, new Coordinate(8, 6)));
+
+
+        assertTrue(s.movePawn(new Coordinate(5, 3), new Coordinate(5, 6)));
+
+        assertTrue(s.movePawn(new Coordinate(5, 6), new Coordinate(3, 6)));
+
+        assertFalse(s.movePawn(new Coordinate(3, 6), new Coordinate(9, 6)));
+
+
+        System.out.println(s.getGameBoard().toString());
     }
-
-    @Test
-    public void testHasMadeSameMoveLessNthTimes() {
-        Stratego s = new Stratego();
-
-        Player p1 = new Player("p1", 10);
-        Pawn spy = new Pawn("spy", 1, 2, 2);
-        s.placePawn(spy, new Coordinate(0, 9));
-        assertEquals(0, s.getMoveHistory().size());
-
-        s.movePawn(new Coordinate(0, 9), new Coordinate(0, 8));
-        assertEquals(1, s.getMoveHistory().size());
-        assertTrue(s.madeMoveLessNthTimes(1, spy, new Coordinate(0, 9), new Coordinate(0, 8)));
-        s.movePawn(new Coordinate(0, 8), new Coordinate(0, 9));
-        assertEquals(2, s.getMoveHistory().size());
-        assertTrue(s.movePawn(new Coordinate(0, 9), new Coordinate(0, 8)));
-        assertFalse(s.movePawn(new Coordinate(0, 8), new Coordinate(0, 9)));
-
-
-    }
-
 }
+

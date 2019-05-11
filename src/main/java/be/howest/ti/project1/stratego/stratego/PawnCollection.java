@@ -4,6 +4,7 @@ import be.howest.ti.project1.stratego.stratego.pawns.Infiltrator;
 import be.howest.ti.project1.stratego.stratego.pawns.Miner;
 import be.howest.ti.project1.stratego.stratego.pawns.Pawn;
 import be.howest.ti.project1.stratego.stratego.pawns.Spy;
+import be.howest.ti.project1.stratego.stratego.pawns.Pilot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -142,6 +143,14 @@ public class PawnCollection {
             this.toPlace.put(new Infiltrator(1), 1);
             this.toPlace.put(new Infiltrator(2), 1);
 
+        } else if (mode == GameMode.AIRBORN) {
+            setPawnsToPlace(GameMode.CLASSIC);
+
+            this.toPlace.put(scout1, 0);
+            this.toPlace.put(scout2, 0);
+
+            this.toPlace.put(new Pilot(1), 3);
+            this.toPlace.put(new Pilot(2), 3);
         }
     }
 
