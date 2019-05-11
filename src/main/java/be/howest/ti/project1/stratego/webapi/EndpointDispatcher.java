@@ -1,6 +1,7 @@
 package be.howest.ti.project1.stratego.webapi;
 
 import be.howest.ti.project1.stratego.people.PeopleApplication;
+import be.howest.ti.project1.stratego.stratego.Stratego;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
@@ -9,21 +10,23 @@ import io.vertx.ext.web.handler.BodyHandler;
 
 class EndpointDispatcher {
 
-    private PeopleApplication application;
+    private PeopleApplication peopleApplication;
+    private Stratego strategoApplication;
 
-    EndpointDispatcher() {
-        application = new PeopleApplication();
+    public EndpointDispatcher() {
+        peopleApplication = new PeopleApplication();
+        strategoApplication = new Stratego();
     }
 
     private void sendJson(HttpServerResponse res, Object object) {
-        res.putHeader("Content-Type", "application/json; charset=utf-8")
+        res.putHeader("Content-Type", "peopleApplication/json; charset=utf-8")
                 .end(Json.encodePrettily(object));
     }
 
     private void getPeople(RoutingContext routingContext) {
         sendJson(
                 routingContext.response(),
-                application.getPeople()
+                peopleApplication.getPeople()
         );
     }
 
@@ -31,7 +34,7 @@ class EndpointDispatcher {
         String expectedName = routingContext.request().getParam("name");
         sendJson(
                 routingContext.response(),
-                application.find(expectedName) // can fail !!!
+                peopleApplication.find(expectedName) // can fail !!!
         );
     }
 
@@ -41,7 +44,7 @@ class EndpointDispatcher {
 
         if (req.getToken().equals("the-super-secret")) { // we only accept request where the 'token' is correct
             try {
-                application.add(req.getPerson());
+                peopleApplication.add(req.getPerson());
                 sendJson(routingContext.response()
                         .setStatusCode(201), "person added");
             } catch (IllegalArgumentException ex) {
@@ -58,6 +61,21 @@ class EndpointDispatcher {
         router.get("/api/person").handler(this::getPeople);
         router.get("/api/person/:name").handler(this::getPerson);
         router.post("/api/person").handler(BodyHandler.create()).handler(this::addPerson);
+
+        router.post("/api/stratego/gameMode").handler(BodyHandler.create()).handler(this::setGamemode);
+    }
+
+    private void setGamemode(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        CreateGameModeRequest data = Json.decodeValue(body, CreateGameModeRequest.class);
+        boolean succes = strategoApplication.setGameMode(data.getGameMode());
+        if (succes) {
+            routingContext.response().end("\"setGamemode Successful\"");
+        } else {
+            routingContext.response().end("\"setGamemode failed\"");
+        }
+
+        routingContext.response().end("\"received: " + data.getGameMode() + "\"");
     }
 }
 

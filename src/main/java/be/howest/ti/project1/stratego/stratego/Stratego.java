@@ -69,9 +69,30 @@ public class Stratego {
         return gameMode;
     }
 
-    public void setGameMode(GameMode gameMode) {
-        this.gameMode = gameMode;
-        this.pawns = new PawnCollection(gameMode);
+    public boolean setGameMode(String gameMode) {
+        switch (gameMode) {
+            case "classic":
+                this.gameMode = GameMode.CLASSIC;
+                this.pawns = new PawnCollection(GameMode.CLASSIC);
+                return true;
+
+            case "duel":
+                this.gameMode = GameMode.DUEL;
+                this.pawns = new PawnCollection(GameMode.DUEL);
+                return true;
+
+            case "infiltrator":
+                this.gameMode = GameMode.INFILTRATOR;
+                this.pawns = new PawnCollection(GameMode.INFILTRATOR);
+                return true;
+
+            case "airborn":
+                this.gameMode = GameMode.AIRBORN;
+                this.pawns = new PawnCollection(GameMode.AIRBORN);
+                return true;
+            default:
+                return false;
+        }
     }
 
     public Token getToken() {
