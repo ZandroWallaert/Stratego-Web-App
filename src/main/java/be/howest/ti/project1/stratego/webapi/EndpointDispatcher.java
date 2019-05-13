@@ -2,16 +2,23 @@ package be.howest.ti.project1.stratego.webapi;
 
 import be.howest.ti.project1.stratego.people.PeopleApplication;
 import be.howest.ti.project1.stratego.stratego.Stratego;
+import be.howest.ti.project1.stratego.stratego.pawns.Miner;
+import be.howest.ti.project1.stratego.stratego.pawns.Pawn;
+import be.howest.ti.project1.stratego.stratego.pawns.Spy;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 
+
 class EndpointDispatcher {
 
     private PeopleApplication peopleApplication;
     private Stratego strategoApplication;
+    private Pawn pawnApplication;
+    private Spy spyApplication;
+    private Miner minerApplication;
 
     public EndpointDispatcher() {
         peopleApplication = new PeopleApplication();
@@ -63,19 +70,35 @@ class EndpointDispatcher {
         router.post("/api/person").handler(BodyHandler.create()).handler(this::addPerson);
 
         router.post("/api/stratego/gameMode").handler(BodyHandler.create()).handler(this::setGamemode);
+        router.post("/api/stratego/bluePawns").handler(BodyHandler.create()).handler(this::setupBluePawns);
+        router.post("/api/stratego/redPawns").handler(BodyHandler.create()).handler(this::setupRedPawns);
     }
 
     private void setGamemode(RoutingContext routingContext) {
         String body = routingContext.getBodyAsString();
-        CreateGameModeRequest data = Json.decodeValue(body, CreateGameModeRequest.class);
-        boolean succes = strategoApplication.setGameMode(data.getGameMode());
+        CreateGameModeRequest gamemode = Json.decodeValue(body, CreateGameModeRequest.class);
+        boolean succes = strategoApplication.setGameMode(gamemode.getGameMode());
         if (succes) {
             routingContext.response().end("\"setGamemode Successful\"");
         } else {
             routingContext.response().end("\"setGamemode failed\"");
         }
 
-        routingContext.response().end("\"received: " + data.getGameMode() + "\"");
+        routingContext.response().end("\"received: " + gamemode.getGameMode() + "\"");
+    }
+
+    private void setupBluePawns(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        CreateBluePawnRequest pawns = Json.decodeValue(body, CreateBluePawnRequest.class);
+        System.out.println(pawns.getPawns());
+        routingContext.response().end("\"received: " + pawns.getPawns() + "\"");
+    }
+
+    private void setupRedPawns(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        CreateRedPawnRequest pawns = Json.decodeValue(body, CreateRedPawnRequest.class);
+        System.out.println(pawns.getPawns());
+        routingContext.response().end("\"received: " + pawns.getPawns() + "\"");
     }
 }
 
