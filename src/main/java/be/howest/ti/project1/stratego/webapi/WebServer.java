@@ -15,7 +15,6 @@ public class WebServer extends AbstractVerticle {
         final HttpServer server = vertx.createHttpServer();
         final Router router = Router.router(vertx);
         final EndpointDispatcher dispatcher = new EndpointDispatcher();
-        final Controller controller = new Controller();
 
         // see: https://vertx.io/blog/some-rest-with-vert-x
 
@@ -24,7 +23,6 @@ public class WebServer extends AbstractVerticle {
         router.route().failureHandler(this::handleException);
 
         dispatcher.installRoutes(router);
-        controller.installRoutes(router);
 
         // Serve all files in resources/webroot as static files
         router.route("/*").handler(StaticHandler.create());

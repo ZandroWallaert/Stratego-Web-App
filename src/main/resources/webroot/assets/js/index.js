@@ -64,7 +64,62 @@ function init() {
             .catch(error => console.error('Error:', error))
     };
 
+    document.getElementById("Classic").addEventListener("click", function () {
+        let data = {gameMode: "classic"};
+        console.log("sending " + JSON.stringify(data));
 
+        fetch("api/stratego/gameMode", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+    });
+
+    document.getElementById("Duel").addEventListener("click", function () {
+        let data = {gameMode: "duel"};
+        console.log("sending " + JSON.stringify(data));
+        fetch("api/stratego/gameMode", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+    });
+
+    document.getElementById("Infiltrator").addEventListener("click", function () {
+        let data = {gameMode: "infiltrator"};
+        console.log("sending " + JSON.stringify(data));
+        fetch("/api/games/:gameToken/gamemode", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+    });
+
+    document.getElementById("Secret").addEventListener("click", function () {
+        let data = {gameMode: "airborn"};
+        console.log("sending " + JSON.stringify(data));
+        fetch("api/stratego/gameMode", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+    });
 }
 
 let selector = document.querySelectorAll('a');
