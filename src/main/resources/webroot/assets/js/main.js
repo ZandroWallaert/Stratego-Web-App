@@ -23,12 +23,6 @@ function showDonate() {
     document.getElementById('launch').classList.add('hidden');
 }
 
-function payment() {
-    document.querySelector('#paymentMethod').addEventListener('click', function () {
-        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-    })
-}
-
 function showProceedToPayment() {
     document.getElementById('paymentMethod').classList.remove('hidden');
     document.getElementById('donate').classList.add('hidden');
