@@ -3,10 +3,10 @@
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
-
+    payment();
 }
 
-document.getElementById('launch').addEventListener('click', launchApp);
+document.querySelector('#launch > a').addEventListener('click', launchApp);
 
 function launchApp() {
     document.getElementById('site').classList.add('hidden');
@@ -21,6 +21,12 @@ function launchApp() {
 function showDonate() {
     document.getElementById('donate').classList.remove('hidden');
     document.getElementById('launch').classList.add('hidden');
+}
+
+function payment() {
+    document.querySelector('#paymentMethod').addEventListener('click', function () {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    })
 }
 
 function showProceedToPayment() {
