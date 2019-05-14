@@ -12,6 +12,9 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 class EndpointDispatcher {
 
     private PeopleApplication peopleApplication;
@@ -49,18 +52,19 @@ class EndpointDispatcher {
         String body = routingContext.getBodyAsString(); // we know this will only be called when the method is POST
         CreatePersonRequest req = Json.decodeValue(body, CreatePersonRequest.class);
 
+
         if (req.getToken().equals("the-super-secret")) { // we only accept request where the 'token' is correct
             try {
                 peopleApplication.add(req.getPerson());
                 sendJson(routingContext.response()
-                        .setStatusCode(201), "person added");
+                        .setStatusCode(201), "Person added.");
             } catch (IllegalArgumentException ex) {
                 sendJson(routingContext.response()
-                        .setStatusCode(409), "person already exists");
+                        .setStatusCode(409), "Person already exists!");
             }
         } else {
             sendJson(routingContext.response()
-                    .setStatusCode(401), "invalid token");
+                    .setStatusCode(401), "Invalid token!");
         }
     }
 
@@ -68,10 +72,19 @@ class EndpointDispatcher {
         router.get("/api/person").handler(this::getPeople);
         router.get("/api/person/:name").handler(this::getPerson);
         router.post("/api/person").handler(BodyHandler.create()).handler(this::addPerson);
+        router.post("/api/details").handler(BodyHandler.create()).handler(this::setDetails);
 
         router.post("/api/stratego/gameMode").handler(BodyHandler.create()).handler(this::setGamemode);
         router.post("/api/stratego/bluePawns").handler(BodyHandler.create()).handler(this::setupBluePawns);
         router.post("/api/stratego/redPawns").handler(BodyHandler.create()).handler(this::setupRedPawns);
+    }
+
+    private void setDetails(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        CreatePersonRequest data = Json.decodeValue(body, CreatePersonRequest.class);
+        System.out.println(data.getPerson().getName());
+        routingContext.response().end("\"Welcome, " + data.getPerson().getName() + "\"");
+
     }
 
     private void setGamemode(RoutingContext routingContext) {

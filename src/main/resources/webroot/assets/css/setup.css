@@ -118,7 +118,7 @@ ul li div {
     list-style: none;
 }
 
-.button-3d, #switchSetup, #startGame {
+.button-3d, #switchSetup, #startGame, #profileBtn {
     position: relative;
     width: auto;
     display: inline-block;
@@ -139,4 +139,16 @@ ul li div {
     top: 0.25rem;
 }
 
+#info, #profile {
+    margin: -15rem;
+}
 
+#profileBtn {
+    font-size: 1.2rem;
+    width: 7rem;
+    height: 4rem;
+}
+
+.hidden {
+    display: none;
+}

@@ -348,21 +348,24 @@
             <span></span>
             <input type="submit" value="Play">
         </div>
-        <p>Game mode</p>
+        <p id="mode">Game mode</p>
 
     </form>
 </div>
 <div id="wait" class="hidden">
-    <p></p>
+    <p id="loadingMsg"></p>
+    <p id="response" class="hidden"></p>
+    <div id="loader" class="hidden">
     <div class="lds-ring">
         <div></div>
         <div></div>
         <div></div>
         <div></div>
     </div>
+    </div>
+    <p id="details" class="hidden"></p>
     <a id='cancel' href="#" onclick="cancelSearch()">Cancel</a>
 </div>
-
 <script src="assets/js/index.js"></script>
 </body>
 </html>
