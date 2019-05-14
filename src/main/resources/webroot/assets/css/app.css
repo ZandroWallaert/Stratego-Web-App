@@ -100,7 +100,7 @@ body {
 }
 
 #backgroundVideo {
-    filter: blur(7px);
+    filter: blur(0.4375rem);
     position: absolute;
     z-index: -1;
     right: 0;
