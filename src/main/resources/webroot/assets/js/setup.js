@@ -147,7 +147,7 @@ function startGame() {
         }
         redSetupSubmit.push(code);
     }
-    let redPawns = {pawns: blueSetupSubmit.toString()};
+    let redPawns = {pawns: redSetupSubmit.toString()};
     console.log("sending " + JSON.stringify(redPawns));
     fetch("api/stratego/redPawns", {
         method: "POST",
