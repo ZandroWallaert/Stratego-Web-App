@@ -10,7 +10,27 @@ let playerColor;
 function init() {
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
+    document.getElementById('profileBtn').addEventListener("click", showProfile);
     setupPage();
+
+    const nameSpan = document.getElementById('username');
+
+    fetch('/api/person/:name', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(json => {
+            nameSpan.innerHTML = json.stringify()
+        })
+}
+
+function showProfile() {
+    console.log('Working');
+    document.getElementById('profile').classList.remove('hidden');
 }
 
 function setupPage() {

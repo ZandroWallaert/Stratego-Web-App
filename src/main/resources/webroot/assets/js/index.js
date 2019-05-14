@@ -36,6 +36,7 @@ function init() {
     const ageIn = document.getElementById("age");
     const tokenIn = document.getElementById("token");
     const responseSpan = document.getElementById("response");
+    const detailSpan = document.getElementById("details");
 
     createPersonForm.onsubmit = function (evt) {
         evt.preventDefault();
@@ -52,7 +53,7 @@ function init() {
 
         console.log("Sending:", data);
 
-        return fetch("api/person", {
+        fetch("api/person", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -61,7 +62,28 @@ function init() {
         })
             .then(response => response.json())
             .then(json => responseSpan.innerHTML = JSON.stringify(json))
-            .catch(error => console.error('Error:', error))
+            .catch(error => console.error('Error:', error));
+
+        fetch("api/details", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(json => detailSpan.innerHTML = JSON.stringify(json))
+            .catch(error => console.error('Error:', error));
+
+
+        if (responseSpan.innerHTML == `<p id="response" class="hidden">"Person already exists!"</p>`) {
+            timeVar.clearTimeout();
+            console.log(responseSpan);
+            console.log('YES')
+        } else {
+            console.log(responseSpan);
+            console.log(responseSpan.value);
+        }
     };
 
     document.getElementById("Classic").addEventListener("click", function () {
@@ -197,15 +219,6 @@ function playLoadingAudio() {
         let audioLoading = new Audio('assets/audios/loading.mp3');
         audioLoading.play();
     }
-}
-
-let timeVar;
-
-function timeOut() {
-    playAudioForward();
-    timeVar = setTimeout(() => {
-        window.location.href = "setup.html";
-    }, 5000)
 }
 
 let bgStyle = 'blur(0) brightness(50%)';
@@ -466,7 +479,7 @@ function hideModeDetails() {
 function showForm(gameMode) {
     playAudioForward();
     let element = document.getElementById("createPersonForm");
-    let addMode = document.querySelector('#createPersonForm p');
+    let addMode = document.querySelector('#mode');
     element.classList.remove("hidden");
     document.querySelector('#createPersonForm span').innerHTML = '';
     addMode.innerHTML = `Game mode: ${gameMode}`;
@@ -481,10 +494,16 @@ function showForm(gameMode) {
 }
 
 let bgDarkStyle = 'blur(4px) brightness(30%)';
+let timeVar;
 
 function showWaitingForPlayers() {
+    playAudioForward();
     let element = document.getElementById('wait');
     element.classList.remove('hidden');
+    document.getElementById('response').classList.add('hidden');
+    document.getElementById('loadingMsg').classList.remove('hidden');
+    document.getElementById('loader').classList.remove('hidden');
+    document.getElementById('details').classList.add('hidden');
     document.querySelector('#wait p').innerHTML = `Waiting for second player...`;
     element.style.color = "#ffffff";
     document.getElementById('gameMode').style.pointerEvents = 'none';
@@ -495,7 +514,20 @@ function showWaitingForPlayers() {
     document.getElementById('mainMenu').style.filter = bgDarkStyle;
     document.getElementById('gameMode').style.filter = bgDarkStyle;
     document.getElementById('backgroundVideo').style.filter = 'blur(8px) brightness(30%)';
-    timeOut();
+    timeVar = setTimeout(() => {
+        initializeGame()
+    }, 3000)
+}
+
+function initializeGame() {
+    document.getElementById("loadingMsg").classList.add('hidden');
+    document.getElementById("response").classList.remove('hidden');
+    document.getElementById("loader").classList.add('hidden');
+    document.getElementById('details').classList.remove('hidden');
+
+    timeVar = setTimeout(() => {
+        window.location.href = "setup.html"
+    }, 1000)
 }
 
 function cancelSearch() {
