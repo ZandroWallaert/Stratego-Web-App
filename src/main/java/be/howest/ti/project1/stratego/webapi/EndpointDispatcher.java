@@ -11,10 +11,6 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 
-
-import java.util.HashMap;
-import java.util.Map;
-
 class EndpointDispatcher {
 
     private PeopleApplication peopleApplication;
@@ -22,10 +18,13 @@ class EndpointDispatcher {
     private Pawn pawnApplication;
     private Spy spyApplication;
     private Miner minerApplication;
+    private TurnRequest turn;
+
 
     public EndpointDispatcher() {
         peopleApplication = new PeopleApplication();
         strategoApplication = new Stratego();
+        turn = new TurnRequest();
     }
 
     private void sendJson(HttpServerResponse res, Object object) {
@@ -77,6 +76,11 @@ class EndpointDispatcher {
         router.post("/api/stratego/gameMode").handler(BodyHandler.create()).handler(this::setGamemode);
         router.post("/api/stratego/bluePawns").handler(BodyHandler.create()).handler(this::setupBluePawns);
         router.post("/api/stratego/redPawns").handler(BodyHandler.create()).handler(this::setupRedPawns);
+
+        router.post("/api/next1").handler(BodyHandler.create()).handler(this::addTurnFrom2);
+        router.post("/api/next2").handler(BodyHandler.create()).handler(this::addTurnFrom1);
+        router.get("/api/next1").handler(this::getTurnFor1);
+        router.get("/api/next2").handler(this::getTurnFor2);
     }
 
     private void setDetails(RoutingContext routingContext) {
@@ -113,5 +117,26 @@ class EndpointDispatcher {
         System.out.println(pawns.getPawns());
         routingContext.response().end("\"received: " + pawns.getPawns() + "\"");
     }
-}
 
+    private void addTurnFrom2(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        TurnRequest message = Json.decodeValue(body, TurnRequest.class);
+        routingContext.response().end("true");
+    }
+
+    private void addTurnFrom1(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        TurnRequest turnMessage = Json.decodeValue(body, TurnRequest.class);
+        turn.setData(turnMessage.getData());
+        System.out.println(turn.getData());
+        routingContext.response().end("\"received: " + turn.getData() + "\"");
+    }
+
+    private void getTurnFor1(RoutingContext routingContext) {
+        sendJson(routingContext.response(), turn.getData());
+    }
+
+    private void getTurnFor2(RoutingContext routingContext) {
+        sendJson(routingContext.response(), turn.getData());
+    }
+}

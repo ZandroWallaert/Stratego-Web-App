@@ -171,6 +171,21 @@ function redTurn() {
         'onclick="premadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" ' +
         'value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li><li><input id="switchSetup" ' +
         'type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
+    sendNextTurn();
+
+    function sendNextTurn() {
+        let turn = {data: "goNext"};
+        fetch("/api/next2", {
+            method: "POST",
+            body: JSON.stringify(turn),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+        console.log(JSON.stringify(turn));
+    }
 }
 
 function setupOnClick(playerColor) {
