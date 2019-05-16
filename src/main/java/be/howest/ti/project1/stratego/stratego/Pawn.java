@@ -1,19 +1,17 @@
-package be.howest.ti.project1.stratego.stratego.pawns;
+package be.howest.ti.project1.stratego.stratego;
 
 import java.util.Objects;
 
 public class Pawn {
-
     private String name;
     private int player;
-    private int maxTravelDistance;
     private int rank;
+    private int maxRangeDistance;
 
-
-    public Pawn(String name, int player, int rank, int maxTravelDistance) {
+    public Pawn(String name, int player, int rank, int maxRangeDistance) {
         this.name = name;
         this.player = player;
-        this.maxTravelDistance = maxTravelDistance;
+        this.maxRangeDistance = maxRangeDistance;
         this.rank = rank;
     }
 
@@ -21,9 +19,8 @@ public class Pawn {
         this(name, player, rank, 1);
     }
 
-
-    public int getMaxTravelDistance() {
-        return maxTravelDistance;
+    public int getMaxRangeDistance() {
+        return maxRangeDistance;
     }
 
     public int getPlayer() {
@@ -33,7 +30,6 @@ public class Pawn {
     public int getRank() {
         return rank;
     }
-
 
     public String getName() {
         return name;
@@ -61,29 +57,25 @@ public class Pawn {
         return winner;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Pawn)) return false;
         Pawn pawn = (Pawn) o;
         return getPlayer() == pawn.getPlayer() &&
-                getMaxTravelDistance() == pawn.getMaxTravelDistance() &&
+                getMaxRangeDistance() == pawn.getMaxRangeDistance() &&
                 getRank() == pawn.getRank() &&
                 Objects.equals(getName(), pawn.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getPlayer(), getMaxTravelDistance(), getRank());
+        return Objects.hash(getName(), getPlayer(), getMaxRangeDistance(), getRank());
     }
-
 
     @Override
     public String toString() {
         return this.name + "Pawn(" + rank + ")";
     }
-
-
 }
 

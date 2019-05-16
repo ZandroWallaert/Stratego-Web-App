@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.Set;
 
 public class Token {
-    private static Set<String> inUse = new HashSet<>();
+    private static Set<String> used = new HashSet<>();
     private String myToken;
 
     public Token(String myToken) {
@@ -15,16 +15,16 @@ public class Token {
 
     public Token() {
         StringBuilder res = new StringBuilder();
-        Random rnd = new Random();
-        String validChar = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        Random random = new Random();
+        String validCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-        while (inUse.contains(res.toString()) || res.toString().equals("")) {
+        while (used.contains(res.toString()) || res.toString().equals("")) {
             res.setLength(0);
             for (int i = 0; i < 12; i++) {
-                res.append(validChar.charAt(rnd.nextInt(validChar.length())));
+                res.append(validCharacters.charAt(random.nextInt(validCharacters.length())));
             }
         }
-        inUse.add(res.toString());
+        used.add(res.toString());
         myToken = res.toString();
     }
 
@@ -33,10 +33,10 @@ public class Token {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Token token1 = (Token) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Token token1 = (Token) obj;
         return Objects.equals(myToken, token1.myToken);
     }
 

@@ -2,11 +2,11 @@ package be.howest.ti.project1.stratego.stratego;
 
 import java.util.Objects;
 
-public class Coordinate {
+public class Coordinates {
     private int x;
     private int y;
 
-    public Coordinate(int x, int y) {
+    public Coordinates(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -14,8 +14,8 @@ public class Coordinate {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Coordinate)) return false;
-        Coordinate that = (Coordinate) obj;
+        if (!(obj instanceof Coordinates)) return false;
+        Coordinates that = (Coordinates) obj;
         return getX() == that.getX() &&
                 getY() == that.getY();
     }

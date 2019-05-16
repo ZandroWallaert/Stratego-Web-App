@@ -1,7 +1,8 @@
-package be.howest.ti.project1.stratego.stratego.pawns;
+package be.howest.ti.project1.stratego.stratego.SpecialPawns;
+
+import be.howest.ti.project1.stratego.stratego.Pawn;
 
 public class Spy extends Pawn {
-
     public Spy(int player) {
         super("spy", player, 1, 1);
     }
@@ -31,7 +32,5 @@ public class Spy extends Pawn {
         }
         return winner;
     }
-
-
 }
 
