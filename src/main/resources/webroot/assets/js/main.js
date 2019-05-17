@@ -14,8 +14,8 @@ function launchApp() {
     document.getElementById('loading').classList.remove('hidden');
     setTimeout(() => {
         window.location.href = "app.html";
+        window.open("app2.html");
     }, 4000);
-    console.log('test');
 }
 
 function showDonate() {
