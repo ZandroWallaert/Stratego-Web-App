@@ -1,7 +1,8 @@
-package be.howest.ti.project1.stratego.stratego.pawns;
+package be.howest.ti.project1.stratego.stratego.SpecialPawns;
+
+import be.howest.ti.project1.stratego.stratego.Pawn;
 
 public class Miner extends Pawn {
-
     public Miner(int player) {
         super("miner", player, 3, 1);
     }
@@ -18,10 +19,7 @@ public class Miner extends Pawn {
             } else {
                 return null;
             }
-
         }
-
     }
-
 }
 

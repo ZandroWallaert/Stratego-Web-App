@@ -1,36 +1,30 @@
 package be.howest.ti.project1.stratego.stratego;
 
-import be.howest.ti.project1.stratego.stratego.pawns.Pawn;
-
 import java.util.Objects;
 
 public class Move {
 
     private Pawn pawn;
-    private Coordinate start;
-    private Coordinate destination;
+    private Coordinates start;
+    private Coordinates destination;
 
-
-    public Move(Pawn pawn, Coordinate start, Coordinate destination) {
-
+    public Move(Pawn pawn, Coordinates start, Coordinates destination) {
         this.pawn = pawn;
         this.start = start;
         this.destination = destination;
     }
 
-
     public Pawn getPawn() {
         return pawn;
     }
 
-    public Coordinate getStart() {
+    public Coordinates getStart() {
         return start;
     }
 
-    public Coordinate getDestination() {
+    public Coordinates getDestination() {
         return destination;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -39,14 +33,10 @@ public class Move {
         Move move = (Move) obj;
         return Objects.equals(pawn.getPlayer(), move.getPawn().getPlayer()) &&
                 Objects.equals(getPawn(), move.getPawn()) &&
-
                 ((Objects.equals(getStart(), move.getStart()) &&
                         Objects.equals(getDestination(), move.getDestination()))
-
-                        ||
-
-                        (Objects.equals(getStart(), move.getDestination()) &&
-                                Objects.equals(getDestination(), move.getStart())));
+                        || (Objects.equals(getStart(), move.getDestination()) &&
+                        Objects.equals(getDestination(), move.getStart())));
     }
 
     @Override

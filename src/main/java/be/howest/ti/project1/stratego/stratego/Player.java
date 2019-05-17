@@ -1,6 +1,5 @@
 package be.howest.ti.project1.stratego.stratego;
 
-
 public class Player {
     private String name;
     private int age;
@@ -12,11 +11,9 @@ public class Player {
 
     public Player(String name, int age) {
         token = new Token();
-
         setName(name);
         setAge(age);
     }
-
 
     public String getName() {
         return name;

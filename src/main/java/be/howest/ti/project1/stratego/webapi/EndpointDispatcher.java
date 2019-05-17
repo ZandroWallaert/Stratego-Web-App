@@ -2,9 +2,9 @@ package be.howest.ti.project1.stratego.webapi;
 
 import be.howest.ti.project1.stratego.people.PeopleApplication;
 import be.howest.ti.project1.stratego.stratego.Stratego;
-import be.howest.ti.project1.stratego.stratego.pawns.Miner;
-import be.howest.ti.project1.stratego.stratego.pawns.Pawn;
-import be.howest.ti.project1.stratego.stratego.pawns.Spy;
+import be.howest.ti.project1.stratego.stratego.SpecialPawns.Miner;
+import be.howest.ti.project1.stratego.stratego.Pawn;
+import be.howest.ti.project1.stratego.stratego.SpecialPawns.Spy;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;

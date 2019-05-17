@@ -1,7 +1,5 @@
 package be.howest.ti.project1.stratego.stratego;
 
-import be.howest.ti.project1.stratego.stratego.pawns.Pawn;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,14 +10,14 @@ public class Stratego {
     private Token token;
     private PawnCollection pawns;
     private List<Move> moveHistory;
-    private Board gameBoard;
+    private Gameboard gameBoard;
     private GameMode gameMode;
 
 
     public Stratego() {
         token = new Token();
         this.moveHistory = new ArrayList<>();
-        this.gameBoard = new Board();
+        this.gameBoard = new Gameboard();
         this.player1 = new Player();
         this.gameMode = null;
     }
@@ -99,7 +97,7 @@ public class Stratego {
         return token;
     }
 
-    public Board getGameBoard() {
+    public Gameboard getGameBoard() {
         return gameBoard;
     }
 
@@ -108,28 +106,23 @@ public class Stratego {
     }
 
 
-    public boolean placePawn(Pawn pawn, Coordinate position) {
+    public boolean placePawn(Pawn pawn, Coordinates position) {
         if (gameBoard.isValidPlacement(pawn, position)) {
-            gameBoard.placePawn(pawn, position);
-            this.gameBoard.placePawn(pawn, position);
-
+            gameBoard.placePawnOnPosition(pawn, position);
+            this.gameBoard.placePawnOnPosition(pawn, position);
             return true;
-
-
         } else {
             return false;
         }
-
     }
 
-
-    public boolean movePawn(Coordinate startCo, Coordinate destCo) {
+    public boolean movePawn(Coordinates startCo, Coordinates destCo) {
         if (this.gameBoard.isValidMove(startCo, destCo)) {
             Pawn currentPawn = gameBoard.getPawnOnPosition(startCo);
             int currentPlayer = currentPawn.getPlayer();
             if (madeMoveLessNthTimes(currentPlayer, currentPawn, startCo, destCo)) {
                 addMove(new Move(currentPawn, startCo, destCo));
-                return gameBoard.movePawn(startCo, destCo);
+                return gameBoard.movePawnTo(startCo, destCo);
             }
         } else {
             return false;
@@ -138,10 +131,8 @@ public class Stratego {
     }
 
 
-    public boolean madeMoveLessNthTimes(int player, Pawn pawn, Coordinate start, Coordinate dest) {
-
+    public boolean madeMoveLessNthTimes(int player, Pawn pawn, Coordinates start, Coordinates dest) {
         int historySize = 3;
-
         List<Move> history = getLatestHistoryMoves(player, historySize);
 
         if (history.size() >= historySize) {
@@ -175,7 +166,5 @@ public class Stratego {
             return Collections.unmodifiableList(history);
         }
     }
-
-
 }
 
