@@ -12,7 +12,8 @@ function init() {
     pieceHolder = document.getElementById('pieceHolder');
     document.getElementById('profileBtn').addEventListener("click", showProfile);
     setupPage();
-
+    premadeSetup('blue', 'defensive');
+    redTurn();
     const nameSpan = document.getElementById('username');
 
     fetch('/api/person/:name', {
@@ -54,6 +55,22 @@ window.onload = function () {
 };
 
 function startGame() {
+    sendNextTurn();
+
+    function sendNextTurn() {
+        let turn = {data: "goNext"};
+        fetch("/api/next1", {
+            method: "POST",
+            body: JSON.stringify(turn),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+        console.log(JSON.stringify(turn));
+    }
+
     let listTextStr = document.getElementById('squareList').innerHTML;
     localStorage.setItem('testObject', listTextStr);
     let blueSetupSubmit = [];
@@ -159,33 +176,18 @@ function startGame() {
         .then(res => res.json())
         .then(json => console.log(JSON.stringify(json)));
     console.log(redSetupSubmit);
-    //window.location.assign("boardlist.html");
+    window.location.assign("boardlist.html");
 }
 
 function redTurn() {
+    document.querySelector("body h1").innerHTML = ("Second Player Setup (Red)");
+    flipPieces("blue");
+    setupOnClick("red");
     let setupDiv = document.getElementById('premade');
     setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" ' +
         'onclick="premadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" ' +
         'value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li><li><input id="switchSetup" ' +
         'type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
-    sendNextTurn();
-
-    function sendNextTurn() {
-        let turn = {data: "goNext"};
-        fetch("/api/next2", {
-            method: "POST",
-            body: JSON.stringify(turn),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(json => console.log(JSON.stringify(json)));
-        console.log(JSON.stringify(turn));
-        setTimeout(function () {
-            location.href = 'wait.html'
-        }, 3000);
-    }
 }
 
 function setupOnClick(playerColor) {

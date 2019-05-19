@@ -19,12 +19,14 @@ class EndpointDispatcher {
     private Spy spyApplication;
     private Miner minerApplication;
     private TurnRequest turn;
+    private TurnRequest turn2;
 
 
     public EndpointDispatcher() {
         peopleApplication = new PeopleApplication();
         strategoApplication = new Stratego();
         turn = new TurnRequest();
+        turn2 = new TurnRequest();
     }
 
     private void sendJson(HttpServerResponse res, Object object) {
@@ -120,8 +122,10 @@ class EndpointDispatcher {
 
     private void addTurnFrom2(RoutingContext routingContext) {
         String body = routingContext.getBodyAsString();
-        TurnRequest message = Json.decodeValue(body, TurnRequest.class);
-        routingContext.response().end("true");
+        TurnRequest turnMessage = Json.decodeValue(body, TurnRequest.class);
+        turn2.setData(turnMessage.getData());
+        System.out.println(turn2.getData());
+        routingContext.response().end("\"received: " + turn2.getData() + "\"");
     }
 
     private void addTurnFrom1(RoutingContext routingContext) {
@@ -133,7 +137,7 @@ class EndpointDispatcher {
     }
 
     private void getTurnFor1(RoutingContext routingContext) {
-        sendJson(routingContext.response(), turn.getData());
+        sendJson(routingContext.response(), turn2.getData());
     }
 
     private void getTurnFor2(RoutingContext routingContext) {
