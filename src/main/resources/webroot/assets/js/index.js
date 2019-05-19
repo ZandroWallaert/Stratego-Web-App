@@ -74,16 +74,6 @@ function init() {
             .then(response => response.json())
             .then(json => detailSpan.innerHTML = JSON.stringify(json))
             .catch(error => console.error('Error:', error));
-
-
-        if (responseSpan.innerHTML == `<p id="response" class="hidden">"Person already exists!"</p>`) {
-            timeVar.clearTimeout();
-            console.log(responseSpan);
-            console.log('YES')
-        } else {
-            console.log(responseSpan);
-            console.log(responseSpan.value);
-        }
     };
 
     document.getElementById("Classic").addEventListener("click", function () {
