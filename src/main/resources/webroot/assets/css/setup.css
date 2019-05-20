@@ -3,10 +3,41 @@ html {
 }
 body {
     margin: 0;
-    background: center no-repeat fixed;
+    background-color: black;
+}
+
+#bg-image {
+    position: absolute;
+    z-index: -1;
+    filter: blur(7px) brightness(67%);
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
-    transform: scale(0.7);
+    height: 100%;
+    width: 100%;
+}
+
+#bg-gameImage {
+    position: absolute;
+    z-index: 0;
+    background: url("../media/bg-gameImage.jpg") no-repeat center;
+    background-size: cover;
+    border: 0.2rem solid rgb(57, 38, 19);
+    left: 50%;
+    top: 50%;
+    height: 50.5rem;
+    width: 67rem;
+    transform: translate(-50%, -50%);
+}
+
+#content {
+    position: absolute;
+    z-index: 1;
     transform-origin: top;
+    left: 50.4%;
+    top: 35%;
+    bottom: 32%;
+    transform: translate(-50%, -50%) scale(0.62);
 }
 
 h1 {
@@ -105,15 +136,12 @@ ul li div {
 #premade {
     position: absolute;
     left: 69.25rem;
-    top: 49rem;
+    top: 49.2rem;
     transform: scale(2.5);
 }
 
 #premade.moveUp {
-    position: absolute;
-    left: 69.25rem;
-    top: 40rem;
-    transform: scale(2.5);
+    top: 44.69rem;
 }
 #premade ul {
     list-style: none;
@@ -136,7 +164,6 @@ ul li div {
 
 .button-3d:active, #switchSetup:active, #startGame:active {
     box-shadow: 0 0.125rem 0 #d35400;
-    position: relative;
     top: 0.25rem;
 }
 
@@ -148,7 +175,7 @@ ul li div {
     font-family: "Bahnschrift Light", sans-serif;
     position: absolute;
     z-index: 7;
-    top: 80%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin-left: auto;
@@ -192,7 +219,8 @@ ul li div {
 
 /*Temporary test button*/
 #showEndGame {
-    margin-left: -10rem;
+    margin-left: 2rem;
+    position: absolute;;
     font-size: 1.5rem;
     background-color: orange;
     text-decoration: none;

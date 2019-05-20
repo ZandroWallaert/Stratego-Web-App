@@ -272,6 +272,7 @@ function goBack(id) {
 
     } else if (screen[id] === "gameMode") {
         document.getElementById('mainMenu').style.borderStyle = 'solid';
+        document.getElementById('play').style.borderColor = 'transparent';
     } else if (screen[id] === "settings") {
         setSfx(sfxStatus);
         setMusic(musicStatus);
@@ -504,7 +505,7 @@ function initializeGame() {
 
     timeVar = setTimeout(() => {
         window.location.href = "setup.html"
-    }, 1000)
+    }, 2000)
 }
 
 function cancelSearch() {
@@ -520,4 +521,3 @@ function cancelSearch() {
     document.getElementById('backgroundVideo').style.filter = 'blur(7px)';
     clearTimeout(timeVar);
 }
-

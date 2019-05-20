@@ -1,4 +1,5 @@
 "use strict";
+
 document.addEventListener("DOMContentLoaded", init);
 let squareList;
 let pieceHolder;
@@ -10,8 +11,7 @@ let gameMode;
 
 function init() {
     gameMode = JSON.parse(localStorage.getItem('gameMode'));
-    console.log(gameMode.toLowerCase());
-    document.body.style.backgroundImage = `url(assets/media/${gameMode.toLowerCase()}.jpg)`;
+    document.getElementById('bg-image').style.backgroundImage = `url(assets/media/${gameMode.toLowerCase()}.jpg)`;
     document.getElementById('showEndGame').addEventListener('click', endGame); //Test
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
@@ -175,6 +175,9 @@ function startGame() {
 }
 
 function redTurn() {
+    document.querySelector("body h1").innerHTML = ("Second Player Setup (Red)");
+    flipPieces("blue");
+    setupOnClick("red");
     let setupDiv = document.getElementById('premade');
     setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" ' +
         'onclick="premadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" ' +
@@ -194,9 +197,6 @@ function redTurn() {
             .then(res => res.json())
             .then(json => console.log(JSON.stringify(json)));
         console.log(JSON.stringify(turn));
-        setTimeout(function () {
-            location.href = 'wait.html'
-        }, 3000);
     }
 }
 
@@ -459,4 +459,3 @@ function premadeSetup(color, setupType) {
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
 }
-
