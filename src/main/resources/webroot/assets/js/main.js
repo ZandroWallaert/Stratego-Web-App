@@ -6,10 +6,6 @@ function init() {
     payment();
 }
 
-document.getElementById("donateLink").addEventListener('click', showDonate);
-
-document.getElementById("nextToPayment").addEventListener('click', showProceedToPayment);
-
 document.querySelector('#launch > a').addEventListener('click', launchApp);
 
 function launchApp() {

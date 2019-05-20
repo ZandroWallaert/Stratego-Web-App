@@ -1,4 +1,4 @@
-package be.howest.ti.project1.stratego.stratego.specialpawns;
+package be.howest.ti.project1.stratego.stratego.pawns;
 
 import be.howest.ti.project1.stratego.stratego.Pawn;
 import be.howest.ti.project1.stratego.stratego.Player;
@@ -35,7 +35,7 @@ public class PawnTest {
 
         Pawn infiltrator = new Infiltrator(2);
         assertEquals(2, infiltrator.getPlayer());
-        assertEquals(2, infiltrator.getMaxRangeDistance());
+        assertEquals(1, infiltrator.getMaxRangeDistance());
         assertEquals(1, infiltrator.getRank());
 
         Pawn pilot = new Pilot(2);
@@ -47,7 +47,7 @@ public class PawnTest {
     @Test
     public void testAttack() {
         Player player1 = new Player("player1", 22);
-        Pawn bomb = new Pawn("bomb", 1, 7, 0);
+        Pawn bomb = new Pawn("bomb", 1, 11, 0);
         Pawn miner = new Miner(1);
         Pawn infiltrator = new Infiltrator(1);
         Pawn spy = new Spy(1);
