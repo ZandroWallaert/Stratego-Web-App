@@ -111,18 +111,28 @@
         <li><input onclick="premadeSetup('blue','mixed')" type="button" value="Mixed" class="button-3d"/></li>
     </ul>
 </div>
-<div id="info">
-    <label>Game token: </label>
-    <p id="token"></p>
-    <input type="button" value="Profile" id="profileBtn">
+
+<div class="hidden" id="victory">
+    <h1>You won!</h1>
+    <p>You have defeated your opponent.</p>
+    <div class="endGameBtn">
+        <a href="setup.html">Play again</a>
+        <a href="app.html">Exit</a>
+    </div>
 </div>
 
-<div class="hidden" id="profile">
-    <label>Username: </label>
-    <p id="username"></p>
-    <label>Age: </label>
-    <p id="age"></p>
+<div class="hidden" id="defeat">
+    <h1>You lost!</h1>
+    <p>Better luck next time.</p>
+    <div class="endGameBtn">
+        <a href="setup.html">Play again</a>
+        <a href="app.html">Exit</a>
+    </div>
 </div>
+
+<!-- Temporary test button!!!-->
+<a href='#' id="showEndGame">Click me</a>
+
 <script lang="javascript" src="./assets/js/setup.js" type="text/javascript"></script>
 </body>
 </html>

@@ -8,6 +8,7 @@ let square;
 let playerColor;
 
 function init() {
+    document.getElementById('showEndGame').addEventListener('click', endGame); //Test
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
     document.getElementById('profileBtn').addEventListener("click", showProfile);
@@ -25,7 +26,16 @@ function init() {
         .then(response => response.json())
         .then(json => {
             nameSpan.innerHTML = json.stringify()
-        })
+        });
+}
+
+function endGame(isWon) { //Test
+    isWon = true;
+    if (isWon) {
+        document.getElementById('victory').classList.remove('hidden')
+    } else {
+        document.getElementById('defeat').classList.remove('hidden')
+    }
 }
 
 function showProfile() {
@@ -163,6 +173,9 @@ function startGame() {
 }
 
 function redTurn() {
+    document.querySelector("body h1").innerHTML = ("Second Player Setup (Red)");
+    flipPieces("blue");
+    setupOnClick("red");
     let setupDiv = document.getElementById('premade');
     setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" ' +
         'onclick="premadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" ' +
@@ -182,9 +195,6 @@ function redTurn() {
             .then(res => res.json())
             .then(json => console.log(JSON.stringify(json)));
         console.log(JSON.stringify(turn));
-        setTimeout(function () {
-            location.href = 'wait.html'
-        }, 3000);
     }
 }
 

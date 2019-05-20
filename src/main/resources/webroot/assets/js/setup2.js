@@ -8,12 +8,12 @@ let square;
 let playerColor;
 
 function init() {
+    document.getElementById('showEndGame').addEventListener('click', endGame); //Test
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
     document.getElementById('profileBtn').addEventListener("click", showProfile);
     setupPage();
-    premadeSetup('blue', 'defensive');
-    redTurn();
+
     const nameSpan = document.getElementById('username');
 
     fetch('/api/person/:name', {
@@ -26,7 +26,16 @@ function init() {
         .then(response => response.json())
         .then(json => {
             nameSpan.innerHTML = json.stringify()
-        })
+        });
+}
+
+function endGame(isWon) { //Test
+    isWon = true;
+    if (isWon) {
+        document.getElementById('victory').classList.remove('hidden')
+    } else {
+        document.getElementById('defeat').classList.remove('hidden')
+    }
 }
 
 function showProfile() {
