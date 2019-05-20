@@ -6,12 +6,15 @@ let name;
 let color;
 let square;
 let playerColor;
+let gameMode;
 
 function init() {
+    gameMode = JSON.parse(localStorage.getItem('gameMode'));
+    console.log(gameMode.toLowerCase());
+    document.body.style.backgroundImage = `url(assets/media/${gameMode.toLowerCase()}.jpg)`;
     document.getElementById('showEndGame').addEventListener('click', endGame); //Test
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
-    document.getElementById('profileBtn').addEventListener("click", showProfile);
     setupPage();
 
     const nameSpan = document.getElementById('username');
@@ -30,7 +33,6 @@ function init() {
 }
 
 function endGame(isWon) { //Test
-    isWon = true;
     if (isWon) {
         document.getElementById('victory').classList.remove('hidden')
     } else {
@@ -457,4 +459,3 @@ function premadeSetup(color, setupType) {
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
 }
-

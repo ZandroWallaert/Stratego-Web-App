@@ -3,7 +3,8 @@ html {
 }
 body {
     margin: 0;
-    background: lightgreen;
+    background: center no-repeat fixed;
+    background-size: cover;
     transform: scale(0.7);
     transform-origin: top;
 }

@@ -458,4 +458,3 @@ function premadeSetup(color, setupType) {
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
 }
-
