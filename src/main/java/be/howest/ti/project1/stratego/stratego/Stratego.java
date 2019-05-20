@@ -105,7 +105,6 @@ public class Stratego {
         return Collections.unmodifiableList(moveHistory);
     }
 
-
     public boolean placePawn(Pawn pawn, Coordinates position) {
         if (gameBoard.isValidPlacement(pawn, position)) {
             gameBoard.placePawnOnPosition(pawn, position);

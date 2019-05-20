@@ -197,6 +197,9 @@ function redTurn() {
             .then(res => res.json())
             .then(json => console.log(JSON.stringify(json)));
         console.log(JSON.stringify(turn));
+        setTimeout(function () {
+            location.href = 'wait.html'
+        }, 2000);
     }
 }
 
@@ -459,3 +462,4 @@ function premadeSetup(color, setupType) {
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
 }
+

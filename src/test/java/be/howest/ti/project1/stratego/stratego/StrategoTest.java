@@ -1,8 +1,7 @@
 package be.howest.ti.project1.stratego.stratego;
 
-import be.howest.ti.project1.stratego.stratego.specialpawns.Miner;
+import be.howest.ti.project1.stratego.stratego.pawns.Miner;
 import org.junit.Test;
-
 import static junit.framework.TestCase.*;
 
 public class StrategoTest {
