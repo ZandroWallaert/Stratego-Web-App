@@ -11,9 +11,9 @@ function init() {
     document.getElementById('showEndGame').addEventListener('click', endGame); //Test
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
-    document.getElementById('profileBtn').addEventListener("click", showProfile);
     setupPage();
-
+    premadeSetup('blue', 'defensive');
+    redTurn();
     const nameSpan = document.getElementById('username');
 
     fetch('/api/person/:name', {
@@ -65,7 +65,6 @@ window.onload = function () {
 
 function startGame() {
     sendNextTurn();
-
     function sendNextTurn() {
         let turn = {data: "goNext"};
         fetch("/api/next1", {
@@ -79,7 +78,6 @@ function startGame() {
             .then(json => console.log(JSON.stringify(json)));
         console.log(JSON.stringify(turn));
     }
-
     let listTextStr = document.getElementById('squareList').innerHTML;
     localStorage.setItem('testObject', listTextStr);
     let blueSetupSubmit = [];
@@ -458,3 +456,4 @@ function premadeSetup(color, setupType) {
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
 }
+
