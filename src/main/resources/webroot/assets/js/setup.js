@@ -1,5 +1,4 @@
 "use strict";
-
 document.addEventListener("DOMContentLoaded", init);
 let squareList;
 let pieceHolder;
@@ -11,7 +10,8 @@ let gameMode;
 
 function init() {
     gameMode = JSON.parse(localStorage.getItem('gameMode'));
-    document.getElementById('bg-image').style.backgroundImage = `url(assets/media/${gameMode.toLowerCase()}.jpg)`;
+    console.log(gameMode.toLowerCase());
+    document.body.style.backgroundImage = `url(assets/media/${gameMode.toLowerCase()}.jpg)`;
     document.getElementById('showEndGame').addEventListener('click', endGame); //Test
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
@@ -381,8 +381,8 @@ function deleteAllDots() {
         }
     }
 
-    deleteDots("squareList", 50);
-    deleteDots("pieceHolder", 40);
+    deleteDots("squareList", 100);
+    deleteDots("pieceHolder", 80);
 }
 
 function flipPieces(color) {
