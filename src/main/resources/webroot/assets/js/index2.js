@@ -135,6 +135,25 @@ function init() {
     });
 }
 
+document.getElementById("showRules").addEventListener('click', showRules);
+document.getElementById("showSettings").addEventListener('click', showSettings);
+document.getElementById("confirmExit").addEventListener('click', confirmExit);
+
+document.getElementById("theme").addEventListener('click', changeTheme);
+document.getElementById("sound").addEventListener('click', changeSfx);
+document.getElementById("music").addEventListener('click', changeMusic);
+document.getElementById("reset").addEventListener('click', resetSettings);
+
+document.getElementById("saveChanges").addEventListener('click', saveChanges);
+
+document.getElementById("Classic").addEventListener('mouseout', hideModeDetails);
+document.getElementById("Duel").addEventListener('mouseout', hideModeDetails);
+document.getElementById("Infiltrator").addEventListener('mouseout', hideModeDetails);
+document.getElementById("Secret").addEventListener('mouseout', hideModeDetails);
+
+document.getElementById("cancel").addEventListener('click', cancelSearch);
+
+
 let selector = document.querySelectorAll('a');
 document.querySelector('#createPersonForm input[type=submit]')
     .addEventListener('mouseover', playAudioHover);
@@ -396,6 +415,10 @@ function setTheme(value) {
             bgVideo = 'desert.mp4';
             break;
     }
+    themeChanges(titleColor, sheet, source, bgVideo, video, value);
+}
+
+function themeChanges(titleColor, sheet, source, bgVideo, video, value) {
     document.getElementById('title').style.color = titleColor;
 
     //Changes stylesheet
@@ -461,14 +484,16 @@ function showForm(gameMode) {
     element.classList.remove("hidden");
     document.querySelector('#createPersonForm span').innerHTML = '';
     addMode.innerHTML = `Game mode: ${gameMode}`;
+    StyleBrightnessAndBlur(bgStyle);
+}
 
+function StyleBrightnessAndBlur(bgStyle) {
     document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.filter = bgStyle;
     document.getElementById('title').style.filter = bgStyle;
-
 }
 
 let bgDarkStyle = 'blur(4px) brightness(30%)';
