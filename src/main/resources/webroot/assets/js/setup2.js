@@ -6,8 +6,11 @@ let name;
 let color;
 let square;
 let playerColor;
+let gameMode;
 
 function init() {
+    gameMode = JSON.parse(localStorage.getItem('gameMode'));
+    document.getElementById('bg-image').style.backgroundImage = `url(assets/media/${gameMode.toLowerCase()}.jpg)`;
     document.getElementById('showEndGame').addEventListener('click', endGame); //Test
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
@@ -30,7 +33,6 @@ function init() {
 }
 
 function endGame(isWon) { //Test
-    isWon = true;
     if (isWon) {
         document.getElementById('victory').classList.remove('hidden')
     } else {

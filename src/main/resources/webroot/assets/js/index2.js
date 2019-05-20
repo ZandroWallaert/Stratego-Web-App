@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", init);
 
 let settings = [];
 let defaultSettings = ['Rain', 'Enabled', 'Enabled'];
+let gameMode;
 
 let formInfo = [];
 
@@ -171,7 +172,7 @@ function preventEarlyEvents() {
     document.body.style.pointerEvents = 'none';
     setTimeout(() => {
         document.body.style.pointerEvents = 'auto';
-    }, 4000)
+    }, 3000)
 }
 
 function playMusic() {
@@ -270,9 +271,8 @@ function goBack(id) {
         document.getElementById('mainMenu').style.filter = '';
 
     } else if (screen[id] === "gameMode") {
-        document.getElementById('SinglePlayer').style.borderColor = 'transparent';
-        document.getElementById('Online').style.borderColor = 'transparent';
         document.getElementById('mainMenu').style.borderStyle = 'solid';
+        document.getElementById('play').style.borderColor = 'transparent';
     } else if (screen[id] === "settings") {
         setSfx(sfxStatus);
         setMusic(musicStatus);
@@ -432,22 +432,9 @@ function resetSettings() {
 
 function showGameMode(id) {
     playAudioForward();
-    let otherId;
-
-    if (id === 'SinglePlayer') {
-        otherId = 'Online'
-    } else {
-        otherId = 'SinglePlayer'
-    }
-
 
     document.getElementById('gameMode').classList.remove('hidden');
-    if (document.getElementById(otherId).style.border !== '') {
-        document.getElementById(otherId).style.border = '';
-        document.getElementById(id).style.border = '3px solid';
-    } else {
-        document.getElementById(id).style.border = '3px solid';
-    }
+    document.getElementById(id).style.border = '3px solid';
     document.getElementById('mainMenu').style.borderStyle = 'none';
 }
 
@@ -467,6 +454,7 @@ function hideModeDetails() {
 }
 
 function showForm(gameMode) {
+    localStorage.setItem('gameMode', JSON.stringify(gameMode));
     playAudioForward();
     let element = document.getElementById("createPersonForm");
     let addMode = document.querySelector('#mode');
@@ -517,7 +505,7 @@ function initializeGame() {
 
     timeVar = setTimeout(() => {
         window.location.href = "wait2.html"
-    }, 1000)
+    }, 2000)
 }
 
 function cancelSearch() {
@@ -533,4 +521,3 @@ function cancelSearch() {
     document.getElementById('backgroundVideo').style.filter = 'blur(7px)';
     clearTimeout(timeVar);
 }
-
