@@ -1,9 +1,9 @@
 package be.howest.ti.project1.stratego.stratego;
 
-import be.howest.ti.project1.stratego.stratego.SpecialPawns.Infiltrator;
-import be.howest.ti.project1.stratego.stratego.SpecialPawns.Miner;
-import be.howest.ti.project1.stratego.stratego.SpecialPawns.Spy;
-import be.howest.ti.project1.stratego.stratego.SpecialPawns.Pilot;
+import be.howest.ti.project1.stratego.stratego.specialpawns.Infiltrator;
+import be.howest.ti.project1.stratego.stratego.specialpawns.Miner;
+import be.howest.ti.project1.stratego.stratego.specialpawns.Spy;
+import be.howest.ti.project1.stratego.stratego.specialpawns.Pilot;
 
 import java.util.Map;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package be.howest.ti.project1.stratego.stratego.SpecialPawns;
+package be.howest.ti.project1.stratego.stratego.specialpawns;
 
 import be.howest.ti.project1.stratego.stratego.Pawn;
 
