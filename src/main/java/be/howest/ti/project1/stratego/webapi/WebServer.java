@@ -7,6 +7,9 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.StaticHandler;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class WebServer extends AbstractVerticle {
 
@@ -33,6 +36,8 @@ public class WebServer extends AbstractVerticle {
 
     }
 
+    private static final Logger LOGGER = Logger.getLogger(WebServer.class.getSimpleName());
+
     private void handleException(RoutingContext routingContext) {
         Throwable failure = routingContext.failure();
         if (
@@ -45,10 +50,9 @@ public class WebServer extends AbstractVerticle {
                     .putHeader("Content-Type", "application/json; charset=utf-8")
                     .end(Json.encodePrettily(failure));
         } else {
+            LOGGER.log(Level.SEVERE, "unhandled exception", failure);
             routingContext.next();
         }
     }
-
-
 }
 
