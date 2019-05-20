@@ -1,6 +1,6 @@
 package be.howest.ti.project1.stratego.stratego;
 
-import be.howest.ti.project1.stratego.stratego.SpecialPawns.Spy;
+import be.howest.ti.project1.stratego.stratego.specialpawns.Spy;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -72,7 +72,7 @@ public class GameboardTest {
         b.placePawnOnPosition(spy, c1);
         b.placePawnOnPosition(spy2, c2);
 
-        //SpecialPawns
+        //specialpawns
         assertEquals(spy, b.getPawnOnPosition(7, 7));
         assertEquals(spy2, b.getPawnOnPosition(7, 2));
 

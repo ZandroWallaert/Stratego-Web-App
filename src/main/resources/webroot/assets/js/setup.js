@@ -378,8 +378,8 @@ function deleteAllDots() {
         }
     }
 
-    deleteDots("squareList", 100);
-    deleteDots("pieceHolder", 80);
+    deleteDots("squareList", 50);
+    deleteDots("pieceHolder", 40);
 }
 
 function flipPieces(color) {
