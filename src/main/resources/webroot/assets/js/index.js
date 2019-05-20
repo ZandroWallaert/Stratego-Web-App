@@ -281,7 +281,8 @@ function goBackTo(screenId, sfxStatus, musicStatus, themeStatus) {
 
     } else if (screenId === "gameMode") {
         document.getElementById('mainMenu').style.borderStyle = 'solid';
-    } else if (screenId === "settings") {
+        document.getElementById('play').style.borderColor = 'transparent';
+    } else if (screen[id] === "settings") {
         setSfx(sfxStatus);
         setMusic(musicStatus);
         if (themeStatus !== document.getElementById('theme').value) {
@@ -516,7 +517,7 @@ function initializeGame() {
 
     timeVar = setTimeout(() => {
         window.location.href = "setup.html"
-    }, 1000)
+    }, 2000)
 }
 
 function cancelSearch() {
@@ -532,4 +533,3 @@ function cancelSearch() {
     document.getElementById('backgroundVideo').style.filter = 'blur(7px)';
     clearTimeout(timeVar);
 }
-
