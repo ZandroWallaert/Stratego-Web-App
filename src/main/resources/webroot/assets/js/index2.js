@@ -369,6 +369,10 @@ function setTheme(value) {
             bgVideo = 'desert.mp4';
             break;
     }
+    themeChanges(titleColor, sheet, source, bgVideo, video, value);
+}
+
+function themeChanges(titleColor, sheet, source, bgVideo, video, value) {
     document.getElementById('title').style.color = titleColor;
 
     //Changes stylesheet
@@ -434,14 +438,16 @@ function showForm(gameMode) {
     element.classList.remove("hidden");
     document.querySelector('#createPersonForm span').innerHTML = '';
     addMode.innerHTML = `Game mode: ${gameMode}`;
+    StyleBrightnessAndBlur(bgStyle);
+}
 
+function StyleBrightnessAndBlur(bgStyle) {
     document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.filter = bgStyle;
     document.getElementById('title').style.filter = bgStyle;
-
 }
 
 let bgDarkStyle = 'blur(4px) brightness(30%)';
