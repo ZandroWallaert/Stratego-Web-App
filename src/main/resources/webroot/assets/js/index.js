@@ -135,6 +135,26 @@ function init() {
     });
 }
 
+document.getElementById("showRules").addEventListener('click', showRules);
+document.getElementById("showSettings").addEventListener('click', showSettings);
+document.getElementById("confirmExit").addEventListener('click', confirmExit);
+
+document.getElementById("theme").addEventListener('click', changeTheme);
+document.getElementById("sound").addEventListener('click', changeSfx);
+document.getElementById("music").addEventListener('click', changeMusic);
+document.getElementById("reset").addEventListener('click', resetSettings);
+
+document.getElementById("saveChanges").addEventListener('click', saveChanges);
+
+document.getElementById("Classic").addEventListener('mouseout', hideModeDetails);
+document.getElementById("Duel").addEventListener('mouseout', hideModeDetails);
+document.getElementById("Infiltrator").addEventListener('mouseout', hideModeDetails);
+document.getElementById("Secret").addEventListener('mouseout', hideModeDetails);
+
+document.getElementById("cancel").addEventListener('click', cancelSearch);
+
+
+
 let selector = document.querySelectorAll('a');
 document.querySelector('#createPersonForm input[type=submit]')
     .addEventListener('mouseover', playAudioHover);
@@ -275,13 +295,11 @@ function goBack(id) {
     document.getElementById('gameMode').style.pointerEvents = '';
 }
 
-function goBackTo(screenId, sfxStatus, musicStatus, themeStatus) {
-    if (screenId === "rules" || screenId === 'exit') {
+if (screen[id] === "rules" || screen[id] === 'exit') {
         document.getElementById('mainMenu').style.filter = '';
 
-    } else if (screenId === "gameMode") {
+} else if (screen[id] === "gameMode") {
         document.getElementById('mainMenu').style.borderStyle = 'solid';
-        document.getElementById('play').style.borderColor = 'transparent';
     } else if (screen[id] === "settings") {
         setSfx(sfxStatus);
         setMusic(musicStatus);
@@ -290,8 +308,14 @@ function goBackTo(screenId, sfxStatus, musicStatus, themeStatus) {
         }
         document.getElementById('mainMenu').style.filter = '';
     } else {
-        document.getElementById(screenId - 1).classList.remove('hidden')
+    document.getElementById(screen[id - 1]).classList.remove('hidden');
     }
+
+document.getElementById('title').style.filter = '';
+document.getElementById('gameMode').style.filter = '';
+document.getElementById('mainMenu').style.filter = '';
+document.getElementById('mainMenu').style.pointerEvents = '';
+document.getElementById('gameMode').style.pointerEvents = '';
 }
 
 function getCurrentSettings() {
@@ -533,3 +557,4 @@ function cancelSearch() {
     document.getElementById('backgroundVideo').style.filter = 'blur(7px)';
     clearTimeout(timeVar);
 }
+
