@@ -78,61 +78,35 @@ function init() {
     };
 
     document.getElementById("Classic").addEventListener("click", function () {
-        let data = {gameMode: "classic"};
-        console.log("sending " + JSON.stringify(data));
-
-        fetch("api/stratego/gameMode", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(json => console.log(JSON.stringify(json)));
+        sendGameMode('classic')
     });
 
     document.getElementById("Duel").addEventListener("click", function () {
-        let data = {gameMode: "duel"};
-        console.log("sending " + JSON.stringify(data));
-        fetch("api/stratego/gameMode", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(json => console.log(JSON.stringify(json)));
+        sendGameMode('duel')
     });
 
     document.getElementById("Infiltrator").addEventListener("click", function () {
-        let data = {gameMode: "infiltrator"};
-        console.log("sending " + JSON.stringify(data));
-        fetch("/api/games/:gameToken/gamemode", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(json => console.log(JSON.stringify(json)));
+        sendGameMode('infiltrator')
     });
 
-    document.getElementById("Secret").addEventListener("click", function () {
-        let data = {gameMode: "airborn"};
-        console.log("sending " + JSON.stringify(data));
-        fetch("api/stratego/gameMode", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(json => console.log(JSON.stringify(json)));
+    document.getElementById("Airborne").addEventListener("click", function () {
+        sendGameMode('airborne')
     });
+}
+
+function sendGameMode(gameMode) {
+    let data = {gameMode: gameMode};
+    console.log("sending " + JSON.stringify(data));
+    fetch("api/stratego/gameMode", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+        .then(json => console.log(JSON.stringify(json)));
+
 }
 
 let selector = document.querySelectorAll('a');
@@ -141,7 +115,6 @@ document.querySelector('#createPersonForm input[type=submit]')
 for (let i = 0; i < selector.length; i++) {
     selector[i].addEventListener('mouseover', playAudioHover);
 }
-document.getElementById('Secret').removeEventListener('mouseover', playAudioHover);
 
 let allowAudio = true;
 let allowMusic = true;
@@ -267,19 +240,10 @@ function goBack(id) {
         "createPersonForm",
     ];
     document.getElementById(screen[id]).classList.add('hidden');
-    goBackTo(screen[id], sfxStatus, musicStatus, themeStatus);
-    document.getElementById('title').style.filter = '';
-    document.getElementById('gameMode').style.filter = '';
-    document.getElementById('mainMenu').style.filter = '';
-    document.getElementById('mainMenu').style.pointerEvents = '';
-    document.getElementById('gameMode').style.pointerEvents = '';
-}
-
-function goBackTo(screenId, sfxStatus, musicStatus, themeStatus) {
-    if (screenId === "rules" || screenId === 'exit') {
+    if (screen[id] === "rules" || screen[id] === 'exit') {
         document.getElementById('mainMenu').style.filter = '';
 
-    } else if (screenId === "gameMode") {
+    } else if (screen[id] === "gameMode") {
         document.getElementById('mainMenu').style.borderStyle = 'solid';
         document.getElementById('play').style.borderColor = 'transparent';
     } else if (screen[id] === "settings") {
@@ -290,8 +254,13 @@ function goBackTo(screenId, sfxStatus, musicStatus, themeStatus) {
         }
         document.getElementById('mainMenu').style.filter = '';
     } else {
-        document.getElementById(screenId - 1).classList.remove('hidden')
+        document.getElementById(screen[id - 1]).classList.remove('hidden')
     }
+    document.getElementById('title').style.filter = '';
+    document.getElementById('gameMode').style.filter = '';
+    document.getElementById('mainMenu').style.filter = '';
+    document.getElementById('mainMenu').style.pointerEvents = '';
+    document.getElementById('gameMode').style.pointerEvents = '';
 }
 
 function getCurrentSettings() {
@@ -400,10 +369,6 @@ function setTheme(value) {
             bgVideo = 'desert.mp4';
             break;
     }
-    themeChanges(titleColor, sheet, source, bgVideo, video, value);
-}
-
-function themeChanges(titleColor, sheet, source, bgVideo, video, value) {
     document.getElementById('title').style.color = titleColor;
 
     //Changes stylesheet
@@ -469,18 +434,14 @@ function showForm(gameMode) {
     element.classList.remove("hidden");
     document.querySelector('#createPersonForm span').innerHTML = '';
     addMode.innerHTML = `Game mode: ${gameMode}`;
-    StyleBrightnessAndBlur(bgStyle);
 
-
-}
-
-function StyleBrightnessAndBlur(bgStyle) {
     document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.filter = bgStyle;
     document.getElementById('title').style.filter = bgStyle;
+
 }
 
 let bgDarkStyle = 'blur(4px) brightness(30%)';
