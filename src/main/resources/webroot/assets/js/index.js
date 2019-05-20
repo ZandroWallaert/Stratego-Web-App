@@ -267,12 +267,21 @@ function goBack(id) {
         "createPersonForm",
     ];
     document.getElementById(screen[id]).classList.add('hidden');
-    if (screen[id] === "rules" || screen[id] === 'exit') {
+    goBackTo(screen[id], sfxStatus, musicStatus, themeStatus);
+    document.getElementById('title').style.filter = '';
+    document.getElementById('gameMode').style.filter = '';
+    document.getElementById('mainMenu').style.filter = '';
+    document.getElementById('mainMenu').style.pointerEvents = '';
+    document.getElementById('gameMode').style.pointerEvents = '';
+}
+
+function goBackTo(screenId, sfxStatus, musicStatus, themeStatus) {
+    if (screenId === "rules" || screenId === 'exit') {
         document.getElementById('mainMenu').style.filter = '';
 
-    } else if (screen[id] === "gameMode") {
+    } else if (screenId === "gameMode") {
         document.getElementById('mainMenu').style.borderStyle = 'solid';
-    } else if (screen[id] === "settings") {
+    } else if (screenId === "settings") {
         setSfx(sfxStatus);
         setMusic(musicStatus);
         if (themeStatus !== document.getElementById('theme').value) {
@@ -280,13 +289,8 @@ function goBack(id) {
         }
         document.getElementById('mainMenu').style.filter = '';
     } else {
-        document.getElementById(screen[id - 1]).classList.remove('hidden')
+        document.getElementById(screenId - 1).classList.remove('hidden')
     }
-    document.getElementById('title').style.filter = '';
-    document.getElementById('gameMode').style.filter = '';
-    document.getElementById('mainMenu').style.filter = '';
-    document.getElementById('mainMenu').style.pointerEvents = '';
-    document.getElementById('gameMode').style.pointerEvents = '';
 }
 
 function getCurrentSettings() {
@@ -395,6 +399,10 @@ function setTheme(value) {
             bgVideo = 'desert.mp4';
             break;
     }
+    themeChanges(titleColor, sheet, source, bgVideo, video, value);
+}
+
+function themeChanges(titleColor, sheet, source, bgVideo, video, value) {
     document.getElementById('title').style.color = titleColor;
 
     //Changes stylesheet
@@ -460,14 +468,18 @@ function showForm(gameMode) {
     element.classList.remove("hidden");
     document.querySelector('#createPersonForm span').innerHTML = '';
     addMode.innerHTML = `Game mode: ${gameMode}`;
+    StyleBrightnessAndBlur(bgStyle);
 
+
+}
+
+function StyleBrightnessAndBlur(bgStyle) {
     document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.filter = bgStyle;
     document.getElementById('title').style.filter = bgStyle;
-
 }
 
 let bgDarkStyle = 'blur(4px) brightness(30%)';
