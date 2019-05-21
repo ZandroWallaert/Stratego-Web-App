@@ -58,15 +58,16 @@ function setupPage() {
     <div id="blankSquare-${i}"></div>
         </li>`);
     }
+    squareList.innerHTML = localStorage.getItem('setup');
 }
 
 window.onload = function () {
-    document.querySelector("body h1").innerHTML = ("First Player Setup (Blue)");
-    setupOnClick("blue");
+    setupOnClick("red");
 };
 
 function startGame() {
     sendNextTurn();
+
     function sendNextTurn() {
         let turn = {data: "goNext"};
         fetch("/api/next1", {
@@ -80,61 +81,9 @@ function startGame() {
             .then(json => console.log(JSON.stringify(json)));
         console.log(JSON.stringify(turn));
     }
-    let listTextStr = document.getElementById('squareList').innerHTML;
-    localStorage.setItem('testObject', listTextStr);
-    let blueSetupSubmit = [];
+
     let redSetupSubmit = [];
     let list = document.getElementById('squareList').getElementsByTagName("li");
-    for (let i = 0; i < 40; i++) {
-        let html = list[i].firstChild;
-        let first = html.id.split("-", 1);
-        let second = first[0].split("e");
-        let code = second[1];
-        switch (code) {
-            case '8':
-                code = 3;
-                break;
-            case '9':
-                code = 2;
-                break;
-            case '5':
-                code = 6;
-                break;
-            case '6':
-                code = 5;
-                break;
-            case '4':
-                code = 7;
-                break;
-            case '1':
-                code = 10;
-                break;
-            case '7':
-                code = 4;
-                break;
-            case '3':
-                code = 8;
-                break;
-            case '2':
-                code = 9;
-                break;
-            default:
-                break;
-        }
-        blueSetupSubmit.push(code);
-    }
-    let bluePawns = {pawns: blueSetupSubmit.toString()};
-    console.log("sending " + JSON.stringify(bluePawns));
-    fetch("api/stratego/bluePawns", {
-        method: "POST",
-        body: JSON.stringify(bluePawns),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(res => res.json())
-        .then(json => console.log(JSON.stringify(json)));
-    console.log(blueSetupSubmit);
     for (let i = 60; i < 100; i++) {
         let html = list[i].firstChild;
         let first = html.id.split("-", 1);
