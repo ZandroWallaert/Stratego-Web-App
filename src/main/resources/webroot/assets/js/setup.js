@@ -17,19 +17,19 @@ function init() {
     pieceHolder = document.getElementById('pieceHolder');
     setupPage();
 
-    const nameSpan = document.getElementById('username');
+    //const nameSpan = document.getElementById('username');
 
-    fetch('/api/person/:name', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(json => {
-            nameSpan.innerHTML = json.stringify()
-        });
+    // fetch('/api/person/:name', {
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(data)
+    // })
+    //     .then(response => response.json())
+    //     .then(json => {
+    //         nameSpan.innerHTML = json.stringify()
+    //     });
 }
 
 function endGame(isWon) { //Test
@@ -125,7 +125,6 @@ function startGame() {
 
 function redTurn() {
     startGame();
-    document.querySelector("body h1").innerHTML = ("Second Player Setup (Red)");
     flipPieces("blue");
     setupOnClick("red");
     let setupDiv = document.getElementById('premade');
@@ -134,7 +133,6 @@ function redTurn() {
         'value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li><li><input id="switchSetup" ' +
         'type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
     sendNextTurn();
-
     function sendNextTurn() {
         let turn = {data: "goNext"};
         fetch("/api/next2", {
@@ -148,8 +146,8 @@ function redTurn() {
             .then(json => console.log(JSON.stringify(json)));
         console.log(JSON.stringify(turn));
         setTimeout(function () {
-            location.href = 'wait.html'
-        }, 2000);
+            location.href = 'wait.html';
+        }, 3000);
     }
 }
 

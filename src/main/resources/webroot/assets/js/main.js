@@ -3,7 +3,6 @@
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
-    payment();
 }
 
 document.querySelector('#launch > a').addEventListener('click', launchApp);
