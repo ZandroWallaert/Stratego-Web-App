@@ -11,8 +11,8 @@ function init() {
     gameMode = JSON.parse(localStorage.getItem('gameMode'));
     console.log(gameMode);
     squareList = document.getElementById("squareList");
-    document.getElementById('bg-image').style.backgroundImage = `url(assets/media/${gameMode.toLowerCase()}.jpg)`;
-    console.log(`url(assets/media/${gameMode.toLowerCase()}.jpg)`);
+    document.getElementById('bg-image').style.backgroundImage = `url(../assets/media/${gameMode.toLowerCase()}.jpg)`;
+    console.log(`url(../assets/media/${gameMode.toLowerCase()}.jpg)`);
     lItems = document.getElementById("squareList").getElementsByTagName("li");
     lines = document.getElementById("squareList").getElementsByTagName("li");
     setupHtml();
@@ -42,7 +42,7 @@ function setupClick() {
 }
 
 window.onload = function () {
-    // ENABLE START GAME BUTTON RETRIEVE FROM SETUP.HTML
+    // ENABLE START GAME BUTTON RETRIEVE FROM /pages/setup.html
     squareList.innerHTML = localStorage.getItem('testObject');
     localStorage.setItem("turn", "blue");
     flipPieces("red");
@@ -245,7 +245,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
         document.getElementById("squareList").innerHTML = "";
         document.querySelector("body h1").innerHTML = ("Game Ended!");
         setTimeout(() => {
-            window.location.href = "app.html";
+            window.location.href = "/pages/app.html";
         }, 2000);
     }
 
@@ -353,7 +353,7 @@ function combat(a, b) {
         return -1;
 }
 
-let pieces = "/assets/media/pieces/";
+let pieces = "../assets/media/pieces/";
 
 // a function to switch the backs of the pieces
 function flipPieces(color) {

@@ -12,8 +12,8 @@ function launchApp() {
     document.querySelector('body').style.background = "white";
     document.getElementById('loading').classList.remove('hidden');
     setTimeout(() => {
-        window.location.href = "app.html";
-        window.open("app2.html");
+        window.location.href = "/pages/app.html";
+        window.open("/pages/app2.html");
     }, 4000);
 }
 

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Setup Stratego</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset.css">
+    <link href="../assets/css/setup.css" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div id="bg-image"></div>
+<h1>Setup turn</h1>
+<div id="bg-gameImage"></div>
+<div id="content">
+    <div id="playingField">
+        <img alt="board" id="board" src="../assets/media/board.jpg">
+        <ul id="squareList">
+            <li id="lake1">
+                <div id="lakeSquare-42"></div>
+            </li>
+            <li>
+                <div id="lakeSquare-43"></div>
+            </li>
+            <li>
+                <div id="blankSquare-44"></div>
+            </li>
+            <li>
+                <div id="blankSquare-45"></div>
+            </li>
+            <li>
+                <div id="lakeSquare-46"></div>
+            </li>
+            <li>
+                <div id="lakeSquare-47"></div>
+            </li>
+            <li>
+                <div id="blankSquare-48"></div>
+            </li>
+            <li>
+                <div id="blankSquare-49"></div>
+            </li>
+            <li>
+                <div id="blankSquare-50"></div>
+            </li>
+            <li>
+                <div id="blankSquare-51"></div>
+            </li>
+            <li>
+                <div id="lakeSquare-52"></div>
+            </li>
+            <li>
+                <div id="lakeSquare-53"></div>
+            </li>
+            <li>
+                <div id="blankSquare-54"></div>
+            </li>
+            <li>
+                <div id="blankSquare-55"></div>
+            </li>
+            <li>
+                <div id="lakeSquare-56"></div>
+            </li>
+            <li id="lake2">
+                <div id="lakeSquare-57"></div>
+            </li>
+        </ul>
+    </div>
+
+    <ul id="pieceHolder">
+        <li><img id="blue1-0" src="../assets/media/pieces/blue1.png" alt=""></li>
+        <li><img id="blue2-1" src="../assets/media/pieces/blue2.png" alt=""></li>
+        <li><img id="blue3-2" src="../assets/media/pieces/blue3.png" alt=""></li>
+        <li><img id="blue3-3" src="../assets/media/pieces/blue3.png" alt=""></li>
+        <li><img id="blue4-4" src="../assets/media/pieces/blue4.png" alt=""></li>
+        <li><img id="blue4-5" src="../assets/media/pieces/blue4.png" alt=""></li>
+        <li><img id="blue4-6" src="../assets/media/pieces/blue4.png" alt=""></li>
+        <li><img id="blue5-7" src="../assets/media/pieces/blue5.png" alt=""></li>
+        <li><img id="blue5-8" src="../assets/media/pieces/blue5.png" alt=""></li>
+        <li><img id="blue5-9" src="../assets/media/pieces/blue5.png" alt=""></li>
+        <li><img id="blue5-10" src="../assets/media/pieces/blue5.png" alt=""></li>
+        <li><img id="blue6-11" src="../assets/media/pieces/blue6.png" alt=""></li>
+        <li><img id="blue6-12" src="../assets/media/pieces/blue6.png" alt=""></li>
+        <li><img id="blue6-13" src="../assets/media/pieces/blue6.png" alt=""></li>
+        <li><img id="blue6-14" src="../assets/media/pieces/blue6.png" alt=""></li>
+        <li><img id="blue7-15" src="../assets/media/pieces/blue7.png" alt=""></li>
+        <li><img id="blue7-16" src="../assets/media/pieces/blue7.png" alt=""></li>
+        <li><img id="blue7-17" src="../assets/media/pieces/blue7.png" alt=""></li>
+        <li><img id="blue7-18" src="../assets/media/pieces/blue7.png" alt=""></li>
+        <li><img id="blue8-19" src="../assets/media/pieces/blue8.png" alt=""></li>
+        <li><img id="blue8-20" src="../assets/media/pieces/blue8.png" alt=""></li>
+        <li><img id="blue8-21" src="../assets/media/pieces/blue8.png" alt=""></li>
+        <li><img id="blue8-22" src="../assets/media/pieces/blue8.png" alt=""></li>
+        <li><img id="blue8-23" src="../assets/media/pieces/blue8.png" alt=""></li>
+        <li><img id="blue9-24" src="../assets/media/pieces/blue9.png" alt=""></li>
+        <li><img id="blue9-25" src="../assets/media/pieces/blue9.png" alt=""></li>
+        <li><img id="blue9-26" src="../assets/media/pieces/blue9.png" alt=""></li>
+        <li><img id="blue9-27" src="../assets/media/pieces/blue9.png" alt=""></li>
+        <li><img id="blue9-28" src="../assets/media/pieces/blue9.png" alt=""></li>
+        <li><img id="blue9-29" src="../assets/media/pieces/blue9.png" alt=""></li>
+        <li><img id="blue9-30" src="../assets/media/pieces/blue9.png" alt=""></li>
+        <li><img id="blue9-31" src="../assets/media/pieces/blue9.png" alt=""></li>
+        <li><img id="blueBomb-32" src="../assets/media/pieces/bluebomb.png" alt=""></li>
+        <li><img id="blueBomb-33" src="../assets/media/pieces/bluebomb.png" alt=""></li>
+        <li><img id="blueBomb-34" src="../assets/media/pieces/bluebomb.png" alt=""></li>
+        <li><img id="blueBomb-35" src="../assets/media/pieces/bluebomb.png" alt=""></li>
+        <li><img id="blueBomb-36" src="../assets/media/pieces/bluebomb.png" alt=""></li>
+        <li><img id="blueBomb-37" src="../assets/media/pieces/bluebomb.png" alt=""></li>
+        <li><img id="blueFlag-38" src="../assets/media/pieces/blueflag.png" alt=""></li>
+        <li><img id="blueSpy-39" src="../assets/media/pieces/bluespy.png" alt=""></li>
+    </ul>
+    <div id="premade">
+        <ul>
+            <li><input onclick="premadeSetup('blue','defensive')" type="button" value="Defensive" class="button-3d"/>
+            </li>
+            <li><input onclick="premadeSetup('blue','offensive')" type="button" value="Offensive" class="button-3d"/>
+            </li>
+            <li><input onclick="premadeSetup('blue','mixed')" type="button" value="Mixed" class="button-3d"/></li>
+        </ul>
+    </div>
+</div>
+
+<div class="hidden" id="victory">
+    <h1>You won!</h1>
+    <p>You have defeated your opponent.</p>
+    <div class="endGameBtn">
+        <a href="setup.html">Play again</a>
+        <a href="app.html">Exit</a>
+    </div>
+</div>
+
+<div class="hidden" id="defeat">
+    <h1>You lost!</h1>
+    <p>Better luck next time.</p>
+    <div class="endGameBtn">
+        <a href="setup.html">Play again</a>
+        <a href="app.html">Exit</a>
+    </div>
+</div>
+
+<!-- Temporary test button!!!-->
+<a href='#' id="showEndGame">Click me</a>
+
+<script src="../assets/js/setup.js"></script>
+</body>
+</html>

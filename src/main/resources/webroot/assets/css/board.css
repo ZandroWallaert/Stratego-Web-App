@@ -3,42 +3,19 @@ html {
 }
 body {
     margin: 0;
-
+    background: lightgreen;
+    transform: scale(0.7);
+    transform-origin: top;
 }
 h1 {
     font-size: 1rem;
     margin: 0;
-}
-
-#bg-gameImage {
-    position: absolute;
-    z-index: 0;
-    background: url("../media/bg-gameImage.jpg") no-repeat center;
-    background-size: cover;
-    border: 0.2rem solid rgb(57, 38, 19);
-    left: 50%;
-    top: 50%;
-    height: 50.5rem;
-    width: 67rem;
-    transform: translate(-50%, -50%);
-}
-
-#bg-image {
-    position: absolute;
-    z-index: -1;
-    filter: blur(7px) brightness(67%);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
 }
 #board {
     width: 62.5rem;
     height: 62.5rem;
     z-index: -1;
     position: absolute;
-
 }
 
 #playingField {
@@ -50,10 +27,6 @@ h1 {
     width: 65rem;
     margin-left: auto;
     margin-right: auto;
-    position: absolute;
-    left: 16%;
-    top: -17%;
-    transform: scale(0.6);
 }
 
 #main ul {

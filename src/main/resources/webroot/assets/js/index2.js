@@ -55,7 +55,7 @@ function init() {
 
         console.log("Sending:", data);
 
-        fetch("api/person", {
+        fetch("/api/person", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -66,7 +66,7 @@ function init() {
             .then(json => responseSpan.innerHTML = JSON.stringify(json))
             .catch(error => console.error('Error:', error));
 
-        fetch("api/details", {
+        fetch("/api/details", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -98,7 +98,7 @@ function init() {
 function sendGameMode(gameMode) {
     let data = {gameMode: gameMode};
     console.log("sending " + JSON.stringify(data));
-    fetch("api/stratego/gameMode", {
+    fetch("/api/stratego/gameMode", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -222,7 +222,7 @@ let sfxStatus;
 let themeStatus;
 let musicStatus;
 
-let music = new Audio('assets/audios/bgmusic.mp3');
+let music = new Audio('../assets/audios/bgmusic.mp3');
 
 function enableCollapsible() {
 
@@ -257,7 +257,7 @@ function playMusic() {
 
 function playAudioHover() {
     if (allowAudio) {
-        let audioHover = new Audio('assets/audios/hover.mp3');
+        let audioHover = new Audio('../audios/hover.mp3');
         audioHover.volume = 0.5;
         audioHover.play();
     }
@@ -265,21 +265,21 @@ function playAudioHover() {
 
 function playAudioForward() {
     if (allowAudio) {
-        let audioForward = new Audio('assets/audios/click-forward.mp3');
+        let audioForward = new Audio('../assets/audios/click-forward.mp3');
         audioForward.play();
     }
 }
 
 function playAudioBack() {
     if (allowAudio) {
-        let audioBack = new Audio('assets/audios/click-forward.mp3');
+        let audioBack = new Audio('../assets/audios/click-forward.mp3');
         audioBack.play();
     }
 }
 
 function playLoadingAudio() {
     if (allowAudio) {
-        let audioLoading = new Audio('assets/audios/loading.mp3');
+        let audioLoading = new Audio('../assets/audios/loading.mp3');
         audioLoading.play();
     }
 }
@@ -424,10 +424,10 @@ function setTheme(value) {
     document.getElementById('title').style.color = titleColor;
 
     //Changes stylesheet
-    document.getElementById('themeSheet').setAttribute('href', `assets/css/${sheet}`);
+    document.getElementById('themeSheet').setAttribute('href', `../assets/css/${sheet}`);
 
     //Changes background
-    source.setAttribute('src', `assets/videos/${bgVideo}`);
+    source.setAttribute('src', `../assets/videos/${bgVideo}`);
     video.appendChild(source);
     if (value === 'Wild') {
         video.style.transform = 'scale(-1, 1)';
@@ -533,7 +533,7 @@ function initializeGame() {
     document.getElementById('details').classList.remove('hidden');
 
     timeVar = setTimeout(() => {
-        window.location.href = "wait2.html"
+        window.location.href = "/pages/wait2.html"
     }, 2000)
 }
 

@@ -124,7 +124,7 @@ function startGame() {
     }
     let redPawns = {pawns: redSetupSubmit.toString()};
     console.log("sending " + JSON.stringify(redPawns));
-    fetch("api/stratego/redPawns", {
+    fetch("/api/stratego/redPawns", {
         method: "POST",
         body: JSON.stringify(redPawns),
         headers: {
@@ -134,7 +134,7 @@ function startGame() {
         .then(res => res.json())
         .then(json => console.log(JSON.stringify(json)));
     console.log(redSetupSubmit);
-    window.location.assign("boardlist.html");
+    window.location.assign("/pages/boardlist.html");
 }
 
 function redTurn() {
@@ -402,7 +402,7 @@ function premadeSetup(color, setupType) {
     let boardLines = document.getElementById("squareList").getElementsByTagName("li");
     let sideLines = document.getElementById("pieceHolder").getElementsByTagName("li");
     for (let i = 0; i < setupList.length; i++) {
-        boardLines[i + range].innerHTML = "<img src=\"./assets/media/pieces/" + color + setupList[i] + ".png\" id=\"" +
+        boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/" + color + setupList[i] + ".png\" id=\"" +
             color + setupList[i] + "-" + (i + range) + "\">";
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
