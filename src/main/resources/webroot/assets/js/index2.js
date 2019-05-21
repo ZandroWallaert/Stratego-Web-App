@@ -9,6 +9,7 @@ let gameMode;
 let formInfo = [];
 
 function init() {
+    addEvents();
     settings = JSON.parse(localStorage.getItem('settings'));
     if (settings === null) {
         settings = defaultSettings
@@ -77,21 +78,134 @@ function init() {
             .catch(error => console.error('Error:', error));
     };
 
-    document.getElementById("Classic").addEventListener("click", function () {
+    document.getElementById("classic").addEventListener("click", function () {
         sendGameMode('classic')
     });
 
-    document.getElementById("Duel").addEventListener("click", function () {
+    document.getElementById("duel").addEventListener("click", function () {
         sendGameMode('duel')
     });
 
-    document.getElementById("Infiltrator").addEventListener("click", function () {
+    document.getElementById("infiltrator").addEventListener("click", function () {
         sendGameMode('infiltrator')
     });
 
-    document.getElementById("Airborne").addEventListener("click", function () {
+    document.getElementById("airborne").addEventListener("click", function () {
         sendGameMode('airborne')
     });
+}
+
+function sendGameMode(gameMode) {
+    let data = {gameMode: gameMode};
+    console.log("sending " + JSON.stringify(data));
+    fetch("api/stratego/gameMode", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+        .then(json => console.log(JSON.stringify(json)));
+
+}
+
+function addEvents() {
+
+    let classic = document.getElementById('classic');
+    let duel = document.getElementById('duel');
+    let infiltrator = document.getElementById('infiltrator');
+    let airborne = document.getElementById('airborne');
+
+    //Main menu screen
+    document.getElementById('play').addEventListener('click', showGameMode);
+    document.getElementById("showRules").addEventListener('click', showRules);
+    document.getElementById("showSettings").addEventListener('click', showSettings);
+    document.getElementById("confirmExit").addEventListener('click', confirmExit);
+
+    //Game mode select screen
+    classic.addEventListener('click', function () {
+        showForm('Classic');
+    });
+    duel.addEventListener('click', function () {
+        showForm('Duel');
+    });
+    infiltrator.addEventListener('click', function () {
+        showForm('Infiltrator');
+    });
+    airborne.addEventListener('click', function () {
+        showForm('Airborne');
+    });
+
+    classic.addEventListener('mouseout', hideModeDetails);
+    duel.addEventListener('mouseout', hideModeDetails);
+    infiltrator.addEventListener('mouseout', hideModeDetails);
+    airborne.addEventListener('mouseout', hideModeDetails);
+
+    classic.addEventListener('mouseover', function () {
+        showModeDetails(0);
+    });
+    duel.addEventListener('mouseover', function () {
+        showModeDetails(1);
+    });
+    infiltrator.addEventListener('mouseover', function () {
+        showModeDetails(2);
+    });
+    airborne.addEventListener('mouseover', function () {
+        showModeDetails(3);
+    });
+
+    document.getElementById('hideGameModes').addEventListener('click', function () {
+        document.getElementById('gameMode').classList.add('hidden');
+        document.getElementById('mainMenu').style.borderStyle = 'solid';
+        document.getElementById('play').style.borderColor = 'transparent';
+    });
+
+    //How to play screen
+    document.getElementById('hideRules').addEventListener('click', function () {
+        document.getElementById('rules').classList.add('hidden');
+        removeBackgroundFilters()
+    });
+
+    //Settings screen
+    document.getElementById("theme").addEventListener('click', changeTheme);
+    document.getElementById("sound").addEventListener('click', changeSfx);
+    document.getElementById("music").addEventListener('click', changeMusic);
+    document.getElementById("reset").addEventListener('click', resetSettings);
+
+    document.getElementById("saveChanges").addEventListener('click', saveChanges);
+    document.getElementById("hideSettings").addEventListener('click', function () {
+        document.getElementById('settings').classList.add('hidden');
+        setSfx(sfxStatus);
+        setMusic(musicStatus);
+        if (themeStatus !== document.getElementById('theme').value) {
+            setTheme(themeStatus);
+        }
+        removeBackgroundFilters();
+    });
+
+    //Form & loading screen
+    document.getElementById('hideForm').addEventListener('click', function () {
+        document.getElementById('createPersonForm').classList.add('hidden');
+        removeBackgroundFilters();
+    });
+    document.getElementById("cancel").addEventListener('click', cancelSearch);
+
+    //Exit screen
+    document.getElementById('hideExit').addEventListener('click', function () {
+        document.getElementById('exit').classList.add('hidden');
+        removeBackgroundFilters();
+    });
+
+    function removeBackgroundFilters() {
+        clearHTML();
+        document.getElementById('title').style.filter = '';
+        document.getElementById('gameMode').style.filter = '';
+        document.getElementById('mainMenu').style.filter = '';
+        document.getElementById('mainMenu').style.pointerEvents = '';
+        document.getElementById('gameMode').style.pointerEvents = '';
+    }
+
 }
 
 let selector = document.querySelectorAll('a');
@@ -174,78 +288,30 @@ let bgStyle = 'blur(0) brightness(50%)';
 
 function showRules() {
     playAudioForward();
+    addBackgroundEffects();
     document.getElementById('rules').classList.remove('hidden');
-    document.getElementById('mainMenu').style.filter = bgStyle;
-    document.getElementById('gameMode').style.filter = bgStyle;
-    document.getElementById('title').style.filter = bgStyle;
-    document.getElementById('mainMenu').style.pointerEvents = 'none';
-    document.getElementById('gameMode').style.pointerEvents = 'none';
 }
 
 function showSettings() {
     playAudioForward();
     getCurrentSettings();
-    document.getElementById('mainMenu').style.pointerEvents = 'none';
-    document.getElementById('gameMode').style.pointerEvents = 'none';
+    addBackgroundEffects();
     document.getElementById('settings').classList.remove('hidden');
-    document.getElementById('mainMenu').style.filter = bgStyle;
-    document.getElementById('gameMode').style.filter = bgStyle;
-    document.getElementById('title').style.filter = bgStyle;
 }
 
 function confirmExit() {
     playAudioForward();
-    document.getElementById('mainMenu').style.filter = bgStyle;
-    document.getElementById('gameMode').style.pointerEvents = 'none';
+    addBackgroundEffects();
     document.getElementById('exit').classList.remove('hidden');
-    document.getElementById('mainMenu').style.pointerEvents = 'none';
-    document.getElementById('gameMode').style.filter = bgStyle;
-    document.getElementById('title').style.filter = bgStyle;
 }
 
 
 function clearHTML() {
+    playAudioBack();
     document.querySelectorAll('#bottom p').innerHTML = '';
     document.querySelector('#settingButtons p').innerHTML = '';
     document.getElementById('wait').classList.add('hidden');
     document.getElementById('wait').classList.remove('flex');
-}
-
-function goBack(id) {
-
-    playAudioBack();
-    clearHTML();
-
-    let screen = [
-        "mainMenu",
-        "rules",
-        "settings",
-        "exit",
-        "gameMode",
-        "createPersonForm",
-    ];
-    document.getElementById(screen[id]).classList.add('hidden');
-    if (screen[id] === "rules" || screen[id] === 'exit') {
-        document.getElementById('mainMenu').style.filter = '';
-
-    } else if (screen[id] === "gameMode") {
-        document.getElementById('mainMenu').style.borderStyle = 'solid';
-        document.getElementById('play').style.borderColor = 'transparent';
-    } else if (screen[id] === "settings") {
-        setSfx(sfxStatus);
-        setMusic(musicStatus);
-        if (themeStatus !== document.getElementById('theme').value) {
-            setTheme(themeStatus);
-        }
-        document.getElementById('mainMenu').style.filter = '';
-    } else {
-        document.getElementById(screen[id - 1]).classList.remove('hidden')
-    }
-    document.getElementById('title').style.filter = '';
-    document.getElementById('gameMode').style.filter = '';
-    document.getElementById('mainMenu').style.filter = '';
-    document.getElementById('mainMenu').style.pointerEvents = '';
-    document.getElementById('gameMode').style.pointerEvents = '';
 }
 
 function getCurrentSettings() {
@@ -354,6 +420,7 @@ function setTheme(value) {
             bgVideo = 'desert.mp4';
             break;
     }
+
     document.getElementById('title').style.color = titleColor;
 
     //Changes stylesheet
@@ -388,11 +455,11 @@ function resetSettings() {
     }
 }
 
-function showGameMode(id) {
+function showGameMode() {
     playAudioForward();
 
     document.getElementById('gameMode').classList.remove('hidden');
-    document.getElementById(id).style.border = '3px solid';
+    document.getElementById('play').style.border = '3px solid';
     document.getElementById('mainMenu').style.borderStyle = 'none';
 }
 
@@ -418,15 +485,19 @@ function showForm(gameMode) {
     let addMode = document.querySelector('#mode');
     element.classList.remove("hidden");
     document.querySelector('#createPersonForm span').innerHTML = '';
-    addMode.innerHTML = `Game mode: ${gameMode}`;
+    addMode.innerHTML = `Game mode: ${gameMode}`
+    addBackgroundEffects();
 
+
+}
+
+function addBackgroundEffects() {
     document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.pointerEvents = 'none';
     document.getElementById('mainMenu').style.filter = bgStyle;
     document.getElementById('gameMode').style.filter = bgStyle;
     document.getElementById('title').style.filter = bgStyle;
-
 }
 
 let bgDarkStyle = 'blur(4px) brightness(30%)';
