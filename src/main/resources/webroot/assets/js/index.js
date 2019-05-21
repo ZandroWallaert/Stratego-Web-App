@@ -94,21 +94,6 @@ function init() {
     });
 }
 
-function sendGameMode(gameMode) {
-    let data = {gameMode: gameMode};
-    console.log("sending " + JSON.stringify(data));
-    fetch("api/stratego/gameMode", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(res => res.json())
-        .then(json => console.log(JSON.stringify(json)));
-
-}
-
 let selector = document.querySelectorAll('a');
 document.querySelector('#createPersonForm input[type=submit]')
     .addEventListener('mouseover', playAudioHover);
@@ -240,11 +225,21 @@ function goBack(id) {
         "createPersonForm",
     ];
     document.getElementById(screen[id]).classList.add('hidden');
-    if (screen[id] === "rules" || screen[id] === 'exit') {
+    goBackTo(screen[id], sfxStatus, musicStatus, themeStatus);
+    document.getElementById('title').style.filter = '';
+    document.getElementById('gameMode').style.filter = '';
+    document.getElementById('mainMenu').style.filter = '';
+    document.getElementById('mainMenu').style.pointerEvents = '';
+    document.getElementById('gameMode').style.pointerEvents = '';
+}
+
+function goBackTo(screenId, sfxStatus, musicStatus, themeStatus) {
+    if (screenId === "rules" || screenId === 'exit') {
         document.getElementById('mainMenu').style.filter = '';
 
-    } else if (screen[id] === "gameMode") {
+    } else if (screenId === "gameMode") {
         document.getElementById('mainMenu').style.borderStyle = 'solid';
+        document.getElementById('play').style.borderColor = 'transparent';
     } else if (screen[id] === "settings") {
         setSfx(sfxStatus);
         setMusic(musicStatus);
@@ -253,13 +248,8 @@ function goBack(id) {
         }
         document.getElementById('mainMenu').style.filter = '';
     } else {
-        document.getElementById(screen[id - 1]).classList.remove('hidden')
+        document.getElementById(screenId - 1).classList.remove('hidden')
     }
-    document.getElementById('title').style.filter = '';
-    document.getElementById('gameMode').style.filter = '';
-    document.getElementById('mainMenu').style.filter = '';
-    document.getElementById('mainMenu').style.pointerEvents = '';
-    document.getElementById('gameMode').style.pointerEvents = '';
 }
 
 function getCurrentSettings() {
@@ -493,4 +483,3 @@ function cancelSearch() {
     document.getElementById('backgroundVideo').style.filter = 'blur(7px)';
     clearTimeout(timeVar);
 }
-
