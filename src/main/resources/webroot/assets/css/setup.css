@@ -36,7 +36,7 @@ body {
     transform-origin: top;
     left: 50.4%;
     top: 35%;
-    bottom: 32%;
+    bottom: 31%;
     transform: translate(-50%, -50%) scale(0.62);
 }
 
@@ -182,8 +182,9 @@ ul li div {
     margin-right: auto;
     width: 30rem;
     height: 15rem;
-    background-color: lightgreen;
-    border: solid 0.1rem #f39c12;
+    background: url("../media/bg-winImg.jpg") no-repeat fixed;
+    background-size: cover;
+    border: solid 0.1rem rgb(77, 38, 0);
 }
 
 #victory h1, #defeat h1 {
@@ -199,15 +200,30 @@ ul li div {
 }
 
 #victory a, #defeat a {
+    margin-top: 1rem;
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem 1rem 1.5rem;
     font-size: 1.4rem;
-    width: 4rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 1.6rem;
     text-decoration: none;
     color: white;
-    background-color: #e67e22;
-    border: solid 0.0625rem #f39c12;
+    background-color: rgb(77, 38, 0);
+    border: solid 0.0625rem rgb(77, 38, 0);
+}
+
+#victory a:nth-of-type(2), #defeat a:nth-of-type(2) {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: rgb(153, 0, 0);
+}
+
+#victory a:first-of-type:hover, #defeat a:first-of-type:hover {
+    background-color: rgb(128, 64, 0);
+}
+
+#victory a:nth-of-type(2):hover, #defeat a:nth-of-type(2):hover {
+    background-color: rgb(204, 0, 0);
 }
 
 .endGameBtn {
