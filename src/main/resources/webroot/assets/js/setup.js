@@ -67,9 +67,8 @@ window.onload = function () {
 
 function startGame() {
     let listTextStr = document.getElementById('squareList').innerHTML;
-    localStorage.setItem('testObject', listTextStr);
+    localStorage.setItem('setup', listTextStr);
     let blueSetupSubmit = [];
-    let redSetupSubmit = [];
     let list = document.getElementById('squareList').getElementsByTagName("li");
     for (let i = 0; i < 40; i++) {
         let html = list[i].firstChild;
@@ -121,60 +120,11 @@ function startGame() {
         .then(res => res.json())
         .then(json => console.log(JSON.stringify(json)));
     console.log(blueSetupSubmit);
-    for (let i = 60; i < 100; i++) {
-        let html = list[i].firstChild;
-        let first = html.id.split("-", 1);
-        let second = first[0].split("d");
-        let code = second[1];
-        switch (code) {
-            case '8':
-                code = 3;
-                break;
-            case '9':
-                code = 2;
-                break;
-            case '5':
-                code = 6;
-                break;
-            case '6':
-                code = 5;
-                break;
-            case '4':
-                code = 7;
-                break;
-            case '1':
-                code = 10;
-                break;
-            case '7':
-                code = 4;
-                break;
-            case '3':
-                code = 8;
-                break;
-            case '2':
-                code = 9;
-                break;
-            default:
-                break;
-        }
-        redSetupSubmit.push(code);
-    }
-    let redPawns = {pawns: redSetupSubmit.toString()};
-    console.log("sending " + JSON.stringify(redPawns));
-    fetch("api/stratego/redPawns", {
-        method: "POST",
-        body: JSON.stringify(redPawns),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then(res => res.json())
-        .then(json => console.log(JSON.stringify(json)));
-    console.log(redSetupSubmit);
     //window.location.assign("boardlist.html");
 }
 
 function redTurn() {
+    startGame();
     document.querySelector("body h1").innerHTML = ("Second Player Setup (Red)");
     flipPieces("blue");
     setupOnClick("red");
