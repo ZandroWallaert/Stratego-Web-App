@@ -44,10 +44,28 @@ test:
   script: ./gradlew test
 
 deploy:
+  image: debian:latest
+  before_script:
+    - echo "we don't need gradle or maven anymore"
   stage: deploy
   only:
     - master
   except:
     changes:
       - documents/**/*
-  script: echo "TODO" 
+  script:
+    - apt update -y && apt install -y software-properties-common rename
+    - cd build/libs/
+    - rename 's/.*\.jar$/stratego.jar/' *.jar
+    - 'which ssh-agent || apt install -y openssh-client cowsay'
+    - PATH="$PATH:/usr/games"
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H 172.18.18.201 >> ~/.ssh/known_hosts
+    - scp -q stratego.jar gitlab-runner@172.18.18.201:"/opt/group-${CI_PROJECT_NAME##*-}/stratego.jar"
+    - ssh gitlab-runner@172.18.18.201 sudo systemctl restart group-${CI_PROJECT_NAME##*-}
+    - systemctl -H gitlab-runner@172.18.18.201 status group-${CI_PROJECT_NAME##*-}
+  environment: production
+
