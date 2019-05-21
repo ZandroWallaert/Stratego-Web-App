@@ -267,19 +267,10 @@ function goBack(id) {
         "createPersonForm",
     ];
     document.getElementById(screen[id]).classList.add('hidden');
-    goBackTo(screen[id], sfxStatus, musicStatus, themeStatus);
-    document.getElementById('title').style.filter = '';
-    document.getElementById('gameMode').style.filter = '';
-    document.getElementById('mainMenu').style.filter = '';
-    document.getElementById('mainMenu').style.pointerEvents = '';
-    document.getElementById('gameMode').style.pointerEvents = '';
-}
-
-function goBackTo(screenId, sfxStatus, musicStatus, themeStatus) {
-    if (screenId === "rules" || screenId === 'exit') {
+    if (screen[id] === "rules" || screen[id] === 'exit') {
         document.getElementById('mainMenu').style.filter = '';
 
-    } else if (screenId === "gameMode") {
+    } else if (screen[id] === "gameMode") {
         document.getElementById('mainMenu').style.borderStyle = 'solid';
         document.getElementById('play').style.borderColor = 'transparent';
     } else if (screen[id] === "settings") {
@@ -290,8 +281,13 @@ function goBackTo(screenId, sfxStatus, musicStatus, themeStatus) {
         }
         document.getElementById('mainMenu').style.filter = '';
     } else {
-        document.getElementById(screenId - 1).classList.remove('hidden')
+        document.getElementById(screen[id - 1]).classList.remove('hidden')
     }
+    document.getElementById('title').style.filter = '';
+    document.getElementById('gameMode').style.filter = '';
+    document.getElementById('mainMenu').style.filter = '';
+    document.getElementById('mainMenu').style.pointerEvents = '';
+    document.getElementById('gameMode').style.pointerEvents = '';
 }
 
 function getCurrentSettings() {
@@ -400,10 +396,7 @@ function setTheme(value) {
             bgVideo = 'desert.mp4';
             break;
     }
-    themeChanges(titleColor, sheet, source, bgVideo, video, value);
-}
 
-function themeChanges(titleColor, sheet, source, bgVideo, video, value) {
     document.getElementById('title').style.color = titleColor;
 
     //Changes stylesheet
@@ -438,11 +431,11 @@ function resetSettings() {
     }
 }
 
-function showGameMode(id) {
+function showGameMode() {
     playAudioForward();
 
     document.getElementById('gameMode').classList.remove('hidden');
-    document.getElementById(id).style.border = '3px solid';
+    document.getElementById('play').style.border = '3px solid';
     document.getElementById('mainMenu').style.borderStyle = 'none';
 }
 

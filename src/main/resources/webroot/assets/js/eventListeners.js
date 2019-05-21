@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', addEvents);
 
 function addEvents() {
 
+    document.getElementById('play').addEventListener('click', showGameMode);
     document.getElementById("showRules").addEventListener('click', showRules);
     document.getElementById("showSettings").addEventListener('click', showSettings);
     document.getElementById("confirmExit").addEventListener('click', confirmExit);
