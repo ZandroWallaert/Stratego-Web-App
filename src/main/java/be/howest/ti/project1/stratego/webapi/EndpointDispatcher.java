@@ -22,6 +22,8 @@ class EndpointDispatcher {
     private Miner minerApplication;
     private TurnRequest turn;
     private TurnRequest turn2;
+    private MessageRequest blueSetup;
+    private MessageRequest redSetup;
 
 
     public EndpointDispatcher() {
@@ -30,6 +32,8 @@ class EndpointDispatcher {
         strategoApplication = new Stratego();
         turn = new TurnRequest();
         turn2 = new TurnRequest();
+        blueSetup = new MessageRequest();
+        redSetup = new MessageRequest();
     }
 
     private void sendJson(HttpServerResponse res, Object object) {
@@ -86,7 +90,11 @@ class EndpointDispatcher {
         router.post("/api/next2").handler(BodyHandler.create()).handler(this::addTurnFrom1);
         router.get("/api/next1").handler(this::getTurnFor1);
         router.get("/api/next2").handler(this::getTurnFor2);
+
+        router.get("/api/blueSetup").handler(this::getBlueSetup);
+        router.get("/api/redSetup").handler(this::getRedSetup);
     }
+
 
     private void setDetails(RoutingContext routingContext) {
         String body = routingContext.getBodyAsString();
@@ -108,12 +116,13 @@ class EndpointDispatcher {
         routingContext.response().end("\"received: " + gamemode.getGameMode() + "\"");
     }
 
-    private void setupBluePawns(RoutingContext routingContext) {
+    private void setupRedPawns(RoutingContext routingContext) {
         String body = routingContext.getBodyAsString();
         CreateRedPawnRequest pawns = Json.decodeValue(body, CreateRedPawnRequest.class);
         System.out.println(pawns.getPawns());
         Main.main();
-        String redPawnsArray[] = pawns.getPawns().split(",");
+        String[] redPawnsArray = pawns.getPawns().split(",");
+        redSetup.setData(Arrays.toString(redPawnsArray));
         System.out.println(Arrays.toString(redPawnsArray));
         int i = 0;
         int count = 0;
@@ -200,11 +209,12 @@ class EndpointDispatcher {
         routingContext.response().end("\"received: " + pawns.getPawns() + "\"");
     }
 
-    private void setupRedPawns(RoutingContext routingContext) {
+    private void setupBluePawns(RoutingContext routingContext) {
         String body = routingContext.getBodyAsString();
         CreateBluePawnRequest pawns = Json.decodeValue(body, CreateBluePawnRequest.class);
         System.out.println(pawns.getPawns());
-        String bluePawnsArray[] = pawns.getPawns().split(",");
+        String[] bluePawnsArray = pawns.getPawns().split(",");
+        blueSetup.setData(Arrays.toString(bluePawnsArray));
         System.out.println(Arrays.toString(bluePawnsArray));
         int i = 0;
         int count = 0;
@@ -313,6 +323,14 @@ class EndpointDispatcher {
 
     private void getTurnFor2(RoutingContext routingContext) {
         sendJson(routingContext.response(), turn.getData());
+    }
+
+    private void getRedSetup(RoutingContext routingContext) {
+        sendJson(routingContext.response(), redSetup.getData());
+    }
+
+    private void getBlueSetup(RoutingContext routingContext) {
+        sendJson(routingContext.response(), blueSetup.getData());
     }
 }
 
