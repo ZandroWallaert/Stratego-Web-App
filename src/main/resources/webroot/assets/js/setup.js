@@ -110,7 +110,7 @@ function startGame() {
     }
     let bluePawns = {pawns: blueSetupSubmit.toString()};
     console.log("sending " + JSON.stringify(bluePawns));
-    fetch("api/stratego/bluePawns", {
+    fetch("/api/stratego/bluePawns", {
         method: "POST",
         body: JSON.stringify(bluePawns),
         headers: {
@@ -120,7 +120,7 @@ function startGame() {
         .then(res => res.json())
         .then(json => console.log(JSON.stringify(json)));
     console.log(blueSetupSubmit);
-    //window.location.assign("boardlist.html");
+    //window.location.assign("/pages/boardlist.html");
 }
 
 function redTurn() {
@@ -146,7 +146,7 @@ function redTurn() {
             .then(json => console.log(JSON.stringify(json)));
         console.log(JSON.stringify(turn));
         setTimeout(function () {
-            location.href = 'wait.html';
+            location.href = '/pages/wait.html';
         }, 3000);
     }
 }
@@ -405,7 +405,7 @@ function premadeSetup(color, setupType) {
     let boardLines = document.getElementById("squareList").getElementsByTagName("li");
     let sideLines = document.getElementById("pieceHolder").getElementsByTagName("li");
     for (let i = 0; i < setupList.length; i++) {
-        boardLines[i + range].innerHTML = "<img src=\"./assets/media/pieces/" + color + setupList[i] + ".png\" id=\"" +
+        boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/" + color + setupList[i] + ".png\" id=\"" +
             color + setupList[i] + "-" + (i + range) + "\">";
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }

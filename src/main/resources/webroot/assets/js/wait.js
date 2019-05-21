@@ -8,7 +8,7 @@ function init() {
 
 function getConfirm() {
     console.log('Retrieving messages...');
-    fetch('api/next1').then(res => res.json()).then(function (response) {
+    fetch('/api/next1').then(res => res.json()).then(function (response) {
         makeNextTurn(response);
         setTimeout(getConfirm, 2000);
     })
@@ -17,7 +17,7 @@ function getConfirm() {
 function makeNextTurn(res) {
     console.log(res);
     if (res === 'goNext') {
-        location.href = 'boardlist.html'
+        location.href = '/pages/boardlist.html'
     } else {
         console.log("error");
     }
