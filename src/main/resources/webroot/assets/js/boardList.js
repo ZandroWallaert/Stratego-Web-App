@@ -5,9 +5,14 @@ let color;
 let lItems;
 let currentSquare;
 let lines;
+let gameMode;
 
 function init() {
+    gameMode = JSON.parse(localStorage.getItem('gameMode'));
+    console.log(gameMode);
     squareList = document.getElementById("squareList");
+    document.getElementById('bg-image').style.backgroundImage = `url(assets/media/${gameMode.toLowerCase()}.jpg)`;
+    console.log(`url(assets/media/${gameMode.toLowerCase()}.jpg)`);
     lItems = document.getElementById("squareList").getElementsByTagName("li");
     lines = document.getElementById("squareList").getElementsByTagName("li");
     setupHtml();
