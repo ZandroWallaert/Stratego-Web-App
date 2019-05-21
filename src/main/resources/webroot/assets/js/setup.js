@@ -199,7 +199,7 @@ function redTurn() {
         console.log(JSON.stringify(turn));
         setTimeout(function () {
             location.href = 'wait.html'
-        }, 3000);
+        }, 2000);
     }
 }
 

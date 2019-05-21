@@ -1,15 +1,15 @@
 package be.howest.ti.project1.stratego.stratego;
 
-import be.howest.ti.project1.stratego.stratego.specialpawns.Infiltrator;
-import be.howest.ti.project1.stratego.stratego.specialpawns.Miner;
-import be.howest.ti.project1.stratego.stratego.specialpawns.Spy;
-import be.howest.ti.project1.stratego.stratego.specialpawns.Pilot;
+import be.howest.ti.project1.stratego.stratego.pawns.Infiltrator;
+import be.howest.ti.project1.stratego.stratego.pawns.Miner;
+import be.howest.ti.project1.stratego.stratego.pawns.Spy;
+import be.howest.ti.project1.stratego.stratego.pawns.Pilot;
 
 import java.util.Map;
 import java.util.HashMap;
 
 public class PawnCollection {
-    private Map<Pawn, Integer> pawnsToBePlaced;
+    private static Map<Pawn, Integer> pawnsToBePlaced;
     private Map<Pawn, Integer> placed;
     private Map<Pawn, Integer> defeated;
 
@@ -20,7 +20,7 @@ public class PawnCollection {
         setPawnsToPlace(mode);
     }
 
-    public Map<Pawn, Integer> getPawnsToBePlaced() {
+    public static Map<Pawn, Integer> getPawnsToBePlaced() {
         return pawnsToBePlaced;
     }
 
@@ -43,7 +43,7 @@ public class PawnCollection {
         this.pawnsToBePlaced.put(new Pawn("marshal", 2, 10), 1);
 
         Pawn scout1 = new Pawn("scout", 1, 2, 10);
-        Pawn scout2 = new Pawn("scout", 2, 2, 10);
+        Pawn scout2 = new Pawn("scout", 1, 2, 10);
 
         Pawn major1 = new Pawn("major", 1, 7);
         Pawn major2 = new Pawn("major", 2, 7);

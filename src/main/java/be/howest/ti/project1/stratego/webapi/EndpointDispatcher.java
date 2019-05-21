@@ -1,20 +1,22 @@
 package be.howest.ti.project1.stratego.webapi;
 
+import be.howest.ti.project1.stratego.Main;
 import be.howest.ti.project1.stratego.people.PeopleApplication;
-import be.howest.ti.project1.stratego.stratego.Stratego;
-import be.howest.ti.project1.stratego.stratego.specialpawns.Miner;
-import be.howest.ti.project1.stratego.stratego.Pawn;
-import be.howest.ti.project1.stratego.stratego.specialpawns.Spy;
+import be.howest.ti.project1.stratego.stratego.*;
+import be.howest.ti.project1.stratego.stratego.pawns.*;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 
+import java.util.Arrays;
+
 class EndpointDispatcher {
 
     private PeopleApplication peopleApplication;
     private Stratego strategoApplication;
+    private Gameboard gameboard;
     private Pawn pawnApplication;
     private Spy spyApplication;
     private Miner minerApplication;
@@ -24,6 +26,7 @@ class EndpointDispatcher {
 
     public EndpointDispatcher() {
         peopleApplication = new PeopleApplication();
+        gameboard = new Gameboard();
         strategoApplication = new Stratego();
         turn = new TurnRequest();
         turn2 = new TurnRequest();
@@ -109,6 +112,92 @@ class EndpointDispatcher {
         String body = routingContext.getBodyAsString();
         CreateBluePawnRequest pawns = Json.decodeValue(body, CreateBluePawnRequest.class);
         System.out.println(pawns.getPawns());
+        Main.main();
+        String bluePawnsArray[] = pawns.getPawns().split(",");
+        System.out.println(Arrays.toString(bluePawnsArray));
+        int i = 0;
+        int count = 0;
+        for (int y = 0; y < 4; y++) {
+            for (int j = 0; j < 10; j++, i++) {
+                String pawn = bluePawnsArray[i];
+                Pawn convertedPawn = null;
+                switch (pawn) {
+                    case "Spy":
+                        Pawn spy = new Spy(1);
+                        strategoApplication.placePawn(spy, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "Bomb":
+                        Pawn bomb = new Bomb(1);
+                        strategoApplication.placePawn(bomb, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "Flag":
+                        Pawn flag = new Flag(1);
+                        strategoApplication.placePawn(flag, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "2":
+                        Pawn scout = new Scout(1);
+                        strategoApplication.placePawn(scout, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "3":
+                        Pawn miner = new Miner(1);
+                        strategoApplication.placePawn(miner, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "4":
+                        Pawn sergeant = new Sergeant(1);
+                        strategoApplication.placePawn(sergeant, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "5":
+                        Pawn lieutenant = new Lieutenant(1);
+                        strategoApplication.placePawn(lieutenant, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "6":
+                        Pawn captain = new Captain(1);
+                        strategoApplication.placePawn(captain, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "7":
+                        Pawn major = new Major(1);
+                        strategoApplication.placePawn(major, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "8":
+                        Pawn colonel = new Colonel(1);
+                        strategoApplication.placePawn(colonel, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "9":
+                        Pawn general = new General(1);
+                        strategoApplication.placePawn(general, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "10":
+                        Pawn marshall = new Marshall(1);
+                        strategoApplication.placePawn(marshall, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                }
+            }
+        }
+        System.out.println(strategoApplication.getGameBoard().toString());
         routingContext.response().end("\"received: " + pawns.getPawns() + "\"");
     }
 
@@ -116,6 +205,90 @@ class EndpointDispatcher {
         String body = routingContext.getBodyAsString();
         CreateRedPawnRequest pawns = Json.decodeValue(body, CreateRedPawnRequest.class);
         System.out.println(pawns.getPawns());
+        String redPawnsArray[] = pawns.getPawns().split(",");
+        System.out.println(Arrays.toString(redPawnsArray));
+        int i = 0;
+        int count = 0;
+        for (int y = 6; y < 10; y++) {
+            for (int j = 0; j < 10; j++, i++) {
+                String pawn = redPawnsArray[i];
+                switch (pawn) {
+                    case "Spy":
+                        Pawn spy = new Spy(2);
+                        strategoApplication.placePawn(spy, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "Bomb":
+                        Pawn bomb = new Bomb(2);
+                        strategoApplication.placePawn(bomb, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "Flag":
+                        Pawn flag = new Flag(2);
+                        strategoApplication.placePawn(flag, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "2":
+                        Pawn scout = new Scout(2);
+                        strategoApplication.placePawn(scout, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "3":
+                        Pawn miner = new Miner(2);
+                        strategoApplication.placePawn(miner, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "4":
+                        Pawn sergeant = new Sergeant(2);
+                        strategoApplication.placePawn(sergeant, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "5":
+                        Pawn lieutenant = new Lieutenant(2);
+                        strategoApplication.placePawn(lieutenant, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "6":
+                        Pawn captain = new Captain(2);
+                        strategoApplication.placePawn(captain, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "7":
+                        Pawn major = new Major(2);
+                        strategoApplication.placePawn(major, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "8":
+                        Pawn colonel = new Colonel(2);
+                        strategoApplication.placePawn(colonel, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "9":
+                        Pawn general = new General(2);
+                        strategoApplication.placePawn(general, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "10":
+                        Pawn marshall = new Marshall(2);
+                        strategoApplication.placePawn(marshall, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                }
+            }
+        }
+        System.out.println(strategoApplication.getGameBoard().toString());
         routingContext.response().end("\"received: " + pawns.getPawns() + "\"");
     }
 
@@ -143,3 +316,4 @@ class EndpointDispatcher {
         sendJson(routingContext.response(), turn.getData());
     }
 }
+
