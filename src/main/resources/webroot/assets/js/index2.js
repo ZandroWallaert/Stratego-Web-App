@@ -78,81 +78,36 @@ function init() {
     };
 
     document.getElementById("Classic").addEventListener("click", function () {
-        let data = {gameMode: "classic"};
-        console.log("sending " + JSON.stringify(data));
-
-        fetch("api/stratego/gameMode", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(json => console.log(JSON.stringify(json)));
+        sendGameMode('classic')
     });
 
     document.getElementById("Duel").addEventListener("click", function () {
-        let data = {gameMode: "duel"};
-        console.log("sending " + JSON.stringify(data));
-        fetch("api/stratego/gameMode", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(json => console.log(JSON.stringify(json)));
+        sendGameMode('duel')
     });
 
     document.getElementById("Infiltrator").addEventListener("click", function () {
-        let data = {gameMode: "infiltrator"};
-        console.log("sending " + JSON.stringify(data));
-        fetch("/api/games/:gameToken/gamemode", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(json => console.log(JSON.stringify(json)));
+        sendGameMode('infiltrator')
     });
 
-    document.getElementById("Secret").addEventListener("click", function () {
-        let data = {gameMode: "airborn"};
-        console.log("sending " + JSON.stringify(data));
-        fetch("api/stratego/gameMode", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(json => console.log(JSON.stringify(json)));
+    document.getElementById("Airborne").addEventListener("click", function () {
+        sendGameMode('airborne')
     });
 }
 
-document.getElementById("showRules").addEventListener('click', showRules);
-document.getElementById("showSettings").addEventListener('click', showSettings);
-document.getElementById("confirmExit").addEventListener('click', confirmExit);
+function sendGameMode(gameMode) {
+    let data = {gameMode: gameMode};
+    console.log("sending " + JSON.stringify(data));
+    fetch("api/stratego/gameMode", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+        .then(json => console.log(JSON.stringify(json)));
 
-document.getElementById("theme").addEventListener('click', changeTheme);
-document.getElementById("sound").addEventListener('click', changeSfx);
-document.getElementById("music").addEventListener('click', changeMusic);
-document.getElementById("reset").addEventListener('click', resetSettings);
-
-document.getElementById("saveChanges").addEventListener('click', saveChanges);
-
-document.getElementById("Classic").addEventListener('mouseout', hideModeDetails);
-document.getElementById("Duel").addEventListener('mouseout', hideModeDetails);
-document.getElementById("Infiltrator").addEventListener('mouseout', hideModeDetails);
-document.getElementById("Secret").addEventListener('mouseout', hideModeDetails);
-
-document.getElementById("cancel").addEventListener('click', cancelSearch);
-
+}
 
 let selector = document.querySelectorAll('a');
 document.querySelector('#createPersonForm input[type=submit]')
@@ -160,7 +115,6 @@ document.querySelector('#createPersonForm input[type=submit]')
 for (let i = 0; i < selector.length; i++) {
     selector[i].addEventListener('mouseover', playAudioHover);
 }
-document.getElementById('Secret').removeEventListener('mouseover', playAudioHover);
 
 let allowAudio = true;
 let allowMusic = true;
