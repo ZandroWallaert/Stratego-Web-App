@@ -35,7 +35,7 @@ body {
     z-index: 1;
     transform-origin: top;
     left: 50%;
-    top: 35%;
+    top: 13.5rem;
     bottom: 31%;
     transform: translate(-50%, -50%) scale(0.62);
 }
