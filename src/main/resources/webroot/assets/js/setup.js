@@ -10,8 +10,9 @@ let playerColor;
 let gameMode;
 
 function init() {
+    addEvents();
     gameMode = JSON.parse(localStorage.getItem('gameMode'));
-    document.getElementById('bg-image').style.backgroundImage = `url(assets/media/${gameMode.toLowerCase()}.jpg)`;
+    document.getElementById('bg-image').style.backgroundImage = `url(../assets/media/${gameMode.toLowerCase()}.jpg)`;
     document.getElementById('showEndGame').addEventListener('click', endGame); //Test
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
@@ -32,6 +33,26 @@ function init() {
     //     });
 }
 
+function addEvents() {
+    document.getElementById('showEndGame').addEventListener('click', endGame); //Test
+
+    document.getElementById('defensive').addEventListener('click', function () {
+        console.log('test');
+        preMadeSetup('blue', 'defensive')
+    });
+
+    document.getElementById('offensive').addEventListener('click', function () {
+        console.log('test1');
+        preMadeSetup('blue', 'offensive')
+    });
+
+    document.getElementById('mixed').addEventListener('click', function () {
+        console.log('test2');
+        preMadeSetup('blue', 'mixed')
+
+    });
+}
+
 function endGame(isWon) { //Test
     if (isWon) {
         document.getElementById('victory').classList.remove('hidden')
@@ -40,10 +61,6 @@ function endGame(isWon) { //Test
     }
 }
 
-function showProfile() {
-    console.log('Working');
-    document.getElementById('profile').classList.remove('hidden');
-}
 
 function setupPage() {
     let lake = document.getElementById("lake1");
@@ -127,11 +144,11 @@ function redTurn() {
     startGame();
     flipPieces("blue");
     setupOnClick("red");
-    let setupDiv = document.getElementById('premade');
+    let setupDiv = document.getElementById('preMade');
     setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" ' +
-        'onclick="premadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" ' +
-        'value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li><li><input id="switchSetup" ' +
-        'type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
+        'onclick="preMadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" ' +
+        'value="Offensive" onclick="preMadeSetup(\'red\',\'offensive\')" /></li><li><input id="switchSetup" ' +
+        'type="button" value="Mixed" onclick="preMadeSetup(\'red\',\'mixed\')" /></li></ul>';
     sendNextTurn();
     function sendNextTurn() {
         let turn = {data: "goNext"};
@@ -200,7 +217,7 @@ function boardPiecePlacement(pieceName, playerColor) {
 
     function activate(startPoint, subtract) {
         for (let i = startPoint; i < startPoint + 40; i++) {
-            checkstatus(i - subtract, square);
+            checkStatus(i - subtract, square);
             if (i !== square) //check so you don't put a dot on the piece you clicked on
                 activateDot(square, i, "boardToBoard");
         }
@@ -213,7 +230,7 @@ function boardPiecePlacement(pieceName, playerColor) {
     }
 }
 
-function checkstatus(squareNumber, movedFromSquare) {
+function checkStatus(squareNumber, movedFromSquare) {
     let lItems = document.getElementById("pieceHolder").getElementsByTagName("li");
     let currentSquare = (lItems[squareNumber].innerHTML).split('"').reverse()[1];
     if (currentSquare.split("-")[0] === "blankSquare") {
@@ -294,11 +311,11 @@ function dotClicked(movedFromSquare, movedToSquare, type) {
     let sideboardInner = pieceHolder.innerHTML;
 
     if (((sideboardInner.match(/blankSquare/g)).length) >= 40 && playerColor === "blue") {
-        premadeButton("switchSetup", "Submit", "redTurn()")
+        preMadeButton("switchSetup", "Submit", redTurn)
     }
 
     if (((sideboardInner.match(/blankSquare/g)).length) >= 80) {
-        premadeButton("startGame", "Start Game", "startGame()")
+        preMadeButton("startGame", "Start Game", startGame)
     }
     setupOnClick(playerColor);
 }
@@ -353,26 +370,30 @@ function flipPieces(color) {
     }
 }
 
-function premadeButton(id, value, functionCall) {
-    let premadeDiv = document.getElementById('premade');
-    let premadeLI = premadeDiv.getElementsByTagName('li');
-    let button = "<input id=\"" + id + "\" value=\"" + value + "\" onclick=\"" + functionCall + "\" type=\"button\">";
+function preMadeButton(id, value, functionCall) {
+    let preMadeDiv = document.getElementById('preMade');
+    let preMadeLI = preMadeDiv.getElementsByTagName('li');
+    let button = "<input id=\"" + id + "\" value=\"" + value + "\" type=\"button\">";
 
     // is it already on the board?
-    for (let i = 0; i < premadeLI.length; i++) {
-        if (premadeLI[i].innerHTML === button) {
+    for (let i = 0; i < preMadeLI.length; i++) {
+        if (preMadeLI[i].innerHTML === button) {
             return; // just to exit
         }
     }
 
     //if not put it on the board
-    premadeDiv.innerHTML = (premadeDiv.innerHTML).replace("</ul>", "") +
+    preMadeDiv.innerHTML = (preMadeDiv.innerHTML).replace("</ul>", "") +
         "<li>" + button + '</li></ul>';
+
+    document.getElementById(id).addEventListener('click', functionCall);
+    addEvents();
+
 }
 
-function premadeSetup(color, setupType) {
-    document.getElementById("premade").removeAttribute("style");
-    document.getElementById("premade").classList.add("moveUp");
+function preMadeSetup(color, setupType) {
+    document.getElementById("preMade").removeAttribute("style");
+    document.getElementById("preMade").classList.add("moveUp");
     let setupList = [];
     if (setupType === "defensive") {
         setupList = ["8", "8", "8", "9", "6", "9", "4", "Flag", "5", "5", "9", "9", "8", "6", "Bomb", "Bomb", "6",
@@ -389,7 +410,7 @@ function premadeSetup(color, setupType) {
     }
 
     if (color === "blue") {
-        premadeButton("switchSetup", "Submit", "redTurn()");
+        preMadeButton("switchSetup", "Submit", redTurn);
         setupOnClick("blue");
     }
     let range = 0;
@@ -398,7 +419,7 @@ function premadeSetup(color, setupType) {
         range = 60;
         range2 = 40;
         setupList.reverse();
-        premadeButton("startGame", "Start Game", "startGame()");
+        preMadeButton("startGame", "Start Game", startGame);
         setupOnClick("red");
     }
 
