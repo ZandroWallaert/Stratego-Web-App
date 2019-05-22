@@ -29,7 +29,7 @@ public class PawnCollectionTest {
         TestCase.assertEquals(5, (int) infiltrator.getPawnsToBePlaced().get(new Miner(1)));
         TestCase.assertEquals(1, (int) infiltrator.getPawnsToBePlaced().get(new Infiltrator(2)));
 
-        PawnCollection airborn = new PawnCollection(GameMode.AIRBORN);
+        PawnCollection airborn = new PawnCollection(GameMode.AIRBORNE);
         assertEquals(25, airborn.getPawnsToBePlaced().size());
         TestCase.assertEquals(3, (int) airborn.getPawnsToBePlaced().get(new Pilot(1)));
         TestCase.assertEquals(4, (int) classic.getPawnsToBePlaced().get(new Pawn("sergeant", 1, 4)));
