@@ -114,7 +114,7 @@ let sfxStatus;
 let themeStatus;
 let musicStatus;
 
-let clickForward; // Because SonarQube can't do without it!
+let clickForward = "click-forward"; // Because SonarQube can't do without it!
 
 function addEvents() {
 
@@ -228,7 +228,7 @@ for (let i = 0; i < selector.length; i++) {
 let allowAudio = true;
 let allowMusic = true;
 
-let music = new Audio('assets/audios/bgmusic.mp3');
+let music = new Audio('../assets/audios/bgmusic.mp3');
 
 function enableCollapsible() {
 
@@ -263,7 +263,7 @@ function playMusic() {
 
 function playAudio(audio) { //possible values: loading, click-forward, hover
     if (allowAudio) {
-        audio = new Audio(`assets/audios/${audio}.mp3`);
+        audio = new Audio(`../assets/audios/${audio}.mp3`);
         audio.play();
     }
 }
@@ -416,10 +416,10 @@ function setTheme(value) {
     document.getElementById('title').style.color = titleColor;
 
     //Changes stylesheet
-    document.getElementById('themeSheet').setAttribute('href', `assets/css/${sheet}`);
+    document.getElementById('themeSheet').setAttribute('href', `../assets/css/${sheet}`);
 
     //Changes background
-    source.setAttribute('src', `assets/videos/${bgVideo}`);
+    source.setAttribute('src', `../assets/videos/${bgVideo}`);
     video.appendChild(source);
     if (value === 'Wild') {
         video.style.transform = 'scale(-1, 1)';
