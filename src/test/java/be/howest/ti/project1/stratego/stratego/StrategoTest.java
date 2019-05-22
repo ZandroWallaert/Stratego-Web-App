@@ -28,15 +28,15 @@ public class StrategoTest {
         assertFalse(s.placePawn(miner3, c4));
         assertFalse(s.placePawn(miner3, c5));
 
-        Gameboard b = s.getGameBoard();
-        assertEquals(miner, b.getGameboard()[8][8]);
-        assertEquals(miner2, b.getGameboard()[2][1]);
-        assertNull(b.getGameboard()[7][2]);
+        GameBoard b = s.getGameBoard();
+        assertEquals(miner, b.getGameBoard()[8][8]);
+        assertEquals(miner2, b.getGameBoard()[2][1]);
+        assertNull(b.getGameBoard()[7][2]);
 
         //On other pawn
         b.placePawnOnPosition(miner3, c6);
         b = s.getGameBoard();
-        assertEquals(miner2, b.getGameboard()[2][1]);
+        assertEquals(miner2, b.getGameBoard()[2][1]);
 
         //In water
         b.placePawnOnPosition(miner3, c7);
