@@ -27,7 +27,7 @@ public class WebServer extends AbstractVerticle {
 
         dispatcher.installRoutes(router);
 
-        // Serve all files in resources/webroot as static files
+        // Serve all files in resources/web root as static files
         router.route("/*").handler(StaticHandler.create());
 
 
