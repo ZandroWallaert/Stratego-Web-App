@@ -1,12 +1,12 @@
 package be.howest.ti.project1.stratego.stratego;
 
 
-public class GameBoard {
-    private Pawn[][] gameBoard;
+public class Gameboard {
+    private Pawn[][] gameboard;
 
-    public GameBoard() {
+    public Gameboard() {
         int boardSize = 10;
-        this.gameBoard = new Pawn[boardSize][boardSize];
+        this.gameboard = new Pawn[boardSize][boardSize];
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 setPosition(new Coordinates(j, i), null);
@@ -14,13 +14,13 @@ public class GameBoard {
         }
     }
 
-    public Pawn[][] getGameBoard() {
-        return gameBoard;
+    public Pawn[][] getGameboard() {
+        return gameboard;
     }
 
     public Pawn getPawnOnPosition(int x, int y) {
         if (!isWater(x, y) && isInsideBoard(x, y)) {
-            return this.gameBoard[y][x];
+            return this.gameboard[y][x];
         }
         return null;
     }
@@ -30,7 +30,7 @@ public class GameBoard {
     }
 
     private void setPosition(Coordinates position, Pawn value) {
-        this.gameBoard[position.getY()][position.getX()] = value;
+        this.gameboard[position.getY()][position.getX()] = value;
     }
 
     public void placePawnOnPosition(Pawn pawn, Coordinates co) {
@@ -97,7 +97,7 @@ public class GameBoard {
 
     public boolean isCorrectSideOfBoard(Pawn pawn, int y) {
         int type = pawn.getPlayer();
-        int boardLimit = getGameBoard().length;
+        int boardLimit = getGameboard().length;
         if (type == 1) {
             return 6 <= y && y < boardLimit;
         } else if (type == 2) {
@@ -107,7 +107,7 @@ public class GameBoard {
     }
 
     public boolean isInsideBoard(int x, int y) {
-        int boardLimit = getGameBoard().length;
+        int boardLimit = getGameboard().length;
         return (0 <= x && x < boardLimit) && (0 <= y && y < boardLimit);
     }
 
@@ -191,12 +191,12 @@ public class GameBoard {
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        for (int i = 0; i < this.gameBoard.length; i++) {
-            for (int j = 0; j < this.gameBoard.length; j++) {
+        for (int i = 0; i < this.gameboard.length; i++) {
+            for (int j = 0; j < this.gameboard.length; j++) {
                 if (isWater(j, i)) {
                     res.append(" Water ");
                 } else {
-                    res.append(gameBoard[i][j]).append(" ");
+                    res.append(gameboard[i][j]).append(" ");
                 }
             }
             res.append("\n\n");

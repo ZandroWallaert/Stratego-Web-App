@@ -5,19 +5,19 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class GameBoardTest {
+public class GameboardTest {
     @Test
     public void testGetBoard() {
-        GameBoard b = new GameBoard();
-        assertEquals(10, b.getGameBoard().length);
-        assertEquals(10, b.getGameBoard()[0].length);
-        assertNull(b.getGameBoard()[0][1]);
-        assertNull(b.getGameBoard()[1][0]);
+        Gameboard b = new Gameboard();
+        assertEquals(10, b.getGameboard().length);
+        assertEquals(10, b.getGameboard()[0].length);
+        assertNull(b.getGameboard()[0][1]);
+        assertNull(b.getGameboard()[1][0]);
     }
 
     @Test
     public void testIsWater() {
-        GameBoard b = new GameBoard();
+        Gameboard b = new Gameboard();
         assertFalse(b.isWater(0, 4));
         assertFalse(b.isWater(0, 5));
         assertFalse(b.isWater(1, 4));
@@ -36,7 +36,7 @@ public class GameBoardTest {
 
     @Test
     public void testIsCorrectSide() {
-        GameBoard b = new GameBoard();
+        Gameboard b = new Gameboard();
         Pawn spy = new Spy(1);
 
         //test correct placement
@@ -51,7 +51,7 @@ public class GameBoardTest {
 
     @Test
     public void testIsInsideOfBoard() {
-        GameBoard b = new GameBoard();
+        Gameboard b = new Gameboard();
         assertTrue(b.isInsideBoard(0, 0));
         assertTrue(b.isInsideBoard(5, 5));
         assertTrue(b.isInsideBoard(9, 9));
@@ -62,7 +62,7 @@ public class GameBoardTest {
 
     @Test
     public void testGetPawnOnPosition() {
-        GameBoard b = new GameBoard();
+        Gameboard b = new Gameboard();
         Pawn spy = new Spy(1);
         Pawn spy2 = new Spy(2);
 
@@ -93,7 +93,7 @@ public class GameBoardTest {
 
     @Test
     public void testIsValidMove() {
-        GameBoard b = new GameBoard();
+        Gameboard b = new Gameboard();
         Pawn spy = new Spy(1);
 
         Coordinates c0 = new Coordinates(0, 0);
@@ -120,7 +120,7 @@ public class GameBoardTest {
 
     @Test
     public void testCheckMovesOverWater() {
-        GameBoard b = new GameBoard();
+        Gameboard b = new Gameboard();
         Coordinates c1 = new Coordinates(1, 1);
         Coordinates c2 = new Coordinates(6, 1);
         Coordinates c3 = new Coordinates(1, 4);
@@ -144,7 +144,7 @@ public class GameBoardTest {
 
     @Test
     public void testMovesOverPawn() {
-        GameBoard b = new GameBoard();
+        Gameboard b = new Gameboard();
 
         Pawn spy = new Spy(1);
         Pawn scout = new Pawn("scout", 1, 10, 2);
