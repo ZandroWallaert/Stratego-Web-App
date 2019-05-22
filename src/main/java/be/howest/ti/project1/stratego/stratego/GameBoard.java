@@ -1,10 +1,10 @@
 package be.howest.ti.project1.stratego.stratego;
 
 
-public class Gameboard {
+public class GameBoard {
     private Pawn[][] gameboard;
 
-    public Gameboard() {
+    public GameBoard() {
         int boardSize = 10;
         this.gameboard = new Pawn[boardSize][boardSize];
         for (int i = 0; i < boardSize; i++) {

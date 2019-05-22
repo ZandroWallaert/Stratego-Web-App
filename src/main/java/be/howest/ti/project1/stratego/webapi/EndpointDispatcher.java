@@ -16,7 +16,7 @@ class EndpointDispatcher {
 
     private PeopleApplication peopleApplication;
     private Stratego strategoApplication;
-    private Gameboard gameboard;
+    private GameBoard gameboard;
     private Pawn pawnApplication;
     private Spy spyApplication;
     private Miner minerApplication;
@@ -28,7 +28,7 @@ class EndpointDispatcher {
 
     public EndpointDispatcher() {
         peopleApplication = new PeopleApplication();
-        gameboard = new Gameboard();
+        gameboard = new GameBoard();
         strategoApplication = new Stratego();
         turn = new TurnRequest();
         turn2 = new TurnRequest();
