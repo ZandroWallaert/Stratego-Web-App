@@ -134,7 +134,7 @@ function startGame() {
         .then(res => res.json())
         .then(json => console.log(JSON.stringify(json)));
     console.log(blueSetupSubmit);
-    //window.location.assign("/pages/boardlist.html");
+    //window.location.assign("/pages/boardList.html");
 }
 
 function redTurn() {
