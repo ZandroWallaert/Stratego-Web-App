@@ -18,7 +18,7 @@ function init() {
     setupPage();
     preMadeSetup('blue', 'defensive');
     redTurn();
-    const nameSpan = document.getElementById('username');
+    /*const nameSpan = document.getElementById('username');
 
     fetch('/api/person/:name', {
         method: 'GET',
@@ -31,6 +31,7 @@ function init() {
         .then(json => {
             nameSpan.innerHTML = json.stringify()
         });
+     */
 }
 
 function addEvents() {
@@ -427,4 +428,3 @@ function preMadeSetup(color, setupType) {
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
 }
-
