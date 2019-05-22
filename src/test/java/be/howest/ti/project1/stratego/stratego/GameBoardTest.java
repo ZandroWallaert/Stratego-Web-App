@@ -5,10 +5,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class GameboardTest {
+public class GameBoardTest {
     @Test
     public void testGetBoard() {
-        Gameboard b = new Gameboard();
+        GameBoard b = new GameBoard();
         assertEquals(10, b.getGameboard().length);
         assertEquals(10, b.getGameboard()[0].length);
         assertNull(b.getGameboard()[0][1]);
@@ -17,7 +17,7 @@ public class GameboardTest {
 
     @Test
     public void testIsWater() {
-        Gameboard b = new Gameboard();
+        GameBoard b = new GameBoard();
         assertFalse(b.isWater(0, 4));
         assertFalse(b.isWater(0, 5));
         assertFalse(b.isWater(1, 4));
@@ -36,7 +36,7 @@ public class GameboardTest {
 
     @Test
     public void testIsCorrectSide() {
-        Gameboard b = new Gameboard();
+        GameBoard b = new GameBoard();
         Pawn spy = new Spy(1);
 
         //test correct placement
@@ -51,7 +51,7 @@ public class GameboardTest {
 
     @Test
     public void testIsInsideOfBoard() {
-        Gameboard b = new Gameboard();
+        GameBoard b = new GameBoard();
         assertTrue(b.isInsideBoard(0, 0));
         assertTrue(b.isInsideBoard(5, 5));
         assertTrue(b.isInsideBoard(9, 9));
@@ -62,7 +62,7 @@ public class GameboardTest {
 
     @Test
     public void testGetPawnOnPosition() {
-        Gameboard b = new Gameboard();
+        GameBoard b = new GameBoard();
         Pawn spy = new Spy(1);
         Pawn spy2 = new Spy(2);
 
@@ -93,7 +93,7 @@ public class GameboardTest {
 
     @Test
     public void testIsValidMove() {
-        Gameboard b = new Gameboard();
+        GameBoard b = new GameBoard();
         Pawn spy = new Spy(1);
 
         Coordinates c0 = new Coordinates(0, 0);
@@ -120,7 +120,7 @@ public class GameboardTest {
 
     @Test
     public void testCheckMovesOverWater() {
-        Gameboard b = new Gameboard();
+        GameBoard b = new GameBoard();
         Coordinates c1 = new Coordinates(1, 1);
         Coordinates c2 = new Coordinates(6, 1);
         Coordinates c3 = new Coordinates(1, 4);
@@ -144,7 +144,7 @@ public class GameboardTest {
 
     @Test
     public void testMovesOverPawn() {
-        Gameboard b = new Gameboard();
+        GameBoard b = new GameBoard();
 
         Pawn spy = new Spy(1);
         Pawn scout = new Pawn("scout", 1, 10, 2);
