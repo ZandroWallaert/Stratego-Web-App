@@ -84,7 +84,7 @@ function setupPage() {
             setupList.push(code);
         }
         for (let i = 0; i < setupList.length; i++) {
-            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/blue" + setupList[i] + ".png\" id=\"" +
+            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/blue" + "Back" + ".png\" id=\"" +
                 "blue" + setupList[i] + "-" + (i + range) + "\">";
         }
         setupList = [];
@@ -130,7 +130,7 @@ function setupPage() {
         range = 60;
         range2 = 40;
         for (let i = 0; i < setupList.length; i++) {
-            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/red" + "Back" + ".png\" id=\"" +
+            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/red" + setupList[i] + ".png\" id=\"" +
                 "red" + setupList[i] + "-" + (i + range) + "\">";
         }
     });
@@ -140,7 +140,7 @@ function setupClick() {
     let squareList = document.getElementById('squareList');
     squareList.onclick = function (e) {
         deleteAllDots();
-        if (colorOfClick(e.target.id) === localStorage.getItem("turn")) {
+        if (colorOfClick(e.target.id) === "red") {
             posmoves(e.target.id);
         } else {
             setupClick();
@@ -361,10 +361,10 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("blue");
+        console.log(Switch);
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
-
         flipPieces("red");
         if (result === -1) {
             flipSinglePiece(squareID2);
@@ -374,15 +374,27 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("red");
+        console.log(Switch);
+
+        let data = {data: "nextTurn"};
+        fetch("/api/nextTurn1", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+        console.log(JSON.stringify(data));
+
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
-        flipPieces("blue");
         if (result === -1) {
             flipSinglePiece(squareID2);
         }
     }
-    setupClick();
 }
 
 function recursive(movedToSquare, direction, movedFromSquare) {
