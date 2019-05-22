@@ -16,7 +16,7 @@ class EndpointDispatcher {
 
     private PeopleApplication peopleApplication;
     private Stratego strategoApplication;
-    private GameBoard gameboard;
+    private Gameboard gameboard;
     private Pawn pawnApplication;
     private Spy spyApplication;
     private Miner minerApplication;
@@ -28,7 +28,7 @@ class EndpointDispatcher {
 
     public EndpointDispatcher() {
         peopleApplication = new PeopleApplication();
-        gameboard = new GameBoard();
+        gameboard = new Gameboard();
         strategoApplication = new Stratego();
         turn = new TurnRequest();
         turn2 = new TurnRequest();
@@ -82,7 +82,7 @@ class EndpointDispatcher {
         router.post("/api/person").handler(BodyHandler.create()).handler(this::addPerson);
         router.post("/api/details").handler(BodyHandler.create()).handler(this::setDetails);
 
-        router.post("/api/stratego/gameMode").handler(BodyHandler.create()).handler(this::setGameMode);
+        router.post("/api/stratego/gameMode").handler(BodyHandler.create()).handler(this::setGamemode);
         router.post("/api/stratego/bluePawns").handler(BodyHandler.create()).handler(this::setupBluePawns);
         router.post("/api/stratego/redPawns").handler(BodyHandler.create()).handler(this::setupRedPawns);
 
@@ -103,17 +103,17 @@ class EndpointDispatcher {
         routingContext.response().end("\"Welcome, " + data.getPerson().getName() + "\"");
     }
 
-    private void setGameMode(RoutingContext routingContext) {
+    private void setGamemode(RoutingContext routingContext) {
         String body = routingContext.getBodyAsString();
-        CreateGameModeRequest gameMode = Json.decodeValue(body, CreateGameModeRequest.class);
-        boolean success = strategoApplication.setGameMode(gameMode.getGameMode());
-        if (success) {
-            routingContext.response().end("\"setGameMode Successful\"");
+        CreateGameModeRequest gamemode = Json.decodeValue(body, CreateGameModeRequest.class);
+        boolean succes = strategoApplication.setGameMode(gamemode.getGameMode());
+        if (succes) {
+            routingContext.response().end("\"setGamemode Successful\"");
         } else {
-            routingContext.response().end("\"setGameMode failed\"");
+            routingContext.response().end("\"setGamemode failed\"");
         }
 
-        routingContext.response().end("\"received: " + gameMode.getGameMode() + "\"");
+        routingContext.response().end("\"received: " + gamemode.getGameMode() + "\"");
     }
 
     private void setupRedPawns(RoutingContext routingContext) {

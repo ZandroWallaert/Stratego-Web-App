@@ -10,14 +10,14 @@ public class Stratego {
     private Token token;
     private PawnCollection pawns;
     private List<Move> moveHistory;
-    private GameBoard gameBoard;
+    private Gameboard gameBoard;
     private GameMode gameMode;
 
 
     public Stratego() {
         token = new Token();
         this.moveHistory = new ArrayList<>();
-        this.gameBoard = new GameBoard();
+        this.gameBoard = new Gameboard();
         this.player1 = new Player();
         this.gameMode = null;
     }
@@ -85,8 +85,8 @@ public class Stratego {
                 return true;
 
             case "airborn":
-                this.gameMode = GameMode.AIRBORNE;
-                this.pawns = new PawnCollection(GameMode.AIRBORNE);
+                this.gameMode = GameMode.AIRBORN;
+                this.pawns = new PawnCollection(GameMode.AIRBORN);
                 return true;
             default:
                 return false;
@@ -97,7 +97,7 @@ public class Stratego {
         return token;
     }
 
-    public GameBoard getGameBoard() {
+    public Gameboard getGameBoard() {
         return gameBoard;
     }
 

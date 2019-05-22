@@ -116,7 +116,7 @@ public class PawnCollection {
 
             this.pawnsToBePlaced.put(new Infiltrator(1), 1);
             this.pawnsToBePlaced.put(new Infiltrator(2), 1);
-        } else if (mode == GameMode.AIRBORNE) {
+        } else if (mode == GameMode.AIRBORN) {
             setPawnsToPlace(GameMode.CLASSIC);
 
             this.pawnsToBePlaced.put(scout1, 0);

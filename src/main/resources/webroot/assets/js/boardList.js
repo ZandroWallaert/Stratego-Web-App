@@ -8,14 +8,27 @@ let lines;
 let pieceHolder;
 
 function init() {
+    setupPage();
     lItems = document.getElementById("squareList").getElementsByTagName("li");
     lines = document.getElementById("squareList").getElementsByTagName("li");
-    squareList = document.getElementById('squareList');
+    let squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
-    setupPage();
+    localStorage.setItem("turn", "blue");
+    document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
+    setupClick();
 }
 
 function setupPage() {
+    for (let i = 0; i < 40; i++) {
+        document.getElementById("bluePieceHolder").innerHTML += `<li>
+            <div id="blankSquare-${i}"></div>
+        </li>`
+    }
+    for (let i = 0; i < 40; i++) {
+        document.getElementById("redPieceHolder").innerHTML += `<li>
+            <div id="blankSquare-${i}"></div>
+        </li>`
+    }
     let lake = document.getElementById("lake1");
     let lake2 = document.getElementById("lake2");
     for (let i = 0; i < 42; i++) {
@@ -70,10 +83,9 @@ function setupPage() {
             }
             setupList.push(code);
         }
-        console.log(setupList);
         for (let i = 0; i < setupList.length; i++) {
             boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/blue" + setupList[i] + ".png\" id=\"" +
-                color + setupList[i] + "-" + (i + range) + "\">";
+                "blue" + setupList[i] + "-" + (i + range) + "\">";
         }
         setupList = [];
     });
@@ -115,22 +127,17 @@ function setupPage() {
             }
             setupList.push(code);
         }
-        console.log(setupList);
         range = 60;
         range2 = 40;
         for (let i = 0; i < setupList.length; i++) {
-            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/red" + setupList[i] + ".png\" id=\"" +
-                color + setupList[i] + "-" + (i + range) + "\">";
+            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/red" + "Back" + ".png\" id=\"" +
+                "red" + setupList[i] + "-" + (i + range) + "\">";
         }
     });
-
-    flipPieces("red");
-    document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
-    flipPieces("blue");
-    setupClick();
 }
 
 function setupClick() {
+    let squareList = document.getElementById('squareList');
     squareList.onclick = function (e) {
         deleteAllDots();
         if (colorOfClick(e.target.id) === localStorage.getItem("turn")) {
@@ -140,11 +147,6 @@ function setupClick() {
         }
     };
 }
-
-window.onload = function () {
-    // ENABLE START GAME BUTTON RETRIEVE FROM SETUP.HTML
-    localStorage.setItem("turn", "blue");
-};
 
 function posmoves(pieceName) {
 
@@ -359,7 +361,6 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("blue");
-        console.log(Switch);
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
@@ -373,7 +374,6 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("red");
-        console.log(Switch);
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
@@ -457,13 +457,24 @@ function flipPieces(color) {
         let line = lines[i].innerHTML;
         if (line.indexOf(color) !== -1) {
             if (line.indexOf(color + "Back") !== -1) {
-                // change to pieceIMG
                 let lineID = line.split("-")[0].split("id=\"")[1];
                 lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), pieces + lineID + ".png");
             } else {
-                // change to backIMG
                 lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), pieces + color + "Back.png");
+            }
+        }
+    }
+}
 
+function turnRed() {
+    for (let i = 0; i < 100; i++) {
+        let line = lines[i].innerHTML;
+        if (line.indexOf("red") !== -1) {
+            if (line.indexOf("red" + "Back") !== -1) {
+                let lineID = line.split("-")[0].split("id=\"")[1];
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), pieces + lineID + ".png");
+            } else {
+                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), pieces + "red" + "Back.png");
             }
         }
     }
