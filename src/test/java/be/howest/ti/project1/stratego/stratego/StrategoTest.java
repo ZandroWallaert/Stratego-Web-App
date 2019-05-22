@@ -28,7 +28,7 @@ public class StrategoTest {
         assertFalse(s.placePawn(miner3, c4));
         assertFalse(s.placePawn(miner3, c5));
 
-        Gameboard b = s.getGameBoard();
+        GameBoardTest b = s.getGameBoard();
         assertEquals(miner, b.getGameboard()[8][8]);
         assertEquals(miner2, b.getGameboard()[2][1]);
         assertNull(b.getGameboard()[7][2]);
