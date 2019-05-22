@@ -37,17 +37,14 @@ function addEvents() {
     document.getElementById('showEndGame').addEventListener('click', endGame); //Test
 
     document.getElementById('defensive').addEventListener('click', function () {
-        console.log('test');
         preMadeSetup('blue', 'defensive')
     });
 
     document.getElementById('offensive').addEventListener('click', function () {
-        console.log('test1');
         preMadeSetup('blue', 'offensive')
     });
 
     document.getElementById('mixed').addEventListener('click', function () {
-        console.log('test2');
         preMadeSetup('blue', 'mixed')
 
     });
