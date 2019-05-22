@@ -516,7 +516,7 @@ function initializeGame() {
     document.getElementById('details').classList.remove('hidden');
 
     timeVar = setTimeout(() => {
-        window.location.href = "setup.html"
+        window.location.href = "pages/setup.html"
     }, 2000)
 }
 
