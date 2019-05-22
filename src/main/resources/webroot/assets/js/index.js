@@ -6,6 +6,8 @@ function init() {
 }
 
 document.querySelector('#launch > a').addEventListener('click', launchApp);
+document.getElementById('donateLink').addEventListener('click', showDonate);
+document.getElementById('nextToPayment').addEventListener('click', showProceedToPayment);
 
 function launchApp() {
     document.getElementById('site').classList.add('hidden');
