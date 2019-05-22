@@ -1,0 +1,106 @@
+/*Cursor, scrollbar*/
+
+* {
+    cursor: url(../media/purple-image.png), pointer;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(203, 163, 40, 0.50);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(106, 112, 98, 0.75);
+}
+
+/*Backgrounds, text colors, borders*/
+
+#mainMenu, #gameMode, .collapsible, #wait {
+    background: unset;
+    background-color: rgba(11, 10, 7, 0.5);
+    color: rgb(255, 183, 51);
+    border-color: rgb(255, 183, 51);
+}
+
+#settings, #rules, #exit, #createPersonForm {
+    background: unset;
+    background-color: rgba(11, 10, 7, 1);
+    color: rgb(255, 183, 51);
+    border-color: rgb(255, 183, 51);
+}
+
+/*Exceptions*/
+
+#infoBox {
+    position: absolute;
+    z-index: 5;
+}
+
+#mainMenu {
+    border-right-width: 0.4375rem;
+    border-style: solid;
+    border-color: rgb(255, 183, 51);
+}
+
+#mainMenu h1, #mainMenu a {
+    font-family: Algerian, serif;
+}
+
+#mainMenu h1, #mainMenu a, #gameMode h2, #infoBox p, #wait p {
+    color: rgb(255, 183, 51);
+}
+
+/*Hover, focus*/
+
+#mainMenu a:hover {
+    background-color: rgb(255, 183, 51);
+    color: rgb(28, 15, 19);
+
+}
+
+.back, #settings a, #settings form input[type=button], #rules a, #exit a, #gameMode a, input[type=submit], #wait a {
+    background-color: unset;
+    border-color: rgb(255, 183, 51);
+    color: rgb(255, 183, 51);
+}
+
+.back:hover, #settings a:hover, #rules a:hover, #exit a:hover, input[type=submit]:hover, #wait a:hover {
+    background-color: rgb(255, 183, 51);
+    color: rgb(28, 15, 19);
+    border-color: rgb(28, 15, 19);
+
+}
+
+.active, .collapsible:hover {
+    background: rgb(255, 165, 0);
+    color: rgb(28, 15, 19);
+}
+
+#gameMode a:last-of-type:hover {
+    background-color: rgb(255, 183, 51);
+    color: rgb(28, 15, 19);
+    border-color: rgb(28, 15, 19);
+    filter: none;
+}
+
+/*Form inputs, form input hovers*/
+
+input[type=text], input[type=number] {
+    background-color: transparent;
+    border-color: rgb(255, 183, 51);
+    color: rgb(255, 183, 51);
+}
+
+input[type=text]:hover, input[type=number]:hover, input[type=text]:focus, input[type=number]:focus {
+    background-color: transparent;
+    border-color: rgb(28, 15, 19);
+}
+
+/*Loader*/
+
+.lds-ring div {
+    border-color: rgba(255, 235, 153, 0.7) transparent transparent transparent;
+}
+
+
+
