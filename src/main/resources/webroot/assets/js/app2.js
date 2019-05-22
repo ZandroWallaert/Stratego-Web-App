@@ -110,6 +110,12 @@ function sendGameMode(gameMode) {
 
 }
 
+let sfxStatus;
+let themeStatus;
+let musicStatus;
+
+let clickForward = "click-forward"; // Because SonarQube can't do without it!
+
 function addEvents() {
 
     let classic = document.getElementById('classic');
@@ -222,11 +228,7 @@ for (let i = 0; i < selector.length; i++) {
 let allowAudio = true;
 let allowMusic = true;
 
-let sfxStatus;
-let themeStatus;
-let musicStatus;
-
-let music = new Audio('assets/audios/bgmusic.mp3');
+let music = new Audio('../assets/audios/bgmusic.mp3');
 
 function enableCollapsible() {
 
@@ -261,10 +263,7 @@ function playMusic() {
 
 function playAudio(audio) { //possible values: loading, click-forward, hover
     if (allowAudio) {
-        audio = new Audio(`assets/audios/${audio}.mp3`);
-        if (audio === 'hover') {
-            audio.volume = 0.5;
-        }
+        audio = new Audio(`../assets/audios/${audio}.mp3`);
         audio.play();
     }
 }
@@ -280,27 +279,27 @@ function addBackgroundEffects(style) {
 let bgStyle = 'blur(0) brightness(50%)';
 
 function showRules() {
-    playAudio('click-forward');
+    playAudio(clickForward);
     addBackgroundEffects(bgStyle);
     document.getElementById('rules').classList.remove('hidden');
 }
 
 function showSettings() {
-    playAudio('click-forward');
+    playAudio(clickForward);
     getCurrentSettings();
     addBackgroundEffects(bgStyle);
     document.getElementById('settings').classList.remove('hidden');
 }
 
 function confirmExit() {
-    playAudio('click-forward');
+    playAudio(clickForward);
     addBackgroundEffects(bgStyle);
     document.getElementById('exit').classList.remove('hidden');
 }
 
 
 function clearHTML() {
-    playAudio('click-forward');
+    playAudio(clickForward);
     document.querySelectorAll('#bottom p').innerHTML = '';
     document.querySelector('#settingButtons p').innerHTML = '';
     document.getElementById('wait').classList.add('hidden');
@@ -417,10 +416,10 @@ function setTheme(value) {
     document.getElementById('title').style.color = titleColor;
 
     //Changes stylesheet
-    document.getElementById('themeSheet').setAttribute('href', `assets/css/${sheet}`);
+    document.getElementById('themeSheet').setAttribute('href', `../assets/css/${sheet}`);
 
     //Changes background
-    source.setAttribute('src', `assets/videos/${bgVideo}`);
+    source.setAttribute('src', `../assets/videos/${bgVideo}`);
     video.appendChild(source);
     if (value === 'Wild') {
         video.style.transform = 'scale(-1, 1)';
@@ -433,7 +432,7 @@ function setTheme(value) {
 }
 
 function saveChanges() {
-    playAudio('click-forward');
+    playAudio(clickForward);
     document.querySelector('#settingButtons p').innerHTML = `Changes saved!`;
     getCurrentSettings();
     settings = [themeStatus, sfxStatus, musicStatus];
@@ -449,7 +448,7 @@ function resetSettings() {
 }
 
 function showGameMode() {
-    playAudio('click-forward');
+    playAudio(clickForward);
 
     document.getElementById('gameMode').classList.remove('hidden');
     document.getElementById('play').style.border = '3px solid';
@@ -474,7 +473,7 @@ function hideModeDetails() {
 
 function showForm(gameMode) {
     localStorage.setItem('gameMode', JSON.stringify(gameMode));
-    playAudio('click-forward');
+    playAudio(clickForward);
     let element = document.getElementById("createPersonForm");
     let addMode = document.querySelector('#mode');
     element.classList.remove("hidden");
@@ -489,7 +488,7 @@ let timeVar;
 
 function showWaitingForPlayers() {
 
-    playAudio('click-forward');
+    playAudio(clickForward);
     addBackgroundEffects(bgDarkStyle);
 
     let element = document.getElementById('wait');
@@ -517,12 +516,12 @@ function initializeGame() {
     document.getElementById('details').classList.remove('hidden');
 
     timeVar = setTimeout(() => {
-        window.location.href = "wait2.html"
+        window.location.href = "pages/wait2.html"
     }, 2000)
 }
 
 function cancelSearch() {
-    playAudio('click-forward');
+    playAudio(clickForward);
     addBackgroundEffects(bgStyle);
     document.querySelector('#buttons span').innerHTML = `<h1>Search canceled.</h1>`;
     document.querySelector('#buttons span').style.color = 'rgba(255, 77, 77, 0.8)';
