@@ -16,7 +16,7 @@
         <p>push the button to play the game!</p>
         <a href="#">Launch game</a>
         <p>You can support us by giving donations, we use the money to improve our game. We would be very grateful.</p>
-        <a href="#" id="donateLink">Donate</a>
+        <a href="#" id="donateLink" onclick="showDonate()">Donate</a>
     </div>
 </div>
 <div class="hidden" id="donate">
@@ -24,7 +24,7 @@
         <label for="money">How much money do you want to donate?</label>
         <input type="text" name="money" id="money" placeholder="money in Euro" required>
 
-        <a href="#" id="nextToPayment">Proceed to payment</a>
+        <a href="#" id="nextToPayment" onclick="showProceedToPayment()">Proceed to payment</a>
     </form>
 </div>
 <div class="hidden" id="paymentMethod">
@@ -37,7 +37,7 @@
     <ul>
         <li><a href="#"><img src="assets/media/visa.jpg" alt="Visa" title="Visa"/></a></li>
         <li><a href="#"><img src="assets/media/paypal.jpg" alt="PayPal" title="Pay pal"/></a></li>
-        <li><a href="#"><img src="assets/media/bitcoin.jpg" alt="BitCoin" title="BitCoin"/></a></li>
+        <li><a href="#"><img src="assets/media/bitcoin.jpg" alt="Bitcoin" title="Bitcoin"/></a></li>
     </ul>
 </div>
 <main id="loading" class="hidden">
@@ -59,6 +59,6 @@
         </div>
     </div>
 </main>
+<script src="assets/js/main.js"></script>
 </body>
-<script src="assets/js/index.js"></script>
 </html>

@@ -17,7 +17,7 @@ function getConfirm() {
 function makeNextTurn(res) {
     console.log(res);
     if (res === 'goNext') {
-        location.href = '/pages/boardList.html'
+        location.href = '/pages/boardlist.html'
     } else {
         console.log("error");
     }
