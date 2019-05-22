@@ -5,31 +5,131 @@ let color;
 let lItems;
 let currentSquare;
 let lines;
-let gameMode;
+let pieceHolder;
 
 function init() {
-    gameMode = JSON.parse(localStorage.getItem('gameMode'));
-    console.log(gameMode);
-    squareList = document.getElementById("squareList");
-    document.getElementById('bg-image').style.backgroundImage = `url(../assets/media/${gameMode.toLowerCase()}.jpg)`;
-    console.log(`url(../assets/media/${gameMode.toLowerCase()}.jpg)`);
     lItems = document.getElementById("squareList").getElementsByTagName("li");
     lines = document.getElementById("squareList").getElementsByTagName("li");
-    setupHtml();
+    squareList = document.getElementById('squareList');
+    pieceHolder = document.getElementById('pieceHolder');
+    setupPage();
 }
 
-function setupHtml() {
-    for (let i = 0; i < 40; i++) {
-        document.getElementById("bluePieceHolder").innerHTML += `<li>
-            <div id="blankSquare-${i}"></div>
-        </li>`
+function setupPage() {
+    let lake = document.getElementById("lake1");
+    let lake2 = document.getElementById("lake2");
+    for (let i = 0; i < 42; i++) {
+        lake.insertAdjacentHTML('beforebegin', `<li>
+    <div id="blankSquare-${i}"></div>
+        </li>`);
     }
-    for (let i = 0; i < 40; i++) {
-        document.getElementById("redPieceHolder").innerHTML += `<li>
-            <div id="blankSquare-${i}"></div>
-        </li>`
+    for (let i = 99; i > 57; i--) {
+        lake2.insertAdjacentHTML('afterend', `<li>
+    <div id="blankSquare-${i}"></div>
+        </li>`);
     }
+    let boardLines = document.getElementById("squareList").getElementsByTagName("li");
+    let setupList = [];
+    let range = 0;
+    let range2 = 0;
+    fetch('/api/blueSetup').then(res => res.json()).then(function (response) {
+        let edited = response.substring(1, response.length - 1);
+        let secondEdit = edited.split(", ");
+        for (let i = 0; i < 40; i++) {
+            let code = secondEdit[i];
+            switch (code) {
+                case '3':
+                    code = '8';
+                    break;
+                case '2':
+                    code = '9';
+                    break;
+                case '6':
+                    code = '5';
+                    break;
+                case '5':
+                    code = '6';
+                    break;
+                case '7':
+                    code = '4';
+                    break;
+                case '10':
+                    code = '1';
+                    break;
+                case '4':
+                    code = '7';
+                    break;
+                case '8':
+                    code = '3';
+                    break;
+                case '9':
+                    code = '2';
+                    break;
+                default:
+                    break;
+            }
+            setupList.push(code);
+        }
+        console.log(setupList);
+        for (let i = 0; i < setupList.length; i++) {
+            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/blue" + setupList[i] + ".png\" id=\"" +
+                color + setupList[i] + "-" + (i + range) + "\">";
+        }
+        setupList = [];
+    });
+    fetch('/api/redSetup').then(res => res.json()).then(function (response) {
+        let edited = response.substring(1, response.length - 1);
+        let secondEdit = edited.split(", ");
+        for (let i = 0; i < 40; i++) {
+            let code = secondEdit[i];
+            switch (code) {
+                case '3':
+                    code = '8';
+                    break;
+                case '2':
+                    code = '9';
+                    break;
+                case '6':
+                    code = '5';
+                    break;
+                case '5':
+                    code = '6';
+                    break;
+                case '7':
+                    code = '4';
+                    break;
+                case '10':
+                    code = '1';
+                    break;
+                case '4':
+                    code = '7';
+                    break;
+                case '8':
+                    code = '3';
+                    break;
+                case '9':
+                    code = '2';
+                    break;
+                default:
+                    break;
+            }
+            setupList.push(code);
+        }
+        console.log(setupList);
+        range = 60;
+        range2 = 40;
+        for (let i = 0; i < setupList.length; i++) {
+            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/red" + setupList[i] + ".png\" id=\"" +
+                color + setupList[i] + "-" + (i + range) + "\">";
+        }
+    });
+
+    flipPieces("red");
+    document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
+    flipPieces("blue");
+    setupClick();
 }
+
 function setupClick() {
     squareList.onclick = function (e) {
         deleteAllDots();
@@ -42,13 +142,8 @@ function setupClick() {
 }
 
 window.onload = function () {
-    // ENABLE START GAME BUTTON RETRIEVE FROM /pages/setup.html
-    squareList.innerHTML = localStorage.getItem('testObject');
+    // ENABLE START GAME BUTTON RETRIEVE FROM SETUP.HTML
     localStorage.setItem("turn", "blue");
-    flipPieces("red");
-    document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
-    flipPieces("blue");
-    setupClick();
 };
 
 function posmoves(pieceName) {
@@ -245,7 +340,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
         document.getElementById("squareList").innerHTML = "";
         document.querySelector("body h1").innerHTML = ("Game Ended!");
         setTimeout(() => {
-            window.location.href = "/pages/app.html";
+            window.location.href = "app.html";
         }, 2000);
     }
 
@@ -353,7 +448,7 @@ function combat(a, b) {
         return -1;
 }
 
-let pieces = "../assets/media/pieces/";
+let pieces = "/assets/media/pieces/";
 
 // a function to switch the backs of the pieces
 function flipPieces(color) {
