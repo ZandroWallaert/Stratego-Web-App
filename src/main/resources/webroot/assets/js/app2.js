@@ -2,6 +2,10 @@
 
 document.addEventListener("DOMContentLoaded", init);
 
+let sfxStatus;
+let themeStatus;
+let musicStatus;
+
 let settings = [];
 let defaultSettings = ['Rain', 'Enabled', 'Enabled'];
 let gameMode;
@@ -109,10 +113,6 @@ function sendGameMode(gameMode) {
         .then(json => console.log(JSON.stringify(json)));
 
 }
-
-let sfxStatus;
-let themeStatus;
-let musicStatus;
 
 let clickForward = "click-forward"; // Because SonarQube can't do without it!
 
