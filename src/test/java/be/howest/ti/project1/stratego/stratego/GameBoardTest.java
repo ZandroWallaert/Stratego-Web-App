@@ -9,10 +9,10 @@ public class GameBoardTest {
     @Test
     public void testGetBoard() {
         GameBoard b = new GameBoard();
-        assertEquals(10, b.getGameboard().length);
-        assertEquals(10, b.getGameboard()[0].length);
-        assertNull(b.getGameboard()[0][1]);
-        assertNull(b.getGameboard()[1][0]);
+        assertEquals(10, b.getGameBoard().length);
+        assertEquals(10, b.getGameBoard()[0].length);
+        assertNull(b.getGameBoard()[0][1]);
+        assertNull(b.getGameBoard()[1][0]);
     }
 
     @Test
