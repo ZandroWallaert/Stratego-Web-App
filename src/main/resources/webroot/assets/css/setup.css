@@ -133,18 +133,18 @@ ul li div {
     width: 1.25rem;
 }
 
-#preMade {
+#premade {
     position: absolute;
     left: 69.25rem;
     top: 49.2rem;
     transform: scale(2.5);
 }
 
-#preMade.moveUp {
+#premade.moveUp {
     top: 44.69rem;
 }
 
-#preMade ul {
+#premade ul {
     list-style: none;
 }
 

@@ -2,7 +2,10 @@ package be.howest.ti.project1.stratego.webapi;
 
 import be.howest.ti.project1.stratego.Main;
 import be.howest.ti.project1.stratego.people.PeopleApplication;
-import be.howest.ti.project1.stratego.stratego.*;
+import be.howest.ti.project1.stratego.stratego.Coordinates;
+import be.howest.ti.project1.stratego.stratego.GameBoard;
+import be.howest.ti.project1.stratego.stratego.Pawn;
+import be.howest.ti.project1.stratego.stratego.Stratego;
 import be.howest.ti.project1.stratego.stratego.pawns.*;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
@@ -26,6 +29,7 @@ class EndpointDispatcher {
     private MessageRequest redSetup;
     private MessageRequest nextTurn1;
     private MessageRequest nextTurn2;
+    private CreateCoordinateRequest coordinates;
 
 
     public EndpointDispatcher() {
@@ -38,6 +42,7 @@ class EndpointDispatcher {
         redSetup = new MessageRequest();
         nextTurn1 = new MessageRequest();
         nextTurn2 = new MessageRequest();
+        coordinates = new CreateCoordinateRequest();
     }
 
     private void sendJson(HttpServerResponse res, Object object) {
@@ -98,12 +103,32 @@ class EndpointDispatcher {
         router.get("/api/blueSetup").handler(this::getBlueSetup);
         router.get("/api/redSetup").handler(this::getRedSetup);
 
+        router.get("/api/board").handler(this::getBoard);
+
         router.post("/api/nextTurn1").handler(BodyHandler.create()).handler(this::nextTurnFrom2);
         router.post("/api/nextTurn2").handler(BodyHandler.create()).handler(this::nextTurnFrom1);
         router.get("/api/nextTurn1").handler(this::getNextTurnFor1);
         router.get("/api/nextTurn2").handler(this::getNextTurnFor2);
+
+        router.post("/api/movePawn").handler(BodyHandler.create()).handler(this::movePawn);
     }
 
+    private void movePawn(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        CreateCoordinateRequest data = Json.decodeValue(body, CreateCoordinateRequest.class);
+        coordinates.setData(data.getData());
+        System.out.println(coordinates.getData());
+        int x1 = Character.getNumericValue(coordinates.getData().charAt(0));
+        int y1 = Character.getNumericValue(coordinates.getData().charAt(2));
+        int x2 = Character.getNumericValue(coordinates.getData().charAt(4));
+        int y2 = Character.getNumericValue(coordinates.getData().charAt(6));
+        strategoApplication.movePawn(new Coordinates(x1, y1), new Coordinates(x2, y2));
+        routingContext.response().end("\"Moved, " + coordinates.getData() + "\"");
+    }
+
+    private void getBoard(RoutingContext routingContext) {
+        sendJson(routingContext.response(), strategoApplication.getGameBoard().toString());
+    }
 
     private void setDetails(RoutingContext routingContext) {
         String body = routingContext.getBodyAsString();
@@ -134,101 +159,9 @@ class EndpointDispatcher {
         System.out.println(Arrays.toString(redPawnsArray));
         int i = 0;
         int count = 0;
-        for (int y = 0; y < 4; y++) {
-            for (int j = 0; j < 10; j++, i++) {
-                String pawn = redPawnsArray[i];
-                switch (pawn) {
-                    case "Spy":
-                        Pawn spy = new Spy(2);
-                        strategoApplication.placePawn(spy, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "Bomb":
-                        Pawn bomb = new Bomb(2);
-                        strategoApplication.placePawn(bomb, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "Flag":
-                        Pawn flag = new Flag(2);
-                        strategoApplication.placePawn(flag, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "2":
-                        Pawn scout = new Scout(2);
-                        strategoApplication.placePawn(scout, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "3":
-                        Pawn miner = new Miner(2);
-                        strategoApplication.placePawn(miner, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "4":
-                        Pawn sergeant = new Sergeant(2);
-                        strategoApplication.placePawn(sergeant, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "5":
-                        Pawn lieutenant = new Lieutenant(2);
-                        strategoApplication.placePawn(lieutenant, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "6":
-                        Pawn captain = new Captain(2);
-                        strategoApplication.placePawn(captain, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "7":
-                        Pawn major = new Major(2);
-                        strategoApplication.placePawn(major, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "8":
-                        Pawn colonel = new Colonel(2);
-                        strategoApplication.placePawn(colonel, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "9":
-                        Pawn general = new General(2);
-                        strategoApplication.placePawn(general, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                    case "10":
-                        Pawn marshall = new Marshall(2);
-                        strategoApplication.placePawn(marshall, new Coordinates(j, y));
-                        count++;
-                        System.out.println(count);
-                        break;
-                }
-            }
-        }
-        System.out.println(strategoApplication.getGameBoard().toString());
-        routingContext.response().end("\"received: " + pawns.getPawns() + "\"");
-    }
-
-    private void setupBluePawns(RoutingContext routingContext) {
-        String body = routingContext.getBodyAsString();
-        CreateBluePawnRequest pawns = Json.decodeValue(body, CreateBluePawnRequest.class);
-        System.out.println(pawns.getPawns());
-        String[] bluePawnsArray = pawns.getPawns().split(",");
-        blueSetup.setData(Arrays.toString(bluePawnsArray));
-        System.out.println(Arrays.toString(bluePawnsArray));
-        int i = 0;
-        int count = 0;
         for (int y = 6; y < 10; y++) {
             for (int j = 0; j < 10; j++, i++) {
-                String pawn = bluePawnsArray[i];
+                String pawn = redPawnsArray[i];
                 switch (pawn) {
                     case "Spy":
                         Pawn spy = new Spy(1);
@@ -298,6 +231,98 @@ class EndpointDispatcher {
                         break;
                     case "10":
                         Pawn marshall = new Marshall(1);
+                        strategoApplication.placePawn(marshall, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                }
+            }
+        }
+        System.out.println(strategoApplication.getGameBoard().toString());
+        routingContext.response().end("\"received: " + pawns.getPawns() + "\"");
+    }
+
+    private void setupBluePawns(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        CreateBluePawnRequest pawns = Json.decodeValue(body, CreateBluePawnRequest.class);
+        System.out.println(pawns.getPawns());
+        String[] bluePawnsArray = pawns.getPawns().split(",");
+        blueSetup.setData(Arrays.toString(bluePawnsArray));
+        System.out.println(Arrays.toString(bluePawnsArray));
+        int i = 0;
+        int count = 0;
+        for (int y = 0; y < 4; y++) {
+            for (int j = 0; j < 10; j++, i++) {
+                String pawn = bluePawnsArray[i];
+                switch (pawn) {
+                    case "Spy":
+                        Pawn spy = new Spy(2);
+                        strategoApplication.placePawn(spy, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "Bomb":
+                        Pawn bomb = new Bomb(2);
+                        strategoApplication.placePawn(bomb, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "Flag":
+                        Pawn flag = new Flag(2);
+                        strategoApplication.placePawn(flag, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "2":
+                        Pawn scout = new Scout(2);
+                        strategoApplication.placePawn(scout, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "3":
+                        Pawn miner = new Miner(2);
+                        strategoApplication.placePawn(miner, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "4":
+                        Pawn sergeant = new Sergeant(2);
+                        strategoApplication.placePawn(sergeant, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "5":
+                        Pawn lieutenant = new Lieutenant(2);
+                        strategoApplication.placePawn(lieutenant, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "6":
+                        Pawn captain = new Captain(2);
+                        strategoApplication.placePawn(captain, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "7":
+                        Pawn major = new Major(2);
+                        strategoApplication.placePawn(major, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "8":
+                        Pawn colonel = new Colonel(2);
+                        strategoApplication.placePawn(colonel, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "9":
+                        Pawn general = new General(2);
+                        strategoApplication.placePawn(general, new Coordinates(j, y));
+                        count++;
+                        System.out.println(count);
+                        break;
+                    case "10":
+                        Pawn marshall = new Marshall(2);
                         strategoApplication.placePawn(marshall, new Coordinates(j, y));
                         count++;
                         System.out.println(count);

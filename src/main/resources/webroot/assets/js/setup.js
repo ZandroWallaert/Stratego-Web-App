@@ -10,7 +10,6 @@ let playerColor;
 let gameMode;
 
 function init() {
-    addEvents();
     gameMode = JSON.parse(localStorage.getItem('gameMode'));
     document.getElementById('bg-image').style.backgroundImage = `url(../assets/media/${gameMode.toLowerCase()}.jpg)`;
     document.getElementById('showEndGame').addEventListener('click', endGame); //Test
@@ -33,29 +32,17 @@ function init() {
     //     });
 }
 
-function addEvents() {
-    document.getElementById('showEndGame').addEventListener('click', endGame); //Test
-
-    document.getElementById('defensive').addEventListener('click', function () {
-        preMadeSetup('blue', 'defensive')
-    });
-
-    document.getElementById('offensive').addEventListener('click', function () {
-        preMadeSetup('blue', 'offensive')
-    });
-
-    document.getElementById('mixed').addEventListener('click', function () {
-        preMadeSetup('blue', 'mixed')
-
-    });
-}
-
 function endGame(isWon) { //Test
     if (isWon) {
         document.getElementById('victory').classList.remove('hidden')
     } else {
         document.getElementById('defeat').classList.remove('hidden')
     }
+}
+
+function showProfile() {
+    console.log('Working');
+    document.getElementById('profile').classList.remove('hidden');
 }
 
 function setupPage() {
@@ -123,7 +110,7 @@ function startGame() {
     }
     let bluePawns = {pawns: blueSetupSubmit.toString()};
     console.log("sending " + JSON.stringify(bluePawns));
-    fetch("../api/stratego/bluePawns", {
+    fetch("/api/stratego/bluePawns", {
         method: "POST",
         body: JSON.stringify(bluePawns),
         headers: {
@@ -140,15 +127,15 @@ function redTurn() {
     startGame();
     flipPieces("blue");
     setupOnClick("red");
-    let setupDiv = document.getElementById('preMade');
+    let setupDiv = document.getElementById('premade');
     setupDiv.innerHTML = '<ul><li><input id="switchSetup" type="button" value="Defensive" ' +
-        '/></li><li><input id="switchSetup" type="button" ' +
-        'value="Offensive"/></li><li><input id="switchSetup" ' +
-        'type="button" value="Mixed" /></li></ul>';
+        'onclick="premadeSetup(\'red\',\'defensive\')" /></li><li><input id="switchSetup" type="button" ' +
+        'value="Offensive" onclick="premadeSetup(\'red\',\'offensive\')" /></li><li><input id="switchSetup" ' +
+        'type="button" value="Mixed" onclick="premadeSetup(\'red\',\'mixed\')" /></li></ul>';
     sendNextTurn();
     function sendNextTurn() {
         let turn = {data: "goNext"};
-        fetch("../api/next2", {
+        fetch("/api/next2", {
             method: "POST",
             body: JSON.stringify(turn),
             headers: {
@@ -166,13 +153,11 @@ function redTurn() {
 
 function setupOnClick(playerColor) {
     squareList.onclick = function (e) {
-        console.log('clicked square');
         deleteAllDots();
         boardPiecePlacement(e.target.id, playerColor);
     };
 
     pieceHolder.onclick = function (e) {
-        console.log('clicked piece');
         deleteAllDots();
         sidePiecePlacement(e.target.id, playerColor);
     };
@@ -196,7 +181,6 @@ function sidePiecePlacement(pieceName, playerColor) {
     }
 
     if (color === "blue" && playerColor === "blue") { // if it is a blue piece, only check the top half of the board
-        console.log('reached');
         activateDotBoard(0);
     } else if (color === "red" && playerColor === "red") { // if it is a red piece, check the bottom part
         activateDotBoard(60);
@@ -204,6 +188,8 @@ function sidePiecePlacement(pieceName, playerColor) {
 }
 
 function boardPiecePlacement(pieceName, playerColor) {
+
+    setupOnClick(playerColor);
 
     color = colorOfClick(pieceName);
     square = pieceName.split("-")[1];
@@ -214,7 +200,7 @@ function boardPiecePlacement(pieceName, playerColor) {
 
     function activate(startPoint, subtract) {
         for (let i = startPoint; i < startPoint + 40; i++) {
-            checkStatus(i - subtract, square);
+            checkstatus(i - subtract, square);
             if (i !== square) //check so you don't put a dot on the piece you clicked on
                 activateDot(square, i, "boardToBoard");
         }
@@ -225,11 +211,9 @@ function boardPiecePlacement(pieceName, playerColor) {
     } else if (color === "red" && playerColor === "red") { // if it is a red piece, check the bottom part
         activate(60, 20);
     }
-
-    setupOnClick('blue')
 }
 
-function checkStatus(squareNumber, movedFromSquare) {
+function checkstatus(squareNumber, movedFromSquare) {
     let lItems = document.getElementById("pieceHolder").getElementsByTagName("li");
     let currentSquare = (lItems[squareNumber].innerHTML).split('"').reverse()[1];
     if (currentSquare.split("-")[0] === "blankSquare") {
@@ -310,11 +294,11 @@ function dotClicked(movedFromSquare, movedToSquare, type) {
     let sideboardInner = pieceHolder.innerHTML;
 
     if (((sideboardInner.match(/blankSquare/g)).length) >= 40 && playerColor === "blue") {
-        preMadeButton("switchSetup", "Submit", redTurn)
+        premadeButton("switchSetup", "Submit", "redTurn()")
     }
 
     if (((sideboardInner.match(/blankSquare/g)).length) >= 80) {
-        preMadeButton("startGame", "Start Game", startGame)
+        premadeButton("startGame", "Start Game", "startGame()")
     }
     setupOnClick(playerColor);
 }
@@ -369,30 +353,26 @@ function flipPieces(color) {
     }
 }
 
-function preMadeButton(id, value, functionCall) {
-    let preMadeDiv = document.getElementById('preMade');
-    let preMadeLI = preMadeDiv.getElementsByTagName('li');
-    let button = "<input id=\"" + id + "\" value=\"" + value + "\" type=\"button\">";
+function premadeButton(id, value, functionCall) {
+    let premadeDiv = document.getElementById('premade');
+    let premadeLI = premadeDiv.getElementsByTagName('li');
+    let button = "<input id=\"" + id + "\" value=\"" + value + "\" onclick=\"" + functionCall + "\" type=\"button\">";
 
     // is it already on the board?
-    for (let i = 0; i < preMadeLI.length; i++) {
-        if (preMadeLI[i].innerHTML === button) {
+    for (let i = 0; i < premadeLI.length; i++) {
+        if (premadeLI[i].innerHTML === button) {
             return; // just to exit
         }
     }
 
     //if not put it on the board
-    preMadeDiv.innerHTML = (preMadeDiv.innerHTML).replace("</ul>", "") +
+    premadeDiv.innerHTML = (premadeDiv.innerHTML).replace("</ul>", "") +
         "<li>" + button + '</li></ul>';
-
-    document.getElementById(id).addEventListener('click', functionCall);
-    addEvents();
-
 }
 
-function preMadeSetup(color, setupType) {
-    document.getElementById("preMade").removeAttribute("style");
-    document.getElementById("preMade").classList.add("moveUp");
+function premadeSetup(color, setupType) {
+    document.getElementById("premade").removeAttribute("style");
+    document.getElementById("premade").classList.add("moveUp");
     let setupList = [];
     if (setupType === "defensive") {
         setupList = ["8", "8", "8", "9", "6", "9", "4", "Flag", "5", "5", "9", "9", "8", "6", "Bomb", "Bomb", "6",
@@ -409,7 +389,7 @@ function preMadeSetup(color, setupType) {
     }
 
     if (color === "blue") {
-        preMadeButton("switchSetup", "Submit", redTurn);
+        premadeButton("switchSetup", "Submit", "redTurn()");
         setupOnClick("blue");
     }
     let range = 0;
@@ -418,7 +398,7 @@ function preMadeSetup(color, setupType) {
         range = 60;
         range2 = 40;
         setupList.reverse();
-        preMadeButton("startGame", "Start Game", startGame);
+        premadeButton("startGame", "Start Game", "startGame()");
         setupOnClick("red");
     }
 
@@ -431,5 +411,3 @@ function preMadeSetup(color, setupType) {
     }
 }
 
-//`<img src="../assets/media/pieces/${color + setupList[i]}.png" id="" +
-//             color + setupList[i] + "-" + (i + range) + "\">`
