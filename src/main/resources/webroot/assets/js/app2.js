@@ -2,6 +2,10 @@
 
 document.addEventListener("DOMContentLoaded", init);
 
+let sfxStatus;
+let themeStatus;
+let musicStatus;
+
 let settings = [];
 let defaultSettings = ['Rain', 'Enabled', 'Enabled'];
 let gameMode;
@@ -43,7 +47,7 @@ function init() {
     createPersonForm.onsubmit = function (evt) {
         evt.preventDefault();
 
-        playLoadingAudio();
+        playAudio('loading');
         showWaitingForPlayers();
         let data = {
             token: tokenIn.value,
@@ -55,7 +59,7 @@ function init() {
 
         console.log("Sending:", data);
 
-        fetch("/api/person", {
+        fetch("../api/person", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -66,7 +70,7 @@ function init() {
             .then(json => responseSpan.innerHTML = JSON.stringify(json))
             .catch(error => console.error('Error:', error));
 
-        fetch("/api/details", {
+        fetch("../api/details", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -98,7 +102,7 @@ function init() {
 function sendGameMode(gameMode) {
     let data = {gameMode: gameMode};
     console.log("sending " + JSON.stringify(data));
-    fetch("/api/stratego/gameMode", {
+    fetch("../api/stratego/gameMode", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -110,6 +114,8 @@ function sendGameMode(gameMode) {
 
 }
 
+let clickForward = "click-forward"; // Because SonarQube can't do without it!
+
 function addEvents() {
 
     let classic = document.getElementById('classic');
@@ -119,9 +125,15 @@ function addEvents() {
 
     //Main menu screen
     document.getElementById('play').addEventListener('click', showGameMode);
-    document.getElementById("showRules").addEventListener('click', showRules);
-    document.getElementById("showSettings").addEventListener('click', showSettings);
-    document.getElementById("confirmExit").addEventListener('click', confirmExit);
+    document.getElementById('showRules').addEventListener('click', function () {
+        showWindow('rules')
+    });
+    document.getElementById('showSettings').addEventListener('click', function () {
+        showWindow('settings')
+    });
+    document.getElementById('confirmExit').addEventListener('click', function () {
+        showWindow('exit')
+    });
 
     //Game mode select screen
     classic.addEventListener('click', function () {
@@ -143,16 +155,16 @@ function addEvents() {
     airborne.addEventListener('mouseout', hideModeDetails);
 
     classic.addEventListener('mouseover', function () {
-        showModeDetails(0);
+        showModeDetails(0)
     });
     duel.addEventListener('mouseover', function () {
-        showModeDetails(1);
+        showModeDetails(1)
     });
     infiltrator.addEventListener('mouseover', function () {
-        showModeDetails(2);
+        showModeDetails(2)
     });
     airborne.addEventListener('mouseover', function () {
-        showModeDetails(3);
+        showModeDetails(3)
     });
 
     document.getElementById('hideGameModes').addEventListener('click', function () {
@@ -168,13 +180,17 @@ function addEvents() {
     });
 
     //Settings screen
-    document.getElementById("theme").addEventListener('click', changeTheme);
-    document.getElementById("sound").addEventListener('click', changeSfx);
-    document.getElementById("music").addEventListener('click', changeMusic);
-    document.getElementById("reset").addEventListener('click', resetSettings);
+    document.getElementById('theme').addEventListener('click', changeTheme);
+    document.getElementById('sound').addEventListener('click', function () {
+        changeAudio('sound')
+    });
+    document.getElementById('music').addEventListener('click', function () {
+        changeAudio('music')
+    });
+    document.getElementById('reset').addEventListener('click', resetSettings);
 
-    document.getElementById("saveChanges").addEventListener('click', saveChanges);
-    document.getElementById("hideSettings").addEventListener('click', function () {
+    document.getElementById('saveChanges').addEventListener('click', saveChanges);
+    document.getElementById('hideSettings').addEventListener('click', function () {
         document.getElementById('settings').classList.add('hidden');
         setSfx(sfxStatus);
         setMusic(musicStatus);
@@ -189,13 +205,28 @@ function addEvents() {
         document.getElementById('createPersonForm').classList.add('hidden');
         removeBackgroundFilters();
     });
+
     document.getElementById("cancel").addEventListener('click', cancelSearch);
+    document.getElementById('createPersonForm').addEventListener('change', getFormInfo);
 
     //Exit screen
     document.getElementById('hideExit').addEventListener('click', function () {
         document.getElementById('exit').classList.add('hidden');
         removeBackgroundFilters();
     });
+
+    //Adds hover sounds
+    let selector = document.querySelectorAll('a');
+    document.querySelector('#createPersonForm input[type=submit]')
+        .addEventListener('mouseover', function () {
+            playAudio('hover')
+        });
+
+    for (let i = 0; i < selector.length; i++) {
+        selector[i].addEventListener('mouseover', function () {
+            playAudio('hover')
+        });
+    }
 
     function removeBackgroundFilters() {
         clearHTML();
@@ -205,22 +236,10 @@ function addEvents() {
         document.getElementById('mainMenu').style.pointerEvents = '';
         document.getElementById('gameMode').style.pointerEvents = '';
     }
-
-}
-
-let selector = document.querySelectorAll('a');
-document.querySelector('#createPersonForm input[type=submit]')
-    .addEventListener('mouseover', playAudioHover);
-for (let i = 0; i < selector.length; i++) {
-    selector[i].addEventListener('mouseover', playAudioHover);
 }
 
 let allowAudio = true;
 let allowMusic = true;
-
-let sfxStatus;
-let themeStatus;
-let musicStatus;
 
 let music = new Audio('../assets/audios/bgmusic.mp3');
 
@@ -255,59 +274,26 @@ function playMusic() {
     }
 }
 
-function playAudioHover() {
+function playAudio(audio) { //possible values: loading, click-forward, hover
     if (allowAudio) {
-        let audioHover = new Audio('../audios/hover.mp3');
-        audioHover.volume = 0.5;
-        audioHover.play();
+        audio = new Audio(`../assets/audios/${audio}.mp3`);
+        audio.play();
     }
 }
 
-function playAudioForward() {
-    if (allowAudio) {
-        let audioForward = new Audio('../assets/audios/click-forward.mp3');
-        audioForward.play();
-    }
-}
-
-function playAudioBack() {
-    if (allowAudio) {
-        let audioBack = new Audio('../assets/audios/click-forward.mp3');
-        audioBack.play();
-    }
-}
-
-function playLoadingAudio() {
-    if (allowAudio) {
-        let audioLoading = new Audio('../assets/audios/loading.mp3');
-        audioLoading.play();
-    }
+function addBackgroundEffects(style) {
+    document.getElementById('mainMenu').style.filter = style;
+    document.getElementById('gameMode').style.pointerEvents = 'none';
+    document.getElementById('mainMenu').style.pointerEvents = 'none';
+    document.getElementById('gameMode').style.filter = style;
+    document.getElementById('title').style.filter = style;
 }
 
 let bgStyle = 'blur(0) brightness(50%)';
-
-function showRules() {
-    playAudioForward();
-    addBackgroundEffects();
-    document.getElementById('rules').classList.remove('hidden');
-}
-
-function showSettings() {
-    playAudioForward();
-    getCurrentSettings();
-    addBackgroundEffects();
-    document.getElementById('settings').classList.remove('hidden');
-}
-
-function confirmExit() {
-    playAudioForward();
-    addBackgroundEffects();
-    document.getElementById('exit').classList.remove('hidden');
-}
-
+let bgDarkStyle = 'blur(4px) brightness(30%)';
 
 function clearHTML() {
-    playAudioBack();
+    playAudio(clickForward);
     document.querySelectorAll('#bottom p').innerHTML = '';
     document.querySelector('#settingButtons p').innerHTML = '';
     document.getElementById('wait').classList.add('hidden');
@@ -320,8 +306,6 @@ function getCurrentSettings() {
     musicStatus = document.getElementById('music').value;
 }
 
-document.getElementById('createPersonForm').addEventListener('change', getFormInfo);
-
 function getFormInfo() {
     let name = document.getElementById('name').value;
     let age = document.getElementById('age').value;
@@ -331,24 +315,20 @@ function getFormInfo() {
     localStorage.setItem('formInfo', JSON.stringify(formInfo));
 }
 
-function changeMusic() {
-    let newMusicValue;
-    if (document.getElementById('music').value === 'Enabled') {
-        newMusicValue = 'Disabled';
-    } else {
-        newMusicValue = 'Enabled';
-    }
-    setMusic(newMusicValue);
-}
-
-function changeSfx() {
+function changeAudio(type) { //Possible values: 'music', 'sound'
     let newAudioValue;
-    if (document.getElementById('sound').value === 'Enabled') {
+    if (document.getElementById(type).value === 'Enabled') {
         newAudioValue = 'Disabled';
     } else {
         newAudioValue = 'Enabled';
     }
-    setSfx(newAudioValue)
+    if (type === 'sound') {
+        setSfx(newAudioValue)
+    } else if (type === 'music') {
+        setMusic(newAudioValue)
+    } else {
+        console.error('Invalid type input in changeAudio(type)') //Should never happen!
+    }
 }
 
 let video = document.getElementById('backgroundVideo');
@@ -383,7 +363,6 @@ function setMusic(value) {
         music.loop = true;
     }
 }
-
 
 function setSfx(value) {
     document.getElementById('sound').value = value;
@@ -440,7 +419,7 @@ function setTheme(value) {
 }
 
 function saveChanges() {
-    playAudioForward();
+    playAudio(clickForward);
     document.querySelector('#settingButtons p').innerHTML = `Changes saved!`;
     getCurrentSettings();
     settings = [themeStatus, sfxStatus, musicStatus];
@@ -455,8 +434,17 @@ function resetSettings() {
     }
 }
 
+function showWindow(windowId) { //Possible values: 'rules', 'settings', 'exit'
+    if (windowId === 'settings') {
+        getCurrentSettings();
+    }
+    playAudio(clickForward);
+    addBackgroundEffects(bgStyle);
+    document.getElementById(windowId).classList.remove('hidden');
+}
+
 function showGameMode() {
-    playAudioForward();
+    playAudio(clickForward);
 
     document.getElementById('gameMode').classList.remove('hidden');
     document.getElementById('play').style.border = '3px solid';
@@ -478,52 +466,41 @@ function hideModeDetails() {
     document.getElementById('infoBox').classList.add('hidden');
 }
 
+
 function showForm(gameMode) {
     localStorage.setItem('gameMode', JSON.stringify(gameMode));
-    playAudioForward();
+    playAudio(clickForward);
     let element = document.getElementById("createPersonForm");
     let addMode = document.querySelector('#mode');
     element.classList.remove("hidden");
     document.querySelector('#createPersonForm span').innerHTML = '';
-    addMode.innerHTML = `Game mode: ${gameMode}`
-    addBackgroundEffects();
-
-
+    addMode.innerHTML = `Game mode: ${gameMode}`;
+    addBackgroundEffects(bgStyle);
 }
 
-function addBackgroundEffects() {
-    document.getElementById('mainMenu').style.filter = bgStyle;
-    document.getElementById('gameMode').style.pointerEvents = 'none';
-    document.getElementById('mainMenu').style.pointerEvents = 'none';
-    document.getElementById('mainMenu').style.filter = bgStyle;
-    document.getElementById('gameMode').style.filter = bgStyle;
-    document.getElementById('title').style.filter = bgStyle;
-}
-
-let bgDarkStyle = 'blur(4px) brightness(30%)';
 let timeVar;
 
 function showWaitingForPlayers() {
-    playAudioForward();
+
+    playAudio(clickForward);
+    addBackgroundEffects(bgDarkStyle);
+
     let element = document.getElementById('wait');
+
     element.classList.remove('hidden');
+    element.style.color = "#ffffff";
     document.getElementById('response').classList.add('hidden');
     document.getElementById('loadingMsg').classList.remove('hidden');
     document.getElementById('loader').classList.remove('hidden');
     document.getElementById('details').classList.add('hidden');
     document.querySelector('#wait p').innerHTML = `Waiting for second player...`;
-    element.style.color = "#ffffff";
-    document.getElementById('gameMode').style.pointerEvents = 'none';
-    document.getElementById('mainMenu').style.pointerEvents = 'none';
     document.getElementById('createPersonForm').style.pointerEvents = 'none';
     document.getElementById('createPersonForm').style.filter = bgDarkStyle;
-    document.getElementById('title').style.filter = bgDarkStyle;
-    document.getElementById('mainMenu').style.filter = bgDarkStyle;
-    document.getElementById('gameMode').style.filter = bgDarkStyle;
     document.getElementById('backgroundVideo').style.filter = 'blur(8px) brightness(30%)';
+
     timeVar = setTimeout(() => {
         initializeGame()
-    }, 3000)
+    }, 1500)
 }
 
 function initializeGame() {
@@ -533,20 +510,18 @@ function initializeGame() {
     document.getElementById('details').classList.remove('hidden');
 
     timeVar = setTimeout(() => {
-        window.location.href = "/pages/wait2.html"
-    }, 2000)
+        window.location.href = "wait2.html"
+    }, 1000)
 }
 
 function cancelSearch() {
-    playAudioBack();
+    playAudio(clickForward);
+    addBackgroundEffects(bgStyle);
     document.querySelector('#buttons span').innerHTML = `<h1>Search canceled.</h1>`;
     document.querySelector('#buttons span').style.color = 'rgba(255, 77, 77, 0.8)';
     document.getElementById('createPersonForm').style.pointerEvents = '';
     document.getElementById('wait').classList.add('hidden');
     document.getElementById('createPersonForm').style.filter = '';
-    document.getElementById('mainMenu').style.filter = bgStyle;
-    document.getElementById('gameMode').style.filter = bgStyle;
-    document.getElementById('title').style.filter = bgStyle;
     document.getElementById('backgroundVideo').style.filter = 'blur(7px)';
     clearTimeout(timeVar);
 }
