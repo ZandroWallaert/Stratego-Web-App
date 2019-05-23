@@ -262,6 +262,14 @@ function activateDot(movedFromSquare, movedToSquare, type) {
 
     document.getElementById("listenForClick" + movedToSquare).onclick = function () {
         dotClicked(movedFromSquare, movedToSquare);
+        let beginX = movedFromSquare % 10;
+        let beginY = (movedFromSquare - (movedFromSquare % 10)) / 10;
+        let beginCoordinates = [beginX, beginY];
+        console.log(beginCoordinates);
+        let endX = movedToSquare % 10;
+        let endY = (movedToSquare - (movedToSquare % 10)) / 10;
+        let endCoordinates = [endX, endY];
+        console.log(endCoordinates);
     };
 }
 
@@ -387,7 +395,9 @@ function dotClicked(movedFromSquare, movedToSquare) {
             .then(res => res.json())
             .then(json => console.log(JSON.stringify(json)));
         console.log(JSON.stringify(data));
-
+        fetch('/api/board').then(res => res.json()).then(function (response) {
+            console.log(response);
+        });
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }

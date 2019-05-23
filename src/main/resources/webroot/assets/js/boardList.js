@@ -262,6 +262,27 @@ function activateDot(movedFromSquare, movedToSquare, type) {
 
     document.getElementById("listenForClick" + movedToSquare).onclick = function () {
         dotClicked(movedFromSquare, movedToSquare);
+        let beginX = movedFromSquare % 10;
+        let beginY = (movedFromSquare - (movedFromSquare % 10)) / 10;
+        let beginCoordinates = [beginX, beginY];
+        console.log(beginCoordinates);
+        let endX = movedToSquare % 10;
+        let endY = (movedToSquare - (movedToSquare % 10)) / 10;
+        let endCoordinates = [endX, endY];
+        beginCoordinates.push(endCoordinates);
+        let data = {data: beginCoordinates.toString()};
+        fetch("/api/movePawn", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+        console.log(JSON.stringify(data));
+        console.log(endCoordinates);
+        getBoard();
     };
 }
 
@@ -362,18 +383,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
         }
         flipPieces("blue");
         console.log(Switch);
-        let data = {data: "nextTurn"};
-        fetch("/api/nextTurn2", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(json => console.log(JSON.stringify(json)));
-        console.log(JSON.stringify(data));
-
+        getBoard();
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
@@ -527,5 +537,22 @@ function deleteAllDots() {
                 "(<div class=\"moveCircleCombat\" id=\"listenForClick.\"></div>)", "g"), "");
         }
     }
+}
+
+function getBoard() {
+    let data = {data: "nextTurn"};
+    fetch("/api/nextTurn2", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+        .then(json => console.log(JSON.stringify(json)));
+    console.log(JSON.stringify(data));
+    fetch('/api/board').then(res => res.json()).then(function (response) {
+        console.log(response);
+    });
 }
 
