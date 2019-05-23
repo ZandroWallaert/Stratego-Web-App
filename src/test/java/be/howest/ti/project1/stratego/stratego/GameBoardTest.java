@@ -168,4 +168,3 @@ public class GameBoardTest {
         assertFalse(b.checkIsMoveOverPawn(new Coordinates(9, 9), new Coordinates(9, 9)));
     }
 }
-
