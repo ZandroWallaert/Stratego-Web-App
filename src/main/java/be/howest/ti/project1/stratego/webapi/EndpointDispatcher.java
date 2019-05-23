@@ -24,6 +24,8 @@ class EndpointDispatcher {
     private TurnRequest turn2;
     private MessageRequest blueSetup;
     private MessageRequest redSetup;
+    private MessageRequest nextTurn1;
+    private MessageRequest nextTurn2;
 
 
     public EndpointDispatcher() {
@@ -34,6 +36,8 @@ class EndpointDispatcher {
         turn2 = new TurnRequest();
         blueSetup = new MessageRequest();
         redSetup = new MessageRequest();
+        nextTurn1 = new MessageRequest();
+        nextTurn2 = new MessageRequest();
     }
 
     private void sendJson(HttpServerResponse res, Object object) {
@@ -93,6 +97,11 @@ class EndpointDispatcher {
 
         router.get("/api/blueSetup").handler(this::getBlueSetup);
         router.get("/api/redSetup").handler(this::getRedSetup);
+
+        router.post("/api/nextTurn1").handler(BodyHandler.create()).handler(this::nextTurnFrom2);
+        router.post("/api/nextTurn2").handler(BodyHandler.create()).handler(this::nextTurnFrom1);
+        router.get("/api/nextTurn1").handler(this::getNextTurnFor1);
+        router.get("/api/nextTurn2").handler(this::getNextTurnFor2);
     }
 
 
@@ -330,6 +339,30 @@ class EndpointDispatcher {
 
     private void getBlueSetup(RoutingContext routingContext) {
         sendJson(routingContext.response(), blueSetup.getData());
+    }
+
+    private void nextTurnFrom1(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        MessageRequest data = Json.decodeValue(body, MessageRequest.class);
+        nextTurn1.setData(data.getData());
+        System.out.println(nextTurn1.getData());
+        routingContext.response().end("\"received: " + nextTurn1.getData() + "\"");
+    }
+
+    private void nextTurnFrom2(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        MessageRequest data = Json.decodeValue(body, MessageRequest.class);
+        nextTurn2.setData(data.getData());
+        System.out.println(nextTurn2.getData());
+        routingContext.response().end("\"received: " + nextTurn2.getData() + "\"");
+    }
+
+    private void getNextTurnFor1(RoutingContext routingContext) {
+        sendJson(routingContext.response(), nextTurn2.getData());
+    }
+
+    private void getNextTurnFor2(RoutingContext routingContext) {
+        sendJson(routingContext.response(), nextTurn1.getData());
     }
 }
 

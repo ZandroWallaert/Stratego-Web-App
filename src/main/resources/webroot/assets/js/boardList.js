@@ -140,7 +140,7 @@ function setupClick() {
     let squareList = document.getElementById('squareList');
     squareList.onclick = function (e) {
         deleteAllDots();
-        if (colorOfClick(e.target.id) === localStorage.getItem("turn")) {
+        if (colorOfClick(e.target.id) === "blue") {
             posmoves(e.target.id);
         } else {
             setupClick();
@@ -348,7 +348,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
 
     lItems[movedFromSquare].innerHTML = "<div id=\"blankSquare-" + movedFromSquare + "\">"; // blank square leaving piece
     deleteAllDots();
-    let currentTurn = localStorage.getItem("turn");
+    let currentTurn = localStorage.getItem("turn"); //starts with other color
     if (currentTurn === "blue") {
         localStorage.setItem("turn", "red");
     } else {
@@ -361,11 +361,22 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("blue");
+        console.log(Switch);
+        let data = {data: "nextTurn"};
+        fetch("/api/nextTurn2", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+        console.log(JSON.stringify(data));
+
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
-
-        flipPieces("red");
         if (result === -1) {
             flipSinglePiece(squareID2);
         }
@@ -374,6 +385,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("red");
+        console.log(Switch);
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
@@ -382,7 +394,6 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(squareID2);
         }
     }
-    setupClick();
 }
 
 function recursive(movedToSquare, direction, movedFromSquare) {
