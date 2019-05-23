@@ -111,6 +111,9 @@ class EndpointDispatcher {
         router.get("/api/nextTurn2").handler(this::getNextTurnFor2);
 
         router.post("/api/movePawn").handler(BodyHandler.create()).handler(this::movePawn);
+
+        router.post("/api/set1ToNull").handler(BodyHandler.create()).handler(this::set1ToNull);
+        router.post("/api/set2ToNull").handler(BodyHandler.create()).handler(this::set2ToNull);
     }
 
     private void movePawn(RoutingContext routingContext) {
@@ -127,7 +130,7 @@ class EndpointDispatcher {
     }
 
     private void getBoard(RoutingContext routingContext) {
-        sendJson(routingContext.response(), strategoApplication.getGameBoard().toString());
+        sendJson(routingContext.response(), strategoApplication.getGameBoard());
     }
 
     private void setDetails(RoutingContext routingContext) {
@@ -388,6 +391,18 @@ class EndpointDispatcher {
 
     private void getNextTurnFor2(RoutingContext routingContext) {
         sendJson(routingContext.response(), nextTurn1.getData());
+    }
+
+    private void set2ToNull(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        nextTurn2.setData("");
+        System.out.println("cleared " + nextTurn2.getData());
+    }
+
+    private void set1ToNull(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        nextTurn1.setData("");
+        System.out.println("cleared " + nextTurn1.getData());
     }
 }
 

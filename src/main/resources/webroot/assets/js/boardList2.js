@@ -6,6 +6,8 @@ let lItems;
 let currentSquare;
 let lines;
 let pieceHolder;
+let turn;
+let turnOk;
 
 function init() {
     setupPage();
@@ -15,7 +17,7 @@ function init() {
     pieceHolder = document.getElementById('pieceHolder');
     localStorage.setItem("turn", "blue");
     document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
-    setupClick();
+    getConfirm();
 }
 
 function setupPage() {
@@ -137,15 +139,19 @@ function setupPage() {
 }
 
 function setupClick() {
-    let squareList = document.getElementById('squareList');
-    squareList.onclick = function (e) {
-        deleteAllDots();
-        if (colorOfClick(e.target.id) === "red") {
-            posmoves(e.target.id);
-        } else {
-            setupClick();
+    if (turn === "red") {
+        let squareList = document.getElementById('squareList');
+        squareList.onclick = function (e) {
+            deleteAllDots();
+            if (turnOk) {
+                if (colorOfClick(e.target.id) === "red") {
+                    posmoves(e.target.id);
+                } else {
+                    setupClick();
+                }
+            }
         }
-    };
+    }
 }
 
 function posmoves(pieceName) {
@@ -155,8 +161,6 @@ function posmoves(pieceName) {
     let square = pieceName.split("-")[1]; // the position on the board
     square = parseInt(square, 10);
     color = colorOfClick(pieceName);
-
-    setupClick();
 
     if (name === "Bomb" || name === "Flag" || name === "lakeSquare" || name === "blankSquare")
         return; // if it's a piece that can't move
@@ -269,7 +273,22 @@ function activateDot(movedFromSquare, movedToSquare, type) {
         let endX = movedToSquare % 10;
         let endY = (movedToSquare - (movedToSquare % 10)) / 10;
         let endCoordinates = [endX, endY];
+        beginCoordinates.push(endCoordinates);
+        let data = {data: beginCoordinates.toString()};
+        fetch("/api/movePawn", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+        console.log(JSON.stringify(data));
         console.log(endCoordinates);
+        getBoard();
+        sendTurn();
+        getConfirm();
     };
 }
 
@@ -488,20 +507,6 @@ function flipPieces(color) {
     }
 }
 
-function turnRed() {
-    for (let i = 0; i < 100; i++) {
-        let line = lines[i].innerHTML;
-        if (line.indexOf("red") !== -1) {
-            if (line.indexOf("red" + "Back") !== -1) {
-                let lineID = line.split("-")[0].split("id=\"")[1];
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), pieces + lineID + ".png");
-            } else {
-                lines[i].innerHTML = line.replace(new RegExp("/(.*)png", "g"), pieces + "red" + "Back.png");
-            }
-        }
-    }
-}
-
 // a function to switch the backs of the pieces
 function flipSinglePiece(pieceName) {
 
@@ -538,5 +543,172 @@ function deleteAllDots() {
                 "(<div class=\"moveCircleCombat\" id=\"listenForClick.\"></div>)", "g"), "");
         }
     }
+}
+
+function getBoard() {
+    fetch('/api/board').then(res => res.json()).then(function (response) {
+        let gameboard = Object.values(response);
+        let boardArray = [];
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                if (gameboard[0][i][j] === null) {
+                    boardArray.push(null);
+                } else {
+                    let code = gameboard[0][i][j].rank + "-" + gameboard[0][i][j].player;
+                    boardArray.push(code);
+                }
+            }
+        }
+        console.log(boardArray);
+        let color = "";
+        let boardLines = document.getElementById("squareList").getElementsByTagName("li");
+        for (let i = 0; i < 100; i++) {
+            let code = boardArray[i];
+            switch (code) {
+                case '3-1':
+                    code = '8';
+                    color = "red";
+                    break;
+                case '1-1':
+                    code = 'Spy';
+                    color = "red";
+                    break;
+                case '2-1':
+                    code = '9';
+                    color = "red";
+                    break;
+                case '6-1':
+                    code = '5';
+                    color = "red";
+                    break;
+                case '5-1':
+                    code = '6';
+                    color = "red";
+                    break;
+                case '7-1':
+                    code = '4';
+                    color = "red";
+                    break;
+                case '10-1':
+                    code = '1';
+                    color = "red";
+                    break;
+                case '4-1':
+                    code = '7';
+                    color = "red";
+                    break;
+                case '8-1':
+                    code = '3';
+                    color = "red";
+                    break;
+                case '9-1':
+                    code = '2';
+                    color = "red";
+                    break;
+                case '11-1':
+                    code = 'Bomb';
+                    color = "red";
+                    break;
+                case '0-1':
+                    code = 'Flag';
+                    color = "red";
+                    break;
+                case '3-2':
+                    code = '8';
+                    color = "blue";
+                    break;
+                case '1-2':
+                    code = 'Spy';
+                    color = "blue";
+                    break;
+                case '2-2':
+                    code = '9';
+                    color = "blue";
+                    break;
+                case '6-2':
+                    code = '5';
+                    color = "blue";
+                    break;
+                case '5-2':
+                    code = '6';
+                    color = "blue";
+                    break;
+                case '7-2':
+                    code = '4';
+                    color = "blue";
+                    break;
+                case '10-2':
+                    code = '1';
+                    color = "blue";
+                    break;
+                case '4-2':
+                    code = '7';
+                    color = "blue";
+                    break;
+                case '8-2':
+                    code = '3';
+                    color = "blue";
+                    break;
+                case '9-2':
+                    code = '2';
+                    color = "blue";
+                    break;
+                case '11-2':
+                    code = 'Bomb';
+                    color = "blue";
+                    break;
+                case '0-2':
+                    code = 'Flag';
+                    color = "blue";
+                    break;
+            }
+            if (boardArray[i] === null && i === 42 || 43 || 46 || 47 || 52 || 53 || 56 || 57) {
+                boardLines[i].innerHTML = "<div id=\"lakeSquare-" + i + "\"></div>";
+            }
+            if (boardArray[i] === null) {
+                boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
+            } else {
+                boardLines[i].innerHTML = "<img src=\"../assets/media/pieces/" + color + code + ".png\" id=\"" +
+                    color + code + "-" + (i) + "\">";
+            }
+        }
+    })
+}
+
+function getConfirm() {
+    console.log('Retrieving messages...');
+    fetch('/api/nextTurn2').then(res => res.json()).then(function (response) {
+        console.log(response);
+        if (response === "Turn") {
+            console.log("Retrieving board.....");
+            getBoard();
+            turn = "red";
+            turnOk = true;
+            setupClick();
+            fetch("/api/set1ToNull", {
+                method: "POST",
+                body: JSON.stringify({data: "null"}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        }
+        setTimeout(getConfirm, 2000);
+    })
+}
+
+function sendTurn() {
+    let data = {data: "Turn"};
+    fetch("/api/nextTurn1", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+        .then(json => console.log(JSON.stringify(json)));
+    turn = "blue";
+    turnOk = false;
 }
 
