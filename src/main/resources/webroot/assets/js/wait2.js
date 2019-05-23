@@ -17,7 +17,7 @@ function getConfirm() {
 function makeNextTurn(res) {
     console.log(res);
     if (res === 'goNext') {
-        location.href = 'pages/setup2.html'
+        location.href = 'setup2.html'
     } else {
         console.log("error");
     }
