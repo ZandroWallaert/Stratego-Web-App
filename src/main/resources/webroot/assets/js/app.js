@@ -114,7 +114,7 @@ function sendGameMode(gameMode) {
 
 }
 
-let clickForward = "click-forward"; // Because SonarQube can't do without it!
+let clickForward = "click-forward";
 
 function addEvents() {
 
@@ -211,7 +211,6 @@ function addEvents() {
         document.getElementById('mainMenu').style.pointerEvents = '';
         document.getElementById('gameMode').style.pointerEvents = '';
     }
-
 }
 
 let selector = document.querySelectorAll('a');
@@ -277,6 +276,7 @@ function addBackgroundEffects(style) {
 }
 
 let bgStyle = 'blur(0) brightness(50%)';
+let bgDarkStyle = 'blur(4px) brightness(30%)';
 
 function showRules() {
     playAudio(clickForward);
@@ -296,7 +296,6 @@ function confirmExit() {
     addBackgroundEffects(bgStyle);
     document.getElementById('exit').classList.remove('hidden');
 }
-
 
 function clearHTML() {
     playAudio(clickForward);
@@ -375,7 +374,6 @@ function setMusic(value) {
         music.loop = true;
     }
 }
-
 
 function setSfx(value) {
     document.getElementById('sound').value = value;
@@ -470,7 +468,6 @@ function hideModeDetails() {
     document.getElementById('infoBox').classList.add('hidden');
 }
 
-
 function showForm(gameMode) {
     localStorage.setItem('gameMode', JSON.stringify(gameMode));
     playAudio(clickForward);
@@ -482,8 +479,6 @@ function showForm(gameMode) {
     addBackgroundEffects(bgStyle);
 }
 
-
-let bgDarkStyle = 'blur(4px) brightness(30%)';
 let timeVar;
 
 function showWaitingForPlayers() {

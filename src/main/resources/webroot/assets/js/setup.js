@@ -58,7 +58,6 @@ function endGame(isWon) { //Test
     }
 }
 
-
 function setupPage() {
     let lake = document.getElementById("lake1");
     let lake2 = document.getElementById("lake2");
@@ -167,11 +166,13 @@ function redTurn() {
 
 function setupOnClick(playerColor) {
     squareList.onclick = function (e) {
+        console.log('clicked square');
         deleteAllDots();
         boardPiecePlacement(e.target.id, playerColor);
     };
 
     pieceHolder.onclick = function (e) {
+        console.log('clicked piece');
         deleteAllDots();
         sidePiecePlacement(e.target.id, playerColor);
     };
@@ -195,6 +196,7 @@ function sidePiecePlacement(pieceName, playerColor) {
     }
 
     if (color === "blue" && playerColor === "blue") { // if it is a blue piece, only check the top half of the board
+        console.log('reached');
         activateDotBoard(0);
     } else if (color === "red" && playerColor === "red") { // if it is a red piece, check the bottom part
         activateDotBoard(60);
@@ -202,8 +204,6 @@ function sidePiecePlacement(pieceName, playerColor) {
 }
 
 function boardPiecePlacement(pieceName, playerColor) {
-
-    setupOnClick(playerColor);
 
     color = colorOfClick(pieceName);
     square = pieceName.split("-")[1];
@@ -225,6 +225,8 @@ function boardPiecePlacement(pieceName, playerColor) {
     } else if (color === "red" && playerColor === "red") { // if it is a red piece, check the bottom part
         activate(60, 20);
     }
+
+    setupOnClick('blue')
 }
 
 function checkStatus(squareNumber, movedFromSquare) {
@@ -428,3 +430,6 @@ function preMadeSetup(color, setupType) {
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
 }
+
+//`<img src="../assets/media/pieces/${color + setupList[i]}.png" id="" +
+//             color + setupList[i] + "-" + (i + range) + "\">`
