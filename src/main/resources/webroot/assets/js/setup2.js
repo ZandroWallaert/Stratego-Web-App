@@ -51,6 +51,30 @@ function addEvents() {
     });
 }
 
+function addSecondEvents() {
+
+    document.getElementById('showEndGame').addEventListener('click', endGame); //Test
+
+    let buttons = document.getElementsByClassName('PreMadeBtn');
+
+
+    buttons[0].addEventListener('click', function () {
+        preMadeSetup('red', 'defensive');
+        addSecondEvents();
+    });
+
+    buttons[1].addEventListener('click', function () {
+        preMadeSetup('red', 'offensive');
+        addSecondEvents();
+    });
+
+    buttons[2].addEventListener('click', function () {
+        preMadeSetup('red', 'mixed');
+        addSecondEvents();
+    });
+
+}
+
 function endGame(isWon) { //Test
     if (isWon) {
         document.getElementById('victory').classList.remove('hidden')
@@ -157,12 +181,11 @@ function redTurn() {
     setupOnClick("red");
     let setupDiv = document.getElementById('preMade');
     setupDiv.innerHTML = '<ul><li><input class="PreMadeBtn" id="switchSetup" type="button" value="Defensive" ' +
-        'onclick="preMadeSetup(\'red\',\'defensive\')" /></li><li><input class="PreMadeBtn" id="switchSetup" type="button" ' +
-        'value="Offensive" onclick="preMadeSetup(\'red\',\'offensive\')" /></li><li><input class="PreMadeBtn" id="switchSetup" ' +
-        'type="button" value="Mixed" onclick="preMadeSetup(\'red\',\'mixed\')" /></li></ul>';
+        '/></li><li><input class="PreMadeBtn" id="switchSetup" type="button" ' +
+        'value="Offensive"/></li><li><input class="PreMadeBtn" id="switchSetup" ' +
+        'type="button" value="Mixed"/></li></ul>';
 
-    console.log(document.getElementById("switchSetup").value);
-
+    addSecondEvents();
 }
 
 function setupOnClick(playerColor) {
@@ -385,7 +408,6 @@ function preMadeButton(id, value, functionCall) {
 
     document.getElementById(id).addEventListener('click', functionCall);
 
-
 }
 
 function preMadeSetup(color, setupType) {
@@ -427,4 +449,5 @@ function preMadeSetup(color, setupType) {
             color + setupList[i] + "-" + (i + range) + "\">";
         sideLines[i + range2].innerHTML = "<div id=\"blankSquare-" + (i + range2) + "\"></div>";
     }
+
 }
