@@ -84,9 +84,9 @@ public class Stratego {
                 this.pawns = new PawnCollection(GameMode.INFILTRATOR);
                 return true;
 
-            case "airborn":
-                this.gameMode = GameMode.AIRBORN;
-                this.pawns = new PawnCollection(GameMode.AIRBORN);
+            case "airborne":
+                this.gameMode = GameMode.AIRBORNE;
+                this.pawns = new PawnCollection(GameMode.AIRBORNE);
                 return true;
             default:
                 return false;
