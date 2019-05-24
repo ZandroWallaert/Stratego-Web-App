@@ -130,7 +130,7 @@ class EndpointDispatcher {
     }
 
     private void getBoard(RoutingContext routingContext) {
-        sendJson(routingContext.response(), strategoApplication.getGameBoard().toString());
+        sendJson(routingContext.response(), strategoApplication.getGameBoard());
     }
 
     private void setDetails(RoutingContext routingContext) {
