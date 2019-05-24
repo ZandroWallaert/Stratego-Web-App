@@ -237,15 +237,22 @@ body {
     transform: scale(-1, 1);
 }
 
-#gameMode #Airborn {
-    filter: brightness(8%);
+#gameMode #airborne, #gameMode #duel, #gameMode #infiltrator {
+    filter: brightness(30%);
     box-shadow: none;
-    margin-bottom: 1.875rem;
 }
 
-#gameMode #Airborn:hover {
-    background-color: rgba(0, 66, 128, 0.50);
-    filter: brightness(8%);
+#gameMode span {
+    position: absolute;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bolder;
+    color: red;
+    left: 6rem;
+    margin-top: 4rem;
+    transform: rotate(20deg);
+    filter: brightness(50%);
+    font-family: impact, sans-serif;
 }
 
 #gameMode h4 {
