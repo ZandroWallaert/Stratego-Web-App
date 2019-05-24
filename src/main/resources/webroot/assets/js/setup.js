@@ -6,7 +6,7 @@ let pieceHolder;
 let name;
 let color;
 let square;
-let playerColor;
+const playerColor = document.body.title;
 let gameMode;
 
 function init() {
@@ -17,6 +17,10 @@ function init() {
     squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
     setupPage();
+    if (playerColor === 'red') {
+        preMadeSetup('blue', 'defensive');
+        redTurn();
+    }
 
     //const nameSpan = document.getElementById('username');
 
@@ -37,17 +41,41 @@ function addEvents() {
     document.getElementById('showEndGame').addEventListener('click', endGame); //Test
 
     document.getElementById('defensive').addEventListener('click', function () {
-        preMadeSetup('blue', 'defensive')
+        preMadeSetup(playerColor, 'defensive')
     });
 
     document.getElementById('offensive').addEventListener('click', function () {
-        preMadeSetup('blue', 'offensive')
+        preMadeSetup(playerColor, 'offensive')
     });
 
     document.getElementById('mixed').addEventListener('click', function () {
-        preMadeSetup('blue', 'mixed')
+        preMadeSetup(playerColor, 'mixed')
 
     });
+}
+
+function addSecondEvents() {
+
+    document.getElementById('showEndGame').addEventListener('click', endGame); //Test
+
+    let buttons = document.getElementsByClassName('PreMadeBtn');
+
+
+    buttons[0].addEventListener('click', function () {
+        preMadeSetup(playerColor, 'defensive');
+        addSecondEvents();
+    });
+
+    buttons[1].addEventListener('click', function () {
+        preMadeSetup(playerColor, 'offensive');
+        addSecondEvents();
+    });
+
+    buttons[2].addEventListener('click', function () {
+        preMadeSetup(playerColor, 'mixed');
+        addSecondEvents();
+    });
+
 }
 
 function endGame(isWon) { //Test
@@ -71,14 +99,17 @@ function setupPage() {
     <div id="blankSquare-${i}"></div>
         </li>`);
     }
+    if (playerColor === 'red') {
+        squareList.innerHTML = localStorage.getItem('setup')
+    }
 }
 
 window.onload = function () {
-    document.querySelector("body h1").innerHTML = ("First Player Setup (Blue)");
-    setupOnClick("blue");
+    document.querySelector("body h1").innerHTML = `Setup ${playerColor}`;
+    setupOnClick(playerColor);
 };
 
-function startGame() {
+function startGameBlue() {
     let listTextStr = document.getElementById('squareList').innerHTML;
     localStorage.setItem('setup', listTextStr);
     let blueSetupSubmit = [];
@@ -135,17 +166,103 @@ function startGame() {
     console.log(blueSetupSubmit);
 }
 
+function startGameRed() {
+    sendNextTurn();
+
+    function sendNextTurn() {
+        let turn = {data: "goNext"};
+        fetch("/api/next1", {
+            method: "POST",
+            body: JSON.stringify(turn),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+        console.log(JSON.stringify(turn));
+    }
+
+    let redSetupSubmit = [];
+    let list = document.getElementById('squareList').getElementsByTagName("li");
+    console.log(list);
+    for (let i = 60; i < 100; i++) {
+        let html = list[i].firstChild;
+        let first = html.id.split("-", 1);
+        let second = first[0].split("d");
+        let code = second[1];
+        switch (code) {
+            case '8':
+                code = 3;
+                break;
+            case '9':
+                code = 2;
+                break;
+            case '5':
+                code = 6;
+                break;
+            case '6':
+                code = 5;
+                break;
+            case '4':
+                code = 7;
+                break;
+            case '1':
+                code = 10;
+                break;
+            case '7':
+                code = 4;
+                break;
+            case '3':
+                code = 8;
+                break;
+            case '2':
+                code = 9;
+                break;
+            default:
+                break;
+        }
+        redSetupSubmit.push(code);
+    }
+    let redPawns = {pawns: redSetupSubmit.toString()};
+    console.log("sending " + JSON.stringify(redPawns));
+    fetch("../api/stratego/redPawns", {
+        method: "POST",
+        body: JSON.stringify(redPawns),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+        .then(json => console.log(JSON.stringify(json)));
+    console.log(redSetupSubmit);
+    window.location.assign("/pages/boardList2.html");
+}
+
 function redTurn() {
-    startGame();
+
+    document.querySelector("body h1").innerHTML = `Setup ${playerColor}`;
+
+    if (playerColor === 'blue') {
+        startGameBlue();
+    }
+
     flipPieces("blue");
     setupOnClick("red");
     let setupDiv = document.getElementById('preMade');
     setupDiv.innerHTML = `<ul>
-                             <li><input id="switchSetup" type="button" value="Defensive"></li>
-                             <li><input id="switchSetup" type="button" value="Offensive"></li>
-                             <li><input id="switchSetup" type="button" value="Mixed"></li>
+                             <li><input class="PreMadeBtn" id="switchSetup" type="button" value="Defensive"></li>
+                             <li><input class="PreMadeBtn" id="switchSetup" type="button" value="Offensive"></li>
+                             <li><input class="PreMadeBtn" id="switchSetup" type="button" value="Mixed"></li>
                           </ul>`;
-    sendNextTurn();
+
+    if (playerColor === 'blue') {
+        sendNextTurn();
+    }
+
+    if (playerColor === 'red') {
+        addSecondEvents();
+    }
     function sendNextTurn() {
         let turn = {data: "goNext"};
         fetch("../api/next2", {
@@ -164,21 +281,21 @@ function redTurn() {
     }
 }
 
-function setupOnClick(playerColor) {
+function setupOnClick(setupColor) {
     squareList.onclick = function (e) {
         deleteAllDots();
-        boardPiecePlacement(e.target.id, playerColor);
+        boardPiecePlacement(e.target.id, setupColor);
     };
 
     pieceHolder.onclick = function (e) {
         deleteAllDots();
-        sidePiecePlacement(e.target.id, playerColor);
+        sidePiecePlacement(e.target.id, setupColor);
     };
 }
 
-function sidePiecePlacement(pieceName, playerColor) {
+function sidePiecePlacement(pieceName, setupColor) {
 
-    setupOnClick(playerColor);
+    setupOnClick(setupColor);
 
     name = pieceName.split("-")[0].replace("blue", "").replace("red", "");
     color = colorOfClick(pieceName);
@@ -193,15 +310,20 @@ function sidePiecePlacement(pieceName, playerColor) {
         }
     }
 
-    if (color === "blue" && playerColor === "blue") { // if it is a blue piece, only check the top half of the board
-        console.log('reached');
+    if (color === "blue" && setupColor === "blue") { // if it is a blue piece, only check the top half of the board
         activateDotBoard(0);
-    } else if (color === "red" && playerColor === "red") { // if it is a red piece, check the bottom part
+    } else if (color === "red" && setupColor === "red") { // if it is a red piece, check the bottom part
         activateDotBoard(60);
     }
 }
 
-function boardPiecePlacement(pieceName, playerColor) {
+function boardPiecePlacement(pieceName, setupColor) {
+
+    if (playerColor === 'red') {
+        setupOnClick('red')
+    } else {
+        setupOnClick('blue')
+    }
 
     color = colorOfClick(pieceName);
     square = pieceName.split("-")[1];
@@ -218,13 +340,11 @@ function boardPiecePlacement(pieceName, playerColor) {
         }
     }
 
-    if (color === "blue" && playerColor === "blue") { // if it is a blue piece, only check the top half of the board
+    if (color === "blue" && setupColor === "blue") { // if it is a blue piece, only check the top half of the board
         activate(0, 0);
-    } else if (color === "red" && playerColor === "red") { // if it is a red piece, check the bottom part
+    } else if (color === "red" && setupColor === "red") { // if it is a red piece, check the bottom part
         activate(60, 20);
     }
-
-    setupOnClick('blue')
 }
 
 function checkStatus(squareNumber, movedFromSquare) {
@@ -304,7 +424,6 @@ function dotClicked(movedFromSquare, movedToSquare, type) {
         board[movedToSquare].innerHTML = movedFromHTMLUpdated;
     }
 
-    playerColor = colorOfClick(squareID1); //used to tell whose turn it is
     let sideboardInner = pieceHolder.innerHTML;
 
     if (((sideboardInner.match(/blankSquare/g)).length) >= 40 && playerColor === "blue") {
@@ -312,7 +431,12 @@ function dotClicked(movedFromSquare, movedToSquare, type) {
     }
 
     if (((sideboardInner.match(/blankSquare/g)).length) >= 80) {
-        preMadeButton("startGame", "Start Game", startGame)
+        if (playerColor === 'blue') {
+            preMadeButton("startGame", "Start Game", startGameBlue)
+        } else {
+
+            preMadeButton("startGame", "Start Game", startGameRed)
+        }
     }
     setupOnClick(playerColor);
 }
@@ -343,11 +467,17 @@ function deleteAllDots() {
         }
     }
 
-    deleteDots("squareList", 50);
-    deleteDots("pieceHolder", 40);
+    if (playerColor === 'blue') {
+        deleteDots("squareList", 50);
+        deleteDots("pieceHolder", 40);
+    } else {
+        deleteDots("squareList", 100);
+        deleteDots("pieceHolder", 80);
+    }
 }
 
 function flipPieces(color) {
+    console.log('flipPieces: ' + color);
     let lines = document.getElementById("squareList").getElementsByTagName("li");
 
     for (let i = 0; i < 100; i++) {
@@ -384,7 +514,9 @@ function preMadeButton(id, value, functionCall) {
         "<li>" + button + '</li></ul>';
 
     document.getElementById(id).addEventListener('click', functionCall);
-    addEvents();
+    if (playerColor === 'blue') {
+        addEvents();
+    }
 
 }
 
@@ -416,7 +548,11 @@ function preMadeSetup(color, setupType) {
         range = 60;
         range2 = 40;
         setupList.reverse();
-        preMadeButton("startGame", "Start Game", startGame);
+        if (playerColor === 'blue') {
+            preMadeButton("startGame", "Start Game", startGameBlue)
+        } else {
+            preMadeButton("startGame", "Start Game", startGameRed)
+        }
         setupOnClick("red");
     }
 
