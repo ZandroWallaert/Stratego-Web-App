@@ -583,6 +583,24 @@ input[type=text]:focus, input[type=number]:focus {
     margin-top: -1.5rem;
 }
 
+#attackingRules1 {
+    display: flex;
+}
+
+#rank7 {
+    height: 7rem;
+    margin-top: 1.7rem;
+}
+
+#attackingRules2 {
+    display: flex;
+}
+
+#rank1 {
+    height: 6rem;
+    margin-top: 0.5rem;
+}
+
 #theInfiltratorRules {
     display: flex
 }
