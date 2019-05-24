@@ -3,21 +3,36 @@
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
-    getConfirm();
+    if (document.body.title === "wait1") {
+        getConfirm(1);
+    } else {
+        getConfirm(2)
+    }
 }
 
-function getConfirm() {
+function getConfirm(i) {
+    console.log(i);
+    let fetchLink;
+    if (i === 1) {
+        fetchLink = '../api/next1';
+    } else {
+        fetchLink = '../api/next2';
+    }
     console.log('Retrieving messages...');
-    fetch('../api/next1').then(res => res.json()).then(function (response) {
+    fetch(fetchLink).then(res => res.json()).then(function (response) {
         makeNextTurn(response);
-        setTimeout(getConfirm, 2000);
+        setTimeout(function () {
+            getConfirm(i)
+        }, 2000);
     })
 }
 
 function makeNextTurn(res) {
     console.log(res);
-    if (res === 'goNext') {
+    if (res === 'goNext' && document.body.title === "wait1") {
         location.href = 'boardList.html'
+    } else if (res === 'goNext' && document.body.title === "wait2") {
+        location.href = 'setup2.html'
     } else {
         console.log("error");
     }

@@ -485,13 +485,15 @@ function initializeGame() {
     document.getElementById("loader").classList.add('hidden');
     document.getElementById('details').classList.remove('hidden');
 
+    console.log(document.body.title);
+
     if (document.body.title === 'player1') {
         timeVar = setTimeout(() => {
             window.location.href = "setup.html"
         }, 1000)
     } else {
         timeVar = setTimeout(() => {
-            window.location.href = "setup.html"
+            window.location.href = "wait2.html"
         }, 1000)
     }
 }
