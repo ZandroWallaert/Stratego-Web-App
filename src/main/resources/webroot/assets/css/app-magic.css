@@ -16,15 +16,13 @@
 /*Backgrounds, text colors, borders*/
 
 #mainMenu, #gameMode, .collapsible, #wait {
-    background: unset;
-    background-color: rgba(102, 51, 153, 0.5);
+    background: rgba(102, 51, 153, 0.5);
     color: rgb(11, 10, 7);
     border-color: rgb(11, 10, 7);
 }
 
 #settings, #rules, #exit, #createPersonForm {
-    background: unset;
-    background-color: rgba(102, 51, 153, 1);
+    background: rgba(102, 51, 153, 1);
     color: rgb(11, 10, 7);
     border-color: rgb(11, 10, 7);
 }
@@ -43,7 +41,7 @@
 }
 
 #mainMenu h1, #mainMenu a {
-    font-family: Algerian, serif;
+    font-family: "Bahnschrift Light", serif;
 }
 
 #mainMenu h1, #mainMenu a, #gameMode h2, #infoBox p, #wait p {

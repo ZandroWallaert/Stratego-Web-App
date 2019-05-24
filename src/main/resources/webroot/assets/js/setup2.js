@@ -1,5 +1,5 @@
-
 "use strict";
+
 document.addEventListener("DOMContentLoaded", init);
 let squareList;
 let pieceHolder;
