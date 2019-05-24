@@ -85,18 +85,6 @@ function init() {
     document.getElementById("classic").addEventListener("click", function () {
         sendGameMode('classic')
     });
-
-    document.getElementById("duel").addEventListener("click", function () {
-        sendGameMode('duel')
-    });
-
-    document.getElementById("infiltrator").addEventListener("click", function () {
-        sendGameMode('infiltrator')
-    });
-
-    document.getElementById("airborne").addEventListener("click", function () {
-        sendGameMode('airborne')
-    });
 }
 
 function sendGameMode(gameMode) {
@@ -138,15 +126,6 @@ function addEvents() {
     //Game mode select screen
     classic.addEventListener('click', function () {
         showForm('Classic')
-    });
-    duel.addEventListener('click', function () {
-        showForm('Duel')
-    });
-    infiltrator.addEventListener('click', function () {
-        showForm('Infiltrator')
-    });
-    airborne.addEventListener('click', function () {
-        showForm('Airborne')
     });
 
     classic.addEventListener('mouseout', hideModeDetails);
@@ -506,9 +485,15 @@ function initializeGame() {
     document.getElementById("loader").classList.add('hidden');
     document.getElementById('details').classList.remove('hidden');
 
-    timeVar = setTimeout(() => {
-        window.location.href = "setup.html"
-    }, 1000)
+    if (document.body.title === 'player1') {
+        timeVar = setTimeout(() => {
+            window.location.href = "setup.html"
+        }, 1000)
+    } else {
+        timeVar = setTimeout(() => {
+            window.location.href = "setup.html"
+        }, 1000)
+    }
 }
 
 function cancelSearch() {

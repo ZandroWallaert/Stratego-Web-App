@@ -139,15 +139,6 @@ function addEvents() {
     classic.addEventListener('click', function () {
         showForm('Classic');
     });
-    duel.addEventListener('click', function () {
-        showForm('Duel');
-    });
-    infiltrator.addEventListener('click', function () {
-        showForm('Infiltrator');
-    });
-    airborne.addEventListener('click', function () {
-        showForm('Airborne');
-    });
 
     classic.addEventListener('mouseout', hideModeDetails);
     duel.addEventListener('mouseout', hideModeDetails);
