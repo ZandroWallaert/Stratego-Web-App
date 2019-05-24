@@ -1,6 +1,8 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", init);
 let squareList;
+let turn;
+let turnOk;
 let color;
 let lItems;
 let currentSquare;
@@ -9,12 +11,14 @@ let pieceHolder;
 
 function init() {
     setupPage();
+    turn = "blue";
     lItems = document.getElementById("squareList").getElementsByTagName("li");
     lines = document.getElementById("squareList").getElementsByTagName("li");
     let squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
     localStorage.setItem("turn", "blue");
     document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
+    turnOk = true;
     setupClick();
 }
 
@@ -137,15 +141,21 @@ function setupPage() {
 }
 
 function setupClick() {
-    let squareList = document.getElementById('squareList');
-    squareList.onclick = function (e) {
-        deleteAllDots();
-        if (colorOfClick(e.target.id) === "blue") {
-            posmoves(e.target.id);
-        } else {
-            setupClick();
+    if (turn === "blue") {
+        let squareList = document.getElementById('squareList');
+        squareList.onclick = function (e) {
+            deleteAllDots();
+            if (turnOk) {
+                if (colorOfClick(e.target.id) === "blue") {
+                    posmoves(e.target.id);
+                } else {
+                    setupClick();
+                }
+            }
         }
-    };
+    } else {
+        getConfirm()
+    }
 }
 
 function posmoves(pieceName) {
@@ -155,8 +165,6 @@ function posmoves(pieceName) {
     let square = pieceName.split("-")[1]; // the position on the board
     square = parseInt(square, 10);
     color = colorOfClick(pieceName);
-
-    setupClick();
 
     if (name === "Bomb" || name === "Flag" || name === "lakeSquare" || name === "blankSquare")
         return; // if it's a piece that can't move
@@ -283,6 +291,8 @@ function activateDot(movedFromSquare, movedToSquare, type) {
         console.log(JSON.stringify(data));
         console.log(endCoordinates);
         getBoard();
+        sendTurn();
+        getConfirm();
     };
 }
 
@@ -540,7 +550,33 @@ function deleteAllDots() {
 }
 
 function getBoard() {
-    let data = {data: "nextTurn"};
+    fetch('/api/board').then(res => res.json()).then(function (response) {
+        console.log(response);
+    });
+}
+
+function getConfirm() {
+    console.log('Retrieving messages...');
+    fetch('/api/nextTurn1').then(res => res.json()).then(function (response) {
+        console.log(response);
+        if (response === "Turn") {
+            turn = "blue";
+            turnOk = true;
+            setupClick();
+            fetch("/api/set2ToNull", {
+                method: "POST",
+                body: JSON.stringify({data: "null"}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        }
+        setTimeout(getConfirm, 5000);
+    })
+}
+
+function sendTurn() {
+    let data = {data: "Turn"};
     fetch("/api/nextTurn2", {
         method: "POST",
         body: JSON.stringify(data),
@@ -550,9 +586,7 @@ function getBoard() {
     })
         .then(res => res.json())
         .then(json => console.log(JSON.stringify(json)));
-    console.log(JSON.stringify(data));
-    fetch('/api/board').then(res => res.json()).then(function (response) {
-        console.log(response);
-    });
+    turn = "red";
+    turnOk = false;
 }
 

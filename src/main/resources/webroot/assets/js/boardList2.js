@@ -6,6 +6,8 @@ let lItems;
 let currentSquare;
 let lines;
 let pieceHolder;
+let turn;
+let turnOk;
 
 function init() {
     setupPage();
@@ -15,7 +17,7 @@ function init() {
     pieceHolder = document.getElementById('pieceHolder');
     localStorage.setItem("turn", "blue");
     document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
-    setupClick();
+    getConfirm();
 }
 
 function setupPage() {
@@ -137,15 +139,19 @@ function setupPage() {
 }
 
 function setupClick() {
-    let squareList = document.getElementById('squareList');
-    squareList.onclick = function (e) {
-        deleteAllDots();
-        if (colorOfClick(e.target.id) === "red") {
-            posmoves(e.target.id);
-        } else {
-            setupClick();
+    if (turn === "red") {
+        let squareList = document.getElementById('squareList');
+        squareList.onclick = function (e) {
+            deleteAllDots();
+            if (turnOk) {
+                if (colorOfClick(e.target.id) === "red") {
+                    posmoves(e.target.id);
+                } else {
+                    setupClick();
+                }
+            }
         }
-    };
+    }
 }
 
 function posmoves(pieceName) {
@@ -156,7 +162,6 @@ function posmoves(pieceName) {
     square = parseInt(square, 10);
     color = colorOfClick(pieceName);
 
-    setupClick();
 
     if (name === "Bomb" || name === "Flag" || name === "lakeSquare" || name === "blankSquare")
         return; // if it's a piece that can't move
@@ -269,7 +274,22 @@ function activateDot(movedFromSquare, movedToSquare, type) {
         let endX = movedToSquare % 10;
         let endY = (movedToSquare - (movedToSquare % 10)) / 10;
         let endCoordinates = [endX, endY];
+        beginCoordinates.push(endCoordinates);
+        let data = {data: beginCoordinates.toString()};
+        fetch("/api/movePawn", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+        console.log(JSON.stringify(data));
         console.log(endCoordinates);
+        getBoard();
+        sendTurn();
+        getConfirm();
     };
 }
 
@@ -538,5 +558,46 @@ function deleteAllDots() {
                 "(<div class=\"moveCircleCombat\" id=\"listenForClick.\"></div>)", "g"), "");
         }
     }
+}
+
+function getBoard() {
+    fetch('/api/board').then(res => res.json()).then(function (response) {
+        console.log(response);
+    });
+}
+
+function getConfirm() {
+    console.log('Retrieving messages...');
+    fetch('/api/nextTurn2').then(res => res.json()).then(function (response) {
+        console.log(response);
+        if (response === "Turn") {
+            turn = "red";
+            turnOk = true;
+            setupClick();
+            fetch("/api/set1ToNull", {
+                method: "POST",
+                body: JSON.stringify({data: "null"}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        }
+        setTimeout(getConfirm, 5000);
+    })
+}
+
+function sendTurn() {
+    let data = {data: "Turn"};
+    fetch("/api/nextTurn1", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => res.json())
+        .then(json => console.log(JSON.stringify(json)));
+    turn = "blue";
+    turnOk = false;
 }
 
