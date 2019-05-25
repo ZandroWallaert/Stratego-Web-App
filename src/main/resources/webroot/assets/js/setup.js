@@ -121,31 +121,31 @@ function startGameBlue() {
         let code = second[1];
         switch (code) {
             case '8':
-                code = 3;
+                code = '3';
                 break;
             case '9':
-                code = 2;
+                code = '2';
                 break;
             case '5':
-                code = 6;
+                code = '6';
                 break;
             case '6':
-                code = 5;
+                code = '5';
                 break;
             case '4':
-                code = 7;
+                code = '7';
                 break;
             case '1':
-                code = 10;
+                code = '10';
                 break;
             case '7':
-                code = 4;
+                code = '4';
                 break;
             case '3':
-                code = 8;
+                code = '8';
                 break;
             case '2':
-                code = 9;
+                code = '9';
                 break;
             default:
                 break;
@@ -193,31 +193,31 @@ function startGameRed() {
         let code = second[1];
         switch (code) {
             case '8':
-                code = 3;
+                code = '3';
                 break;
             case '9':
-                code = 2;
+                code = '2';
                 break;
             case '5':
-                code = 6;
+                code = '6';
                 break;
             case '6':
-                code = 5;
+                code = '5';
                 break;
             case '4':
-                code = 7;
+                code = '7';
                 break;
             case '1':
-                code = 10;
+                code = '10';
                 break;
             case '7':
-                code = 4;
+                code = '4';
                 break;
             case '3':
-                code = 8;
+                code = '8';
                 break;
             case '2':
-                code = 9;
+                code = '9';
                 break;
             default:
                 break;

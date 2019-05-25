@@ -162,6 +162,7 @@ function posmoves(pieceName) {
     square = parseInt(square, 10);
     color = colorOfClick(pieceName);
 
+
     if (name === "Bomb" || name === "Flag" || name === "lakeSquare" || name === "blankSquare")
         return; // if it's a piece that can't move
 
