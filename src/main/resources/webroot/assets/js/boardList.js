@@ -20,6 +20,7 @@ function init() {
     document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
     turnOk = true;
     setupClick();
+    getConfirm();
 }
 
 function setupPage() {
@@ -153,8 +154,6 @@ function setupClick() {
                 }
             }
         }
-    } else {
-        getConfirm()
     }
 }
 
@@ -290,9 +289,7 @@ function activateDot(movedFromSquare, movedToSquare, type) {
             .then(json => console.log(JSON.stringify(json)));
         console.log(JSON.stringify(data));
         console.log(endCoordinates);
-        getBoard();
         sendTurn();
-        getConfirm();
     };
 }
 
@@ -392,10 +389,12 @@ function dotClicked(movedFromSquare, movedToSquare) {
             flipSinglePiece(newSquareID1);
         }
         flipPieces("blue");
+        flipPieces("red");
         console.log(Switch);
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
+        flipPieces("red");
         if (result === -1) {
             flipSinglePiece(squareID2);
         }
@@ -405,10 +404,23 @@ function dotClicked(movedFromSquare, movedToSquare) {
         }
         flipPieces("red");
         console.log(Switch);
+        let data = {data: "Turn"};
+        fetch("/api/nextTurn2", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+        console.log(JSON.stringify(data));
+        fetch('/api/board').then(res => res.json()).then(function (response) {
+            console.log(response);
+        });
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
-        flipPieces("blue");
         if (result === -1) {
             flipSinglePiece(squareID2);
         }
@@ -548,6 +560,7 @@ function getBoard() {
             }
         }
         console.log(boardArray);
+        let setupList = [];
         let color = "";
         let boardLines = document.getElementById("squareList").getElementsByTagName("li");
         for (let i = 0; i < 100; i++) {
@@ -650,17 +663,30 @@ function getBoard() {
                     color = "blue";
                     break;
             }
+            console.log(setupList);
             if (boardArray[i] === null && i === 42 || 43 || 46 || 47 || 52 || 53 || 56 || 57) {
                 boardLines[i].innerHTML = "<div id=\"lakeSquare-" + i + "\"></div>";
             }
             if (boardArray[i] === null) {
                 boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
+            }
+            if (color === "red") {
+                if (code === null) {
+                    boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
+                } else {
+                    boardLines[i].innerHTML = "<img src=\"../assets/media/pieces/" + color + "Back" + ".png\" id=\"" +
+                        color + code + "-" + (i) + "\">";
+                }
             } else {
-                boardLines[i].innerHTML = "<img src=\"../assets/media/pieces/" + color + code + ".png\" id=\"" +
-                    color + code + "-" + (i) + "\">";
+                if (code === null) {
+                    boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
+                } else {
+                    boardLines[i].innerHTML = "<img src=\"../assets/media/pieces/" + color + code + ".png\" id=\"" +
+                        color + code + "-" + (i) + "\">";
+                }
             }
         }
-    })
+    });
 }
 
 function getConfirm() {
