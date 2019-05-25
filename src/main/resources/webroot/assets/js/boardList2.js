@@ -162,6 +162,7 @@ function posmoves(pieceName) {
     square = parseInt(square, 10);
     color = colorOfClick(pieceName);
 
+
     if (name === "Bomb" || name === "Flag" || name === "lakeSquare" || name === "blankSquare")
         return; // if it's a piece that can't move
 
@@ -403,7 +404,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
         flipPieces("red");
         console.log(Switch);
 
-        let data = {data: "nextTurn"};
+        let data = {data: "Turn"};
         fetch("/api/nextTurn1", {
             method: "POST",
             body: JSON.stringify(data),
@@ -560,6 +561,7 @@ function getBoard() {
             }
         }
         console.log(boardArray);
+        let setupList = [];
         let color = "";
         let boardLines = document.getElementById("squareList").getElementsByTagName("li");
         for (let i = 0; i < 100; i++) {
@@ -662,6 +664,7 @@ function getBoard() {
                     color = "blue";
                     break;
             }
+            console.log(setupList);
             if (boardArray[i] === null && i === 42 || 43 || 46 || 47 || 52 || 53 || 56 || 57) {
                 boardLines[i].innerHTML = "<div id=\"lakeSquare-" + i + "\"></div>";
             }

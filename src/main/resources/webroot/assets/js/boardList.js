@@ -405,6 +405,21 @@ function dotClicked(movedFromSquare, movedToSquare) {
         }
         flipPieces("red");
         console.log(Switch);
+        let data = {data: "Turn"};
+        fetch("/api/nextTurn2", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(json => console.log(JSON.stringify(json)));
+        console.log(JSON.stringify(data));
+        fetch('/api/board').then(res => res.json()).then(function (response) {
+            console.log(response);
+        });
+
         if (result === 1) {
             flipSinglePiece(newSquareID1);
         }
@@ -548,6 +563,7 @@ function getBoard() {
             }
         }
         console.log(boardArray);
+        let setupList = [];
         let color = "";
         let boardLines = document.getElementById("squareList").getElementsByTagName("li");
         for (let i = 0; i < 100; i++) {
@@ -650,6 +666,7 @@ function getBoard() {
                     color = "blue";
                     break;
             }
+            console.log(setupList);
             if (boardArray[i] === null && i === 42 || 43 || 46 || 47 || 52 || 53 || 56 || 57) {
                 boardLines[i].innerHTML = "<div id=\"lakeSquare-" + i + "\"></div>";
             }
