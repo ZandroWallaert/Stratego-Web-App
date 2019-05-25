@@ -5,14 +5,18 @@ document.addEventListener("DOMContentLoaded", init);
 let sfxStatus;
 let themeStatus;
 let musicStatus;
+let video;
+let clickForward = "click-forward"; //Frequently used file name without extension, in case a refactor is needed!
 
 let settings = [];
-let defaultSettings = ['Rain', 'Enabled', 'Enabled'];
+let defaultSettings = ['Rain', 'Enabled', 'Disabled'];
 let gameMode;
 
 let formInfo = [];
 
 function init() {
+    document.body.innerHTML = appHTML;
+    video = document.getElementById('backgroundVideo');
     addEvents();
     settings = JSON.parse(localStorage.getItem('settings'));
     if (settings === null) {
@@ -102,14 +106,24 @@ function sendGameMode(gameMode) {
 
 }
 
-let clickForward = "click-forward";
-
 function addEvents() {
 
     let classic = document.getElementById('classic');
     let duel = document.getElementById('duel');
     let infiltrator = document.getElementById('infiltrator');
     let airborne = document.getElementById('airborne');
+
+    //Adds hover sounds
+    let selector = document.querySelectorAll('a');
+    document.querySelector('#createPersonForm input[type=submit]')
+        .addEventListener('mouseover', function () {
+            playAudio('hover')
+        });
+    for (let i = 0; i < selector.length; i++) {
+        selector[i].addEventListener('mouseover', function () {
+            playAudio('hover')
+        })
+    }
 
     //Main menu screen
     document.getElementById('play').addEventListener('click', showGameMode);
@@ -193,18 +207,6 @@ function addEvents() {
         document.getElementById('exit').classList.add('hidden');
         removeBackgroundFilters();
     });
-
-    //Adds hover sounds
-    let selector = document.querySelectorAll('a');
-    document.querySelector('#createPersonForm input[type=submit]')
-        .addEventListener('mouseover', function () {
-            playAudio('hover')
-        });
-    for (let i = 0; i < selector.length; i++) {
-        selector[i].addEventListener('mouseover', function () {
-            playAudio('hover')
-        })
-    }
 
     function removeBackgroundFilters() {
         clearHTML();
@@ -309,7 +311,6 @@ function changeAudio(type) { //Possible values: 'music', 'sound'
     }
 }
 
-let video = document.getElementById('backgroundVideo');
 let source = document.createElement('source');
 
 function changeTheme() {
