@@ -12,13 +12,11 @@ public class Spy extends Pawn {
         Pawn winner;
         switch (enemy.getName()) {
             case "flag":
+            case "marshal":
                 winner = this;
                 break;
             case "bomb":
                 winner = enemy;
-                break;
-            case "marshal":
-                winner = this;
                 break;
             default:
                 if (this.getRank() > enemy.getRank()) {

@@ -6,7 +6,6 @@ public class Person {
     private int age;
 
     public Person() {
-        // needed for vertx to create person from JSON.
     }
 
     public Person(String name, int age) {

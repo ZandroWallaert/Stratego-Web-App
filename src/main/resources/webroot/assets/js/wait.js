@@ -12,7 +12,6 @@ function init() {
 }
 
 function getConfirm(i) {
-    console.log(i);
     let fetchLink;
     if (i === 1) {
         fetchLink = '../api/next1';
@@ -29,7 +28,6 @@ function getConfirm(i) {
 }
 
 function makeNextTurn(res) {
-    console.log(res);
     if (res === 'goNext' && document.body.title === "wait1") {
         location.href = 'boardList.html'
     } else if (res === 'goNext' && document.body.title === "wait2") {
