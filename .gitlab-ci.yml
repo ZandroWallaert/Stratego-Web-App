@@ -11,7 +11,7 @@ before_script:
 
 build-jar:
   stage: build
-  only: 
+  only:
     - master
   except:
     changes:
@@ -28,12 +28,12 @@ sonarqube:
     changes:
       - documents/**/*
   script: ./gradlew sonarqube -Dsonar.host.url=http://172.18.18.129
-  
+
 validateHTML:
   stage: QA
   only:
     changes:
-      -  src/main/resources/webroot/**/*.html
+      - src/main/resources/webroot/**/*.html
   script: ./gradlew validateHTML
 
 test:

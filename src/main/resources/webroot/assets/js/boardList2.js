@@ -1,6 +1,5 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", init);
-let squareList;
 let color;
 let lItems;
 let currentSquare;
@@ -15,7 +14,6 @@ function init() {
     setupPage();
     lItems = document.getElementById("squareList").getElementsByTagName("li");
     lines = document.getElementById("squareList").getElementsByTagName("li");
-    let squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
     localStorage.setItem("turn", "blue");
     document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
@@ -48,7 +46,6 @@ function setupPage() {
     let boardLines = document.getElementById("squareList").getElementsByTagName("li");
     let setupList = [];
     let range = 0;
-    let range2 = 0;
     fetch('/api/blueSetup').then(res => res.json()).then(function (response) {
         let edited = response.substring(1, response.length - 1);
         let secondEdit = edited.split(", ");
@@ -132,10 +129,8 @@ function setupPage() {
             setupList.push(code);
         }
         range = 60;
-        range2 = 40;
         for (let i = 0; i < setupList.length; i++) {
-            boardLines[i + range].innerHTML = `<img alt='' src="../assets/media/pieces/red${setupList[i]}.png" 
-                                                id="blue${setupList[i]}-${i + range}">`;
+            boardLines[i + range].innerHTML = `<img alt='' src="../assets/media/pieces/red${setupList[i]}.png" id="blue${setupList[i]}-${i + range}">`;
         }
     });
 }
