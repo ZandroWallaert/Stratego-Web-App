@@ -49,7 +49,6 @@ function setupPage() {
     let boardLines = document.getElementById("squareList").getElementsByTagName("li");
     let setupList = [];
     let range = 0;
-    let range2 = 0;
     fetch('/api/blueSetup').then(res => res.json()).then(function (response) {
         let edited = response.substring(1, response.length - 1);
         let secondEdit = edited.split(", ");
@@ -66,7 +65,7 @@ function setupPage() {
         setupCode(setupList, secondEdit, 0, 40);
         range = 60;
         for (let i = 0; i < setupList.length; i++) {
-            boardLines[i + range].innerHTML = `<img alt="" src="../assets/media/pieces/redBack.png" 
+            boardLines[i + range].innerHTML = `<img alt="" src="../assets/media/pieces/redBack.png"
 			id="red${setupList[i]}-${i + range}">`;
         }
     });
@@ -175,11 +174,11 @@ function movePiece9(square, name, color) {
     }
 }
 
-function colorOfClick(idname) {
+function colorOfClick(idName) {
 
-    if ((idname).indexOf("blue") !== -1) {
+    if ((idName).indexOf("blue") !== -1) {
         return "blue";
-    } else if ((idname).indexOf("red") !== -1) {
+    } else if ((idName).indexOf("red") !== -1) {
         return "red";
     } else {
         return "blank";
@@ -536,18 +535,10 @@ function deleteAllDots() {
 
 function getBoard() {
     fetch('/api/board').then(res => res.json()).then(function (response) {
-        let gameboard = Object.values(response);
+        let gameBoard = Object.values(response);
         let boardArray = [];
-        for (let i = 0; i < 10; i++) {
-            for (let j = 0; j < 10; j++) {
-                if (gameboard[0][i][j] === null) {
-                    boardArray.push(null);
-                } else {
-                    let code = gameboard[0][i][j].rank + "-" + gameboard[0][i][j].player;
-                    boardArray.push(code);
-                }
-            }
-        }
+
+        setBoardArray(boardArray, gameBoard);
         console.log(boardArray);
         let setupList = [];
         let color = "";
@@ -653,9 +644,9 @@ function getBoard() {
                     break;
             }
             console.log(setupList);
-            if (boardArray[i] === null) {
-                boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
-            }
+
+            checkNull(boardArray[i], boardLines[i], i);
+
             if (color === "red") {
                 if (code === null) {
                     boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
@@ -674,6 +665,25 @@ function getBoard() {
             }
         }
     });
+}
+
+function setBoardArray(array, gameBoard) {
+    for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+            if (gameBoard[0][i][j] === null) {
+                array.push(null);
+            } else {
+                let code = gameBoard[0][i][j].rank + "-" + gameBoard[0][i][j].player;
+                array.push(code);
+            }
+        }
+    }
+}
+
+function checkNull(square, line, i) {
+    if (square === null) {
+        line.innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
+    }
 }
 
 function getConfirm() {
