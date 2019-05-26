@@ -1,6 +1,5 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", init);
-let squareList;
 let turn;
 let turnOk;
 let color;
@@ -8,13 +7,14 @@ let lItems;
 let currentSquare;
 let lines;
 let pieceHolder;
+let contentType = "Content-Type";
+let appJson = "application/json";
 
 function init() {
     setupPage();
     turn = "blue";
     lItems = document.getElementById("squareList").getElementsByTagName("li");
     lines = document.getElementById("squareList").getElementsByTagName("li");
-    let squareList = document.getElementById('squareList');
     pieceHolder = document.getElementById('pieceHolder');
     localStorage.setItem("turn", "blue");
     document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
@@ -53,92 +53,61 @@ function setupPage() {
     fetch('/api/blueSetup').then(res => res.json()).then(function (response) {
         let edited = response.substring(1, response.length - 1);
         let secondEdit = edited.split(", ");
-        for (let i = 0; i < 40; i++) {
-            let code = secondEdit[i];
-            switch (code) {
-                case '3':
-                    code = '8';
-                    break;
-                case '2':
-                    code = '9';
-                    break;
-                case '6':
-                    code = '5';
-                    break;
-                case '5':
-                    code = '6';
-                    break;
-                case '7':
-                    code = '4';
-                    break;
-                case '10':
-                    code = '1';
-                    break;
-                case '4':
-                    code = '7';
-                    break;
-                case '8':
-                    code = '3';
-                    break;
-                case '9':
-                    code = '2';
-                    break;
-                default:
-                    break;
-            }
-            setupList.push(code);
-        }
+        setupCode(setupList, secondEdit, 0, 40);
         for (let i = 0; i < setupList.length; i++) {
-            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/blue" + setupList[i] + ".png\" id=\"" +
-                "blue" + setupList[i] + "-" + (i + range) + "\">";
+            boardLines[i + range].innerHTML = `<img alt='' src="../assets/media/pieces/blue${setupList[i]}.png"
+			id="blue${setupList[i]}-${i + range}">`;
         }
         setupList = [];
     });
     fetch('/api/redSetup').then(res => res.json()).then(function (response) {
         let edited = response.substring(1, response.length - 1);
         let secondEdit = edited.split(", ");
-        for (let i = 0; i < 40; i++) {
-            let code = secondEdit[i];
-            switch (code) {
-                case '3':
-                    code = '8';
-                    break;
-                case '2':
-                    code = '9';
-                    break;
-                case '6':
-                    code = '5';
-                    break;
-                case '5':
-                    code = '6';
-                    break;
-                case '7':
-                    code = '4';
-                    break;
-                case '10':
-                    code = '1';
-                    break;
-                case '4':
-                    code = '7';
-                    break;
-                case '8':
-                    code = '3';
-                    break;
-                case '9':
-                    code = '2';
-                    break;
-                default:
-                    break;
-            }
-            setupList.push(code);
-        }
+        setupCode(setupList, secondEdit, 0, 40);
         range = 60;
-        range2 = 40;
         for (let i = 0; i < setupList.length; i++) {
-            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/red" + "Back" + ".png\" id=\"" +
-                "red" + setupList[i] + "-" + (i + range) + "\">";
+            boardLines[i + range].innerHTML = `<img alt="" src="../assets/media/pieces/redBack.png" 
+			id="red${setupList[i]}-${i + range}">`;
         }
     });
+}
+
+function setupCode(setupList, edit, start, end) {
+    for (let i = start; i < end; i++) {
+        let code = edit[i];
+        switch (code) {
+            case '3':
+                code = '8';
+                break;
+            case '2':
+                code = '9';
+                break;
+            case '6':
+                code = '5';
+                break;
+            case '5':
+                code = '6';
+                break;
+            case '7':
+                code = '4';
+                break;
+            case '10':
+                code = '1';
+                break;
+            case '4':
+                code = '7';
+                break;
+            case '8':
+                code = '3';
+                break;
+            case '9':
+                code = '2';
+                break;
+            default:
+                break;
+        }
+        setupList.push(code);
+    }
 }
 
 function setupClick() {
@@ -148,7 +117,7 @@ function setupClick() {
             deleteAllDots();
             if (turnOk) {
                 if (colorOfClick(e.target.id) === "blue") {
-                    posmoves(e.target.id);
+                    posMoves(e.target.id);
                 } else {
                     setupClick();
                 }
@@ -157,7 +126,7 @@ function setupClick() {
     }
 }
 
-function posmoves(pieceName) {
+function posMoves(pieceName) {
 
     let name = pieceName.split("-")[0].replace("blue", "")
         .replace("red", ""); // the name of the piece (Spy, Bomb, 9 etc..)
@@ -168,35 +137,40 @@ function posmoves(pieceName) {
     if (name === "Bomb" || name === "Flag" || name === "lakeSquare" || name === "blankSquare")
         return; // if it's a piece that can't move
 
-    if (name !== "9") // movement for everything except 9
-    {
-        if (square % 10 !== 9) // Move to the right
-            checkstatus(square + 1, color, square);
-        if (square % 10 !== 0) // Move to the left
-            checkstatus(square - 1, color, square);
-        if (square - 10 >= 0) // Move up
-            checkstatus(square - 10, color, square);
-        if (square + 10 < 100) // Move down
-            checkstatus(square + 10, color, square);
-    }
+    moveOtherPieces(square, name, color); // Movement for everything except 9
+    movePiece9(square, name, color); // Only if the piece is 9
+}
 
-    if (name === "9") // movement for 9
-    {
+function moveOtherPieces(square, name, color) {
+    if (name !== "9") {
+        if (square % 10 !== 9) // Move to the right
+            checkStatus(square + 1, color, square);
+        if (square % 10 !== 0) // Move to the left
+            checkStatus(square - 1, color, square);
+        if (square - 10 >= 0) // Move up
+            checkStatus(square - 10, color, square);
+        if (square + 10 < 100) // Move down
+            checkStatus(square + 10, color, square);
+    }
+}
+
+function movePiece9(square, name, color) {
+    if (name === "9") {
 
         if (square % 10 !== 9) // check to the right
-            if (checkstatus(square + 1, color, square) === 1 && (square + 1) % 10 !== 9)
+            if (checkStatus(square + 1, color, square) === 1 && (square + 1) % 10 !== 9)
                 recursive(square + 2, "r", square);
 
         if (square % 10 !== 0) // check to the left
-            if (checkstatus(square - 1, color, square) === 1 && (square - 1) % 10 !== 0)
+            if (checkStatus(square - 1, color, square) === 1 && (square - 1) % 10 !== 0)
                 recursive(square - 2, "l", square);
 
         if (square - 10 > 0) // check up
-            if (square - 20 > 0 && checkstatus(square - 10, color, square) === 1)
+            if (square - 20 > 0 && checkStatus(square - 10, color, square) === 1)
                 recursive(square - 20, "u", square);
 
         if (square + 10 < 100) // check down
-            if (square + 20 < 100 && checkstatus(square + 10, color, square) === 1)
+            if (square + 20 < 100 && checkStatus(square + 10, color, square) === 1)
                 recursive(square + 20, "d", square);
     }
 }
@@ -212,7 +186,7 @@ function colorOfClick(idname) {
     }
 }
 
-function checkstatus(squareNumber, color, movedFromSquare) {
+function checkStatus(squareNumber, color, movedFromSquare) {
 
     currentSquare = (lItems[squareNumber].innerHTML).split("\"").reverse()[1];
 
@@ -282,7 +256,7 @@ function activateDot(movedFromSquare, movedToSquare, type) {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json"
+                contentType: appJson
             }
         })
             .then(res => res.json())
@@ -376,7 +350,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: {
-                    "Content-Type": "application/json"
+                    contentType: appJson
                 }
             })
         }, 2000);
@@ -384,40 +358,47 @@ function dotClicked(movedFromSquare, movedToSquare) {
 
     lItems[movedFromSquare].innerHTML = "<div id=\"blankSquare-" + movedFromSquare + "\">"; // blank square leaving piece
     deleteAllDots();
+    updateLocalStorage();
+    switchPlayer(result, pieceAColor, newSquareID1, squareID2);
+}
+
+function updateLocalStorage() {
     let currentTurn = localStorage.getItem("turn"); //starts with other color
     if (currentTurn === "blue") {
         localStorage.setItem("turn", "red");
     } else {
         localStorage.setItem("turn", "blue");
     }
+}
 
-    let Switch = "Switch Player!";
-    if (pieceAColor === "blue") {
+function switchPlayer(result, color, square1, square2) {
+    let playerSwitch = "Switch Player!";
+    if (color === "blue") {
         if (result === 1) {
-            flipSinglePiece(newSquareID1);
+            flipSinglePiece(square1);
         }
         flipPieces("blue");
         flipPieces("red");
-        console.log(Switch);
+        console.log(playerSwitch);
         if (result === 1) {
-            flipSinglePiece(newSquareID1);
+            flipSinglePiece(square1);
         }
         flipPieces("red");
         if (result === -1) {
-            flipSinglePiece(squareID2);
+            flipSinglePiece(square2);
         }
-    } else if (pieceAColor === "red") {
+    } else if (color === "red") {
         if (result === 1) {
-            flipSinglePiece(newSquareID1);
+            flipSinglePiece(square1);
         }
         flipPieces("red");
-        console.log(Switch);
+        console.log(playerSwitch);
         let data = {data: "Turn"};
         fetch("/api/nextTurn2", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json"
+                contentType: appJson
             }
         })
             .then(res => res.json())
@@ -427,10 +408,10 @@ function dotClicked(movedFromSquare, movedToSquare) {
             console.log(response);
         });
         if (result === 1) {
-            flipSinglePiece(newSquareID1);
+            flipSinglePiece(square1);
         }
         if (result === -1) {
-            flipSinglePiece(squareID2);
+            flipSinglePiece(square2);
         }
     }
 }
@@ -679,15 +660,16 @@ function getBoard() {
                 if (code === null) {
                     boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
                 } else {
-                    boardLines[i].innerHTML = "<img src=\"../assets/media/pieces/" + color + "Back" + ".png\" id=\"" +
-                        color + code + "-" + (i) + "\">";
+                    boardLines[i].innerHTML = `<img alt='' src="../assets/media/pieces/${color}Back.png" id=
+                        '${color}${code}-${i}'>`
+                    ;
                 }
             } else {
                 if (code === null) {
                     boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
                 } else {
-                    boardLines[i].innerHTML = "<img src=\"../assets/media/pieces/" + color + code + ".png\" id=\"" +
-                        color + code + "-" + (i) + "\">";
+                    boardLines[i].innerHTML = `<img alt='' src="../assets/media/pieces/${color}${code}.png" id=
+                        '${color}${code}-${i}'>`;
                 }
             }
         }
@@ -708,7 +690,7 @@ function getConfirm() {
                 method: "POST",
                 body: JSON.stringify({data: "null"}),
                 headers: {
-                    "Content-Type": "application/json"
+                    contentType: appJson
                 }
             });
         }
@@ -717,7 +699,7 @@ function getConfirm() {
                 method: "POST",
                 body: JSON.stringify({data: "null"}),
                 headers: {
-                    "Content-Type": "application/json"
+                    contentType: appJson
                 }
             });
             window.location.href = "loser.html";
@@ -732,7 +714,7 @@ function sendTurn() {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-            "Content-Type": "application/json"
+            contentType: appJson
         }
     })
         .then(res => res.json())
@@ -740,4 +722,3 @@ function sendTurn() {
     turn = "red";
     turnOk = false;
 }
-
