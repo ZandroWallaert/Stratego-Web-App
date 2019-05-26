@@ -136,21 +136,21 @@ body {
     vertical-align: middle;
 }
 
-.dibe {
-    font-family: neon;
+.vibe {
+    font-family: neon, sans-serif;
     color: #FB4264;
     font-size: 6rem;
     text-shadow: 0 0 3vw #F40A35;
 }
 
 .flux {
-    font-family: neon;
+    font-family: neon, sans-serif;
     color: #426DFB;
     font-size: 8rem;
     text-shadow: 0 0 3vw #2356FF;
 }
 
-.dibe {
+.vibe {
     animation: neon 3s ease infinite;
 }
 
@@ -199,7 +199,7 @@ body {
     font-family: "Bookman Old Style", sans-serif;
     margin-top: 1.875rem;
     margin-left: 2.5rem;
-    font-size: 4rem;
+    font-size: 3.4rem;
     color: #ccd9ff;
     opacity: 0.8;
 }

@@ -7,8 +7,8 @@ let appHTML =
 </video>
 
 <div id="title">
-    <h2>Stratego</h2>
-    <h3>Online</h3>
+    <div class="flux">Stratego</div>
+    <div class="vibe">Online</div>
 </div>
 <main>
     <div id="mainMenu">
