@@ -3,6 +3,7 @@
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
+    document.body.innerHTML = waitHTML;
     if (document.body.title === "wait1") {
         getConfirm(1);
     } else {

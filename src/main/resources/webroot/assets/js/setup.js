@@ -10,6 +10,12 @@ const playerColor = document.body.title;
 let gameMode;
 
 function init() {
+    document.body.innerHTML = setupHTML;
+    if (playerColor === 'blue') {
+        document.getElementById('pieceHolder').innerHTML = pieceHolderBlue
+    } else {
+        document.getElementById('pieceHolder').innerHTML = pieceHolderRed
+    }
     addEvents();
     gameMode = JSON.parse(localStorage.getItem('gameMode'));
     document.getElementById('bg-image').style.backgroundImage = `url(../assets/media/${gameMode.toLowerCase()}.jpg)`;
@@ -21,20 +27,6 @@ function init() {
         preMadeSetup('blue', 'defensive');
         redTurn();
     }
-
-    //const nameSpan = document.getElementById('username');
-
-    // fetch('/api/person/:name', {
-    //     method: 'GET',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(data)
-    // })
-    //     .then(response => response.json())
-    //     .then(json => {
-    //         nameSpan.innerHTML = json.stringify()
-    //     });
 }
 
 function addEvents() {
@@ -424,6 +416,12 @@ function dotClicked(movedFromSquare, movedToSquare, type) {
         board[movedToSquare].innerHTML = movedFromHTMLUpdated;
     }
 
+    checkSideBoard(); //To reduce complexity
+
+    setupOnClick(playerColor);
+}
+
+function checkSideBoard() {
     let sideboardInner = pieceHolder.innerHTML;
 
     if (((sideboardInner.match(/blankSquare/g)).length) >= 40 && playerColor === "blue") {
@@ -438,7 +436,6 @@ function dotClicked(movedFromSquare, movedToSquare, type) {
             preMadeButton("startGame", "Start Game", startGameRed)
         }
     }
-    setupOnClick(playerColor);
 }
 
 
@@ -565,6 +562,3 @@ function preMadeSetup(color, setupType) {
         sideLines[i + range2].innerHTML = `<div id="blankSquare-${i + range2}"></div>`;
     }
 }
-
-//`<img src="../assets/media/pieces/${color + setupList[i]}.png" id="" +
-//             color + setupList[i] + "-" + (i + range) + "\">`
