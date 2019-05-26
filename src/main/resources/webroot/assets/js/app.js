@@ -14,6 +14,9 @@ let gameMode;
 
 let formInfo = [];
 
+let contentType = 'Content-Type';
+let appJson = 'application/json';
+
 function init() {
     document.body.innerHTML = appHTML;
     video = document.getElementById('backgroundVideo');
@@ -66,7 +69,7 @@ function init() {
         fetch("../api/person", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                contentType: appJson
             },
             body: JSON.stringify(data),
         })
@@ -77,7 +80,7 @@ function init() {
         fetch("../api/details", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                contentType: appJson
             },
             body: JSON.stringify(data),
         })
@@ -98,7 +101,7 @@ function sendGameMode(gameMode) {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-            "Content-Type": "application/json"
+            contentType: appJson
         }
     })
         .then(res => res.json())
