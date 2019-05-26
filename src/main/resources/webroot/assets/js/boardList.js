@@ -672,9 +672,6 @@ function getBoard() {
                     break;
             }
             console.log(setupList);
-            if (boardArray[i] === null && i === 42 || 43 || 46 || 47 || 52 || 53 || 56 || 57) {
-                boardLines[i].innerHTML = "<div id=\"lakeSquare-" + i + "\"></div>";
-            }
             if (boardArray[i] === null) {
                 boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
             }
@@ -713,9 +710,16 @@ function getConfirm() {
                 headers: {
                     "Content-Type": "application/json"
                 }
-            })
+            });
         }
         if (response === "lost") {
+            fetch("/api/set2ToNull", {
+                method: "POST",
+                body: JSON.stringify({data: "null"}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
             window.location.href = "loser.html";
         }
         setTimeout(getConfirm, 2000);

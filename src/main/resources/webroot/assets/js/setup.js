@@ -255,6 +255,7 @@ function redTurn() {
     if (playerColor === 'red') {
         addSecondEvents();
     }
+
     function sendNextTurn() {
         let turn = {data: "goNext"};
         fetch("../api/next2", {

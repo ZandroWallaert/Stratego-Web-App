@@ -2,15 +2,14 @@ package be.howest.ti.project1.stratego.stratego;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class MoveTest {
 
     @Test
     public void testEquals() {
 
-        Player player1 = new Player("player1", 22);
-        Player player2 = new Player("player2", 99);
         Pawn spy = new Pawn("spy", 1, 10, 10);
         Pawn spy2 = new Pawn("spy", 2, 10, 10);
 

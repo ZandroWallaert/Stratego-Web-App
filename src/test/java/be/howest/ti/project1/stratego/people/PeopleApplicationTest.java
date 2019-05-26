@@ -2,7 +2,8 @@ package be.howest.ti.project1.stratego.people;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class PeopleApplicationTest {
 
@@ -36,7 +37,7 @@ public class PeopleApplicationTest {
         Person david = new Person("David", 23);
         int old = app.getPeople().size();
         app.add(david);
-        assertEquals(old+1, app.getPeople().size());
+        assertEquals(old + 1, app.getPeople().size());
 
         try {
             Person alice = new Person("Alice", 23);
@@ -44,7 +45,7 @@ public class PeopleApplicationTest {
             fail();
         } catch (IllegalArgumentException ex) {
             // expected
-            assertEquals(old+1, app.getPeople().size());
+            assertEquals(old + 1, app.getPeople().size());
         }
 
 
