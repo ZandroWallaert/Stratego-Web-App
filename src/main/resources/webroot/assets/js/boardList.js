@@ -7,7 +7,6 @@ let lItems;
 let currentSquare;
 let lines;
 let pieceHolder;
-let contentType = "Content-Type";
 let appJson = "application/json";
 
 function init() {
@@ -17,7 +16,6 @@ function init() {
     lines = document.getElementById("squareList").getElementsByTagName("li");
     pieceHolder = document.getElementById('pieceHolder');
     localStorage.setItem("turn", "blue");
-    document.querySelector("body h1").innerHTML = ("Blue goes first, don't look red!");
     turnOk = true;
     setupClick();
     getConfirm();

@@ -9,6 +9,8 @@ let pieceHolder;
 let turn;
 let turnOk;
 
+let appJson = "application/json";
+
 function init() {
     setupPage();
     lItems = document.getElementById("squareList").getElementsByTagName("li");
@@ -86,8 +88,8 @@ function setupPage() {
             setupList.push(code);
         }
         for (let i = 0; i < setupList.length; i++) {
-            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/blue" + "Back" + ".png\" id=\"" +
-                "blue" + setupList[i] + "-" + (i + range) + "\">";
+            boardLines[i + range].innerHTML = `<img alt='' src="../assets/media/pieces/blueBack.png"
+			id="blue${setupList[i]}-${i + range}">`;
         }
         setupList = [];
     });
@@ -132,8 +134,8 @@ function setupPage() {
         range = 60;
         range2 = 40;
         for (let i = 0; i < setupList.length; i++) {
-            boardLines[i + range].innerHTML = "<img src=\"../assets/media/pieces/red" + setupList[i] + ".png\" id=\"" +
-                "red" + setupList[i] + "-" + (i + range) + "\">";
+            boardLines[i + range].innerHTML = `<img alt='' src="../assets/media/pieces/red${setupList[i]}.png" 
+                                                id="blue${setupList[i]}-${i + range}">`;
         }
     });
 }
@@ -145,7 +147,7 @@ function setupClick() {
             deleteAllDots();
             if (turnOk) {
                 if (colorOfClick(e.target.id) === "red") {
-                    posmoves(e.target.id);
+                    posMoves(e.target.id);
                 } else {
                     setupClick();
                 }
@@ -154,7 +156,7 @@ function setupClick() {
     }
 }
 
-function posmoves(pieceName) {
+function posMoves(pieceName) {
 
     let name = pieceName.split("-")[0].replace("blue", "")
         .replace("red", ""); // the name of the piece (Spy, Bomb, 9 etc..)
@@ -169,32 +171,32 @@ function posmoves(pieceName) {
     if (name !== "9") // movement for everything except 9
     {
         if (square % 10 !== 9) // Move to the right
-            checkstatus(square + 1, color, square);
+            checkStatus(square + 1, color, square);
         if (square % 10 !== 0) // Move to the left
-            checkstatus(square - 1, color, square);
+            checkStatus(square - 1, color, square);
         if (square - 10 >= 0) // Move up
-            checkstatus(square - 10, color, square);
+            checkStatus(square - 10, color, square);
         if (square + 10 < 100) // Move down
-            checkstatus(square + 10, color, square);
+            checkStatus(square + 10, color, square);
     }
 
     if (name === "9") // movement for 9
     {
 
         if (square % 10 !== 9) // check to the right
-            if (checkstatus(square + 1, color, square) === 1 && (square + 1) % 10 !== 9)
+            if (checkStatus(square + 1, color, square) === 1 && (square + 1) % 10 !== 9)
                 recursive(square + 2, "r", square);
 
         if (square % 10 !== 0) // check to the left
-            if (checkstatus(square - 1, color, square) === 1 && (square - 1) % 10 !== 0)
+            if (checkStatus(square - 1, color, square) === 1 && (square - 1) % 10 !== 0)
                 recursive(square - 2, "l", square);
 
         if (square - 10 > 0) // check up
-            if (square - 20 > 0 && checkstatus(square - 10, color, square) === 1)
+            if (square - 20 > 0 && checkStatus(square - 10, color, square) === 1)
                 recursive(square - 20, "u", square);
 
         if (square + 10 < 100) // check down
-            if (square + 20 < 100 && checkstatus(square + 10, color, square) === 1)
+            if (square + 20 < 100 && checkStatus(square + 10, color, square) === 1)
                 recursive(square + 20, "d", square);
     }
 }
@@ -210,7 +212,7 @@ function colorOfClick(idname) {
     }
 }
 
-function checkstatus(squareNumber, color, movedFromSquare) {
+function checkStatus(squareNumber, color, movedFromSquare) {
 
     currentSquare = (lItems[squareNumber].innerHTML).split("\"").reverse()[1];
 
@@ -280,7 +282,7 @@ function activateDot(movedFromSquare, movedToSquare, type) {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": appJson
             }
         })
             .then(res => res.json())
@@ -374,7 +376,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": appJson
                 }
             })
         }, 2000);
@@ -414,7 +416,7 @@ function dotClicked(movedFromSquare, movedToSquare) {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": appJson
             }
         })
             .then(res => res.json())
@@ -552,14 +554,14 @@ function deleteAllDots() {
 
 function getBoard() {
     fetch('/api/board').then(res => res.json()).then(function (response) {
-        let gameboard = Object.values(response);
+        let gameBoard = Object.values(response);
         let boardArray = [];
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
-                if (gameboard[0][i][j] === null) {
+                if (gameBoard[0][i][j] === null) {
                     boardArray.push(null);
                 } else {
-                    let code = gameboard[0][i][j].rank + "-" + gameboard[0][i][j].player;
+                    let code = gameBoard[0][i][j].rank + "-" + gameBoard[0][i][j].player;
                     boardArray.push(code);
                 }
             }
@@ -676,15 +678,15 @@ function getBoard() {
                 if (code === null) {
                     boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
                 } else {
-                    boardLines[i].innerHTML = "<img src=\"../assets/media/pieces/" + color + "Back" + ".png\" id=\"" +
-                        color + code + "-" + (i) + "\">";
+                    boardLines[i].innerHTML = `<img alt='' src="../assets/media/pieces/${color}Back.png" id=
+                        '${color}${code}-${i}'>`;
                 }
             } else {
                 if (code === null) {
                     boardLines[i].innerHTML = "<div id=\"blankSquare-" + i + "\"></div>";
                 } else {
-                    boardLines[i].innerHTML = "<img src=\"../assets/media/pieces/" + color + code + ".png\" id=\"" +
-                        color + code + "-" + (i) + "\">";
+                    boardLines[i].innerHTML = `<img alt='' src="../assets/media/pieces/${color}${code}.png" id=
+                        '${color}${code}-${i}'>`;
                 }
             }
         }
@@ -705,7 +707,7 @@ function getConfirm() {
                 method: "POST",
                 body: JSON.stringify({data: "null"}),
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": appJson
                 }
             })
         }
@@ -722,7 +724,7 @@ function sendTurn() {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": appJson
         }
     })
         .then(res => res.json())
