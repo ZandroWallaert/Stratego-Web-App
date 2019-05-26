@@ -1,10 +1,18 @@
 "use strict";
 
+let otherPlayer;
+
+if (document.body.title === 'wait1') {
+    otherPlayer = '2';
+} else {
+    otherPlayer = '1'
+}
+
 let waitHTML =
 
     `<div id="bg-image"></div>
 <div id="loadingBox">
-    <h1>Waiting For Player 2</h1>
+    <h1>Waiting For Player ${otherPlayer}</h1>
     <div class="lds-facebook">
         <div></div>
         <div></div>
