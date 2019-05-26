@@ -155,7 +155,7 @@ body {
     vertical-align: middle;
 }
 
-.vibe {
+.dibe {
     font-family: neon, sans-serif;
     color: #FB4264;
     font-size: 6rem;
@@ -169,7 +169,7 @@ body {
     text-shadow: 0 0 3vw #2356FF;
 }
 
-.vibe {
+.dibe {
     animation: neon 3s ease infinite;
 }
 
@@ -218,7 +218,7 @@ body {
     font-family: "Bookman Old Style", sans-serif;
     margin-top: 1.875rem;
     margin-left: 2.5rem;
-    font-size: 3.4rem;
+    font-size: 4rem;
     color: #ccd9ff;
     opacity: 0.8;
 }

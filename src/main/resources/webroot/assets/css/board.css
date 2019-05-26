@@ -1,16 +1,19 @@
 html {
     overflow-y: hidden;
 }
+
 body {
     margin: 0;
     background: lightgreen;
     transform: scale(0.7);
     transform-origin: top;
 }
+
 h1 {
     font-size: 1rem;
     margin: 0;
 }
+
 #board {
     width: 62.5rem;
     height: 62.5rem;

@@ -2,14 +2,14 @@ package be.howest.ti.project1.stratego.stratego;
 
 import be.howest.ti.project1.stratego.stratego.pawns.Miner;
 import org.junit.Test;
+
 import static junit.framework.TestCase.*;
 
 public class StrategoTest {
     @Test
     public void testPlacePawn() {
         Stratego s = new Stratego();
-        Player player1 = new Player("player1", 22);
-        Player player2 = new Player("player2", 99);
+
         Pawn miner = new Miner(1);
         Pawn miner2 = new Miner(2);
         Pawn miner3 = new Miner(2);
@@ -47,8 +47,6 @@ public class StrategoTest {
     @Test
     public void testMovePawn() {
         Stratego s = new Stratego();
-        Player player1 = new Player("player1", 22);
-        Player player2 = new Player("player2", 99);
 
         Pawn sergeant = new Pawn("sergeant", 1, 4, 2);
         Pawn sergeant2 = new Pawn("sergeant2", 2, 4, 1);
