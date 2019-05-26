@@ -370,7 +370,15 @@ function dotClicked(movedFromSquare, movedToSquare) {
         document.getElementById("squareList").innerHTML = "";
         document.querySelector("body h1").innerHTML = ("Game Ended!");
         setTimeout(() => {
-            window.location.href = "app.html";
+            window.location.href = "winner.html";
+            let data = {data: "lost"};
+            fetch("/api/nextTurn2", {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
         }, 2000);
     }
 
@@ -706,6 +714,9 @@ function getConfirm() {
                     "Content-Type": "application/json"
                 }
             })
+        }
+        if (response === "lost") {
+            window.location.href = "loser.html";
         }
         setTimeout(getConfirm, 2000);
     })
