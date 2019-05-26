@@ -8,6 +8,7 @@ let color;
 let square;
 const playerColor = document.body.title;
 let gameMode;
+let startGame = "Start Game";
 
 function init() {
     document.body.innerHTML = setupHTML;
@@ -155,7 +156,6 @@ function startGameBlue() {
     })
         .then(res => res.json())
         .then(json => console.log(JSON.stringify(json)));
-    console.log(blueSetupSubmit);
 }
 
 function startGameRed() {
@@ -172,12 +172,10 @@ function startGameRed() {
         })
             .then(res => res.json())
             .then(json => console.log(JSON.stringify(json)));
-        console.log(JSON.stringify(turn));
     }
 
     let redSetupSubmit = [];
     let list = document.getElementById('squareList').getElementsByTagName("li");
-    console.log(list);
     for (let i = 60; i < 100; i++) {
         let html = list[i].firstChild;
         let first = html.id.split("-", 1);
@@ -227,7 +225,6 @@ function startGameRed() {
     })
         .then(res => res.json())
         .then(json => console.log(JSON.stringify(json)));
-    console.log(redSetupSubmit);
     window.location.assign("/pages/boardList2.html");
 }
 
@@ -267,7 +264,6 @@ function redTurn() {
         })
             .then(res => res.json())
             .then(json => console.log(JSON.stringify(json)));
-        console.log(JSON.stringify(turn));
         setTimeout(function () {
             location.href = '/pages/wait.html';
         }, 3000);
@@ -431,10 +427,10 @@ function checkSideBoard() {
 
     if (((sideboardInner.match(/blankSquare/g)).length) >= 80) {
         if (playerColor === 'blue') {
-            preMadeButton("startGame", "Start Game", startGameBlue)
+            preMadeButton("startGame", startGame, startGameBlue)
         } else {
 
-            preMadeButton("startGame", "Start Game", startGameRed)
+            preMadeButton("startGame", startGame, startGameRed)
         }
     }
 }
@@ -475,7 +471,6 @@ function deleteAllDots() {
 }
 
 function flipPieces(color) {
-    console.log('flipPieces: ' + color);
     let lines = document.getElementById("squareList").getElementsByTagName("li");
 
     for (let i = 0; i < 100; i++) {
@@ -547,9 +542,9 @@ function preMadeSetup(color, setupType) {
         range2 = 40;
         setupList.reverse();
         if (playerColor === 'blue') {
-            preMadeButton("startGame", "Start Game", startGameBlue)
+            preMadeButton("startGame", startGame, startGameBlue)
         } else {
-            preMadeButton("startGame", "Start Game", startGameRed)
+            preMadeButton("startGame", startGame, startGameRed)
         }
         setupOnClick("red");
     }

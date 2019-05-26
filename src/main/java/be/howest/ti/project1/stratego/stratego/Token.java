@@ -15,7 +15,7 @@ public class Token {
 
     public Token() {
         StringBuilder res = new StringBuilder();
-        Random random = new Random();
+        Random random = new java.util.Random();
         String validCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
         while (used.contains(res.toString()) || res.toString().equals("")) {

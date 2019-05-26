@@ -486,7 +486,6 @@ function initializeGame() {
     document.getElementById("loader").classList.add('hidden');
     document.getElementById('details').classList.remove('hidden');
 
-    console.log(document.body.title);
 
     if (document.body.title === 'player1') {
         timeVar = setTimeout(() => {

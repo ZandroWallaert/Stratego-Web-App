@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PawnCollection {
-    private static Map<Pawn, Integer> pawnsToBePlaced;
+    private Map<Pawn, Integer> pawnsToBePlaced;
     private Map<Pawn, Integer> placed;
     private Map<Pawn, Integer> defeated;
 
@@ -20,7 +20,7 @@ public class PawnCollection {
         setPawnsToPlace(mode);
     }
 
-    public static Map<Pawn, Integer> getPawnsToBePlaced() {
+    public Map<Pawn, Integer> getPawnsToBePlaced() {
         return pawnsToBePlaced;
     }
 

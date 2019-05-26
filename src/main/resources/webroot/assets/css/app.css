@@ -155,11 +155,12 @@ body {
     vertical-align: middle;
 }
 
-.dibe {
+.vibe {
     font-family: neon, sans-serif;
     color: #FB4264;
     font-size: 6rem;
     text-shadow: 0 0 3vw #F40A35;
+    animation: neon 3s ease infinite;
 }
 
 .flux {
@@ -167,10 +168,7 @@ body {
     color: #426DFB;
     font-size: 8rem;
     text-shadow: 0 0 3vw #2356FF;
-}
-
-.dibe {
-    animation: neon 3s ease infinite;
+    animation: flux 2s linear infinite;
 }
 
 @keyframes neon {
@@ -183,10 +181,6 @@ body {
         text-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #800E0B, .5vw .5vw .1vw #40340A;
         color: #806914;
     }
-}
-
-.flux {
-    animation: flux 2s linear infinite;
 }
 
 @keyframes flux {
